@@ -1,7 +1,185 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>SpringMVC07-Ajax</title>
+    <url>/2021/03/06/SpringMVC07%20Ajax/</url>
+    <content><![CDATA[<p>[转发]</p>
+<p>Ajax研究</p>
+<blockquote>
+<p>简介</p>
+</blockquote>
+<ul>
+<li><p><strong>AJAX = Asynchronous JavaScript and XML（异步的 JavaScript 和 XML）。</strong></p>
+</li>
+<li><p>AJAX 是一种在无需重新加载整个网页的情况下，能够更新部分网页的技术。</p>
+</li>
+<li><p><strong>Ajax 不是一种新的编程语言，而是一种用于创建更好更快以及交互性更强的Web应用程序的技术。</strong></p>
+</li>
+<li><p>在 2005 年，Google 通过其 Google Suggest 使 AJAX 变得流行起来。Google Suggest能够自动帮你完成搜索单词。</p>
+</li>
+<li><p>Google Suggest 使用 AJAX 创造出动态性极强的 web 界面：当您在谷歌的搜索框输入关键字时，JavaScript 会把这些字符发送到服务器，然后服务器会返回一个搜索建议的列表。</p>
+</li>
+<li><p>就和国内百度的搜索框一样!</p>
+</li>
+<li><p>传统的网页(即不用ajax技术的网页)，想要更新内容或者提交一个表单，都需要重新加载整个网页。</p>
+</li>
+<li><p>使用ajax技术的网页，通过在后台服务器进行少量的数据交换，就可以实现异步局部更新。</p>
+</li>
+<li><p>使用Ajax，用户可以创建接近本地桌面应用的直接、高可用、更丰富、更动态的Web用户界面。</p>
+</li>
+</ul>
+<blockquote>
+<p>伪造Ajax</p>
+</blockquote>
+<p>我们可以使用前端的一个标签来伪造一个ajax的样子。iframe标签</p>
+<p>1、新建一个module ：sspringmvc-06-ajax ， 导入web支持！</p>
+<p>2、编写一个 ajax-frame.html 使用 iframe 测试，感受下效果</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head lang&#x3D;&quot;en&quot;&gt;</span><br><span class="line">   &lt;meta charset&#x3D;&quot;UTF-8&quot;&gt;</span><br><span class="line">   &lt;title&gt;kuangshen&lt;&#x2F;title&gt;</span><br><span class="line">&lt;&#x2F;head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line"></span><br><span class="line">&lt;script type&#x3D;&quot;text&#x2F;javascript&quot;&gt;</span><br><span class="line">   window.onload &#x3D; function()&#123;</span><br><span class="line">       var myDate &#x3D; new Date();</span><br><span class="line">       document.getElementById(&#39;currentTime&#39;).innerText &#x3D; myDate.getTime();</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">   function LoadPage()&#123;</span><br><span class="line">       var targetUrl &#x3D;  document.getElementById(&#39;url&#39;).value;</span><br><span class="line">       console.log(targetUrl);</span><br><span class="line">       document.getElementById(&quot;iframePosition&quot;).src &#x3D; targetUrl;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">&lt;&#x2F;script&gt;</span><br><span class="line"></span><br><span class="line">&lt;div&gt;</span><br><span class="line">   &lt;p&gt;请输入要加载的地址：&lt;span id&#x3D;&quot;currentTime&quot;&gt;&lt;&#x2F;span&gt;&lt;&#x2F;p&gt;</span><br><span class="line">   &lt;p&gt;</span><br><span class="line">       &lt;input id&#x3D;&quot;url&quot; type&#x3D;&quot;text&quot; value&#x3D;&quot;https:&#x2F;&#x2F;www.baidu.com&#x2F;&quot;&#x2F;&gt;</span><br><span class="line">       &lt;input type&#x3D;&quot;button&quot; value&#x3D;&quot;提交&quot; onclick&#x3D;&quot;LoadPage()&quot;&gt;</span><br><span class="line">   &lt;&#x2F;p&gt;</span><br><span class="line">&lt;&#x2F;div&gt;</span><br><span class="line"></span><br><span class="line">&lt;div&gt;</span><br><span class="line">   &lt;h3&gt;加载页面位置：&lt;&#x2F;h3&gt;</span><br><span class="line">   &lt;iframe id&#x3D;&quot;iframePosition&quot; style&#x3D;&quot;width: 100%;height: 500px;&quot;&gt;&lt;&#x2F;iframe&gt;</span><br><span class="line">&lt;&#x2F;div&gt;</span><br><span class="line"></span><br><span class="line">&lt;&#x2F;body&gt;</span><br><span class="line">&lt;&#x2F;html&gt;</span><br></pre></td></tr></table></figure>
+
+<p>3、使用IDEA开浏览器测试一下！</p>
+<p><strong>利用AJAX可以做：</strong></p>
+<ul>
+<li>注册时，输入用户名自动检测用户是否已经存在。</li>
+<li>登陆时，提示用户名密码错误</li>
+<li>删除数据行时，将行ID发送到后台，后台在数据库中删除，数据库删除成功后，在页面DOM中将数据行也删除。</li>
+<li>….等等</li>
+</ul>
+<blockquote>
+<p>jQuery.ajax</p>
+</blockquote>
+<p>纯JS原生实现Ajax我们不去讲解这里，直接使用jquery提供的，方便学习和使用，避免重复造轮子，有兴趣的同学可以去了解下JS原生XMLHttpRequest ！</p>
+<p>Ajax的核心是XMLHttpRequest对象(XHR)。XHR为向服务器发送请求和解析服务器响应提供了接口。能够以异步方式从服务器获取新数据。</p>
+<p>jQuery 提供多个与 AJAX 有关的方法。</p>
+<p>通过 jQuery AJAX 方法，您能够使用 HTTP Get 和 HTTP Post 从远程服务器上请求文本、HTML、XML 或 JSON – 同时您能够把这些外部数据直接载入网页的被选元素中。</p>
+<p>jQuery 不是生产者，而是大自然搬运工。</p>
+<p>jQuery Ajax本质就是 XMLHttpRequest，对他进行了封装，方便调用！</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">jQuery.ajax(...)</span><br><span class="line">      部分参数：</span><br><span class="line">            url：请求地址</span><br><span class="line">            type：请求方式，GET、POST（1.9.0之后用method）</span><br><span class="line">        headers：请求头</span><br><span class="line">            data：要发送的数据</span><br><span class="line">    contentType：即将发送信息至服务器的内容编码类型(默认: &quot;application&#x2F;x-www-form-urlencoded; charset&#x3D;UTF-8&quot;)</span><br><span class="line">          async：是否异步</span><br><span class="line">        timeout：设置请求超时时间（毫秒）</span><br><span class="line">      beforeSend：发送请求前执行的函数(全局)</span><br><span class="line">        complete：完成之后执行的回调函数(全局)</span><br><span class="line">        success：成功之后执行的回调函数(全局)</span><br><span class="line">          error：失败之后执行的回调函数(全局)</span><br><span class="line">        accepts：通过请求头发送给服务器，告诉服务器当前客户端可接受的数据类型</span><br><span class="line">        dataType：将服务器端返回的数据转换成指定类型</span><br><span class="line">          &quot;xml&quot;: 将服务器端返回的内容转换成xml格式</span><br><span class="line">          &quot;text&quot;: 将服务器端返回的内容转换成普通文本格式</span><br><span class="line">          &quot;html&quot;: 将服务器端返回的内容转换成普通文本格式，在插入DOM中时，如果包含JavaScript标签，则会尝试去执行。</span><br><span class="line">        &quot;script&quot;: 尝试将返回值当作JavaScript去执行，然后再将服务器端返回的内容转换成普通文本格式</span><br><span class="line">          &quot;json&quot;: 将服务器端返回的内容转换成相应的JavaScript对象</span><br><span class="line">        &quot;jsonp&quot;: JSONP 格式使用 JSONP 形式调用函数时，如 &quot;myurl?callback&#x3D;?&quot; jQuery 将自动替换 ? 为正确的函数名，以执行回调函数</span><br></pre></td></tr></table></figure>
+
+<p><strong>我们来个简单的测试，使用最原始的HttpServletResponse处理 , .最简单 , 最通用</strong></p>
+<p>1、配置web.xml 和 springmvc的配置文件，复制上面案例的即可 【记得静态资源过滤和注解驱动配置上】</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;?xml version&#x3D;&quot;1.0&quot; encoding&#x3D;&quot;UTF-8&quot;?&gt;</span><br><span class="line">&lt;beans xmlns&#x3D;&quot;http:&#x2F;&#x2F;www.springframework.org&#x2F;schema&#x2F;beans&quot;</span><br><span class="line">      xmlns:xsi&#x3D;&quot;http:&#x2F;&#x2F;www.w3.org&#x2F;2001&#x2F;XMLSchema-instance&quot;</span><br><span class="line">      xmlns:context&#x3D;&quot;http:&#x2F;&#x2F;www.springframework.org&#x2F;schema&#x2F;context&quot;</span><br><span class="line">      xmlns:mvc&#x3D;&quot;http:&#x2F;&#x2F;www.springframework.org&#x2F;schema&#x2F;mvc&quot;</span><br><span class="line">      xsi:schemaLocation&#x3D;&quot;http:&#x2F;&#x2F;www.springframework.org&#x2F;schema&#x2F;beans</span><br><span class="line">       http:&#x2F;&#x2F;www.springframework.org&#x2F;schema&#x2F;beans&#x2F;spring-beans.xsd</span><br><span class="line">       http:&#x2F;&#x2F;www.springframework.org&#x2F;schema&#x2F;context</span><br><span class="line">       https:&#x2F;&#x2F;www.springframework.org&#x2F;schema&#x2F;context&#x2F;spring-context.xsd</span><br><span class="line">       http:&#x2F;&#x2F;www.springframework.org&#x2F;schema&#x2F;mvc</span><br><span class="line">       https:&#x2F;&#x2F;www.springframework.org&#x2F;schema&#x2F;mvc&#x2F;spring-mvc.xsd&quot;&gt;</span><br><span class="line"></span><br><span class="line">   &lt;!-- 自动扫描指定的包，下面所有注解类交给IOC容器管理 --&gt;</span><br><span class="line">   &lt;context:component-scan base-package&#x3D;&quot;com.kuang.controller&quot;&#x2F;&gt;</span><br><span class="line">   &lt;mvc:default-servlet-handler &#x2F;&gt;</span><br><span class="line">   &lt;mvc:annotation-driven &#x2F;&gt;</span><br><span class="line"></span><br><span class="line">   &lt;!-- 视图解析器 --&gt;</span><br><span class="line">   &lt;bean class&#x3D;&quot;org.springframework.web.servlet.view.InternalResourceViewResolver&quot;</span><br><span class="line">         id&#x3D;&quot;internalResourceViewResolver&quot;&gt;</span><br><span class="line">       &lt;!-- 前缀 --&gt;</span><br><span class="line">       &lt;property name&#x3D;&quot;prefix&quot; value&#x3D;&quot;&#x2F;WEB-INF&#x2F;jsp&#x2F;&quot; &#x2F;&gt;</span><br><span class="line">       &lt;!-- 后缀 --&gt;</span><br><span class="line">       &lt;property name&#x3D;&quot;suffix&quot; value&#x3D;&quot;.jsp&quot; &#x2F;&gt;</span><br><span class="line">   &lt;&#x2F;bean&gt;</span><br><span class="line"></span><br><span class="line">&lt;&#x2F;beans&gt;</span><br></pre></td></tr></table></figure>
+
+<p>2、编写一个AjaxController</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">@Controller</span><br><span class="line">public class AjaxController &#123;</span><br><span class="line"></span><br><span class="line">   @RequestMapping(&quot;&#x2F;a1&quot;)</span><br><span class="line">   public void ajax1(String name , HttpServletResponse response) throws IOException &#123;</span><br><span class="line">       if (&quot;admin&quot;.equals(name))&#123;</span><br><span class="line">           response.getWriter().print(&quot;true&quot;);</span><br><span class="line">      &#125;else&#123;</span><br><span class="line">           response.getWriter().print(&quot;false&quot;);</span><br><span class="line">      &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>3、导入jquery ， 可以使用在线的CDN ， 也可以下载导入</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;script src&#x3D;&quot;https:&#x2F;&#x2F;code.jquery.com&#x2F;jquery-3.1.1.min.js&quot;&gt;&lt;&#x2F;script&gt;</span><br><span class="line">&lt;script src&#x3D;&quot;$&#123;pageContext.request.contextPath&#125;&#x2F;statics&#x2F;js&#x2F;jquery-3.1.1.min.js&quot;&gt;&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
+
+<p>4、编写index.jsp测试</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;%@ page contentType&#x3D;&quot;text&#x2F;html;charset&#x3D;UTF-8&quot; language&#x3D;&quot;java&quot; %&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line"> &lt;head&gt;</span><br><span class="line">   &lt;title&gt;$Title$&lt;&#x2F;title&gt;</span><br><span class="line">  &lt;%--&lt;script src&#x3D;&quot;https:&#x2F;&#x2F;code.jquery.com&#x2F;jquery-3.1.1.min.js&quot;&gt;&lt;&#x2F;script&gt;--%&gt;</span><br><span class="line">   &lt;script src&#x3D;&quot;$&#123;pageContext.request.contextPath&#125;&#x2F;statics&#x2F;js&#x2F;jquery-3.1.1.min.js&quot;&gt;&lt;&#x2F;script&gt;</span><br><span class="line">   &lt;script&gt;</span><br><span class="line">       function a1()&#123;</span><br><span class="line">           $.post(&#123;</span><br><span class="line">               url:&quot;$&#123;pageContext.request.contextPath&#125;&#x2F;a1&quot;,</span><br><span class="line">               data:&#123;&#39;name&#39;:$(&quot;#txtName&quot;).val()&#125;,</span><br><span class="line">               success:function (data,status) &#123;</span><br><span class="line">                   alert(data);</span><br><span class="line">                   alert(status);</span><br><span class="line">              &#125;</span><br><span class="line">          &#125;);</span><br><span class="line">      &#125;</span><br><span class="line">   &lt;&#x2F;script&gt;</span><br><span class="line"> &lt;&#x2F;head&gt;</span><br><span class="line"> &lt;body&gt;</span><br><span class="line"></span><br><span class="line">&lt;%--onblur：失去焦点触发事件--%&gt;</span><br><span class="line">用户名:&lt;input type&#x3D;&quot;text&quot; id&#x3D;&quot;txtName&quot; onblur&#x3D;&quot;a1()&quot;&#x2F;&gt;</span><br><span class="line"></span><br><span class="line"> &lt;&#x2F;body&gt;</span><br><span class="line">&lt;&#x2F;html&gt;</span><br></pre></td></tr></table></figure>
+
+<p>5、启动tomcat测试！打开浏览器的控制台，当我们鼠标离开输入框的时候，可以看到发出了一个ajax的请求！是后台返回给我们的结果！测试成功！</p>
+<p><strong>Springmvc实现</strong></p>
+<p>实体类user</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">@Data</span><br><span class="line">@AllArgsConstructor</span><br><span class="line">@NoArgsConstructor</span><br><span class="line">public class User &#123;</span><br><span class="line"></span><br><span class="line">   private String name;</span><br><span class="line">   private int age;</span><br><span class="line">   private String sex;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>我们来获取一个集合对象，展示到前端页面</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">@RequestMapping(&quot;&#x2F;a2&quot;)</span><br><span class="line">public List&lt;User&gt; ajax2()&#123;</span><br><span class="line">   List&lt;User&gt; list &#x3D; new ArrayList&lt;User&gt;();</span><br><span class="line">   list.add(new User(&quot;秦疆1号&quot;,3,&quot;男&quot;));</span><br><span class="line">   list.add(new User(&quot;秦疆2号&quot;,3,&quot;男&quot;));</span><br><span class="line">   list.add(new User(&quot;秦疆3号&quot;,3,&quot;男&quot;));</span><br><span class="line">   return list; &#x2F;&#x2F;由于@RestController注解，将list转成json格式返回</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>前端页面</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;%@ page contentType&#x3D;&quot;text&#x2F;html;charset&#x3D;UTF-8&quot; language&#x3D;&quot;java&quot; %&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">   &lt;title&gt;Title&lt;&#x2F;title&gt;</span><br><span class="line">&lt;&#x2F;head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">&lt;input type&#x3D;&quot;button&quot; id&#x3D;&quot;btn&quot; value&#x3D;&quot;获取数据&quot;&#x2F;&gt;</span><br><span class="line">&lt;table width&#x3D;&quot;80%&quot; align&#x3D;&quot;center&quot;&gt;</span><br><span class="line">   &lt;tr&gt;</span><br><span class="line">       &lt;td&gt;姓名&lt;&#x2F;td&gt;</span><br><span class="line">       &lt;td&gt;年龄&lt;&#x2F;td&gt;</span><br><span class="line">       &lt;td&gt;性别&lt;&#x2F;td&gt;</span><br><span class="line">   &lt;&#x2F;tr&gt;</span><br><span class="line">   &lt;tbody id&#x3D;&quot;content&quot;&gt;</span><br><span class="line">   &lt;&#x2F;tbody&gt;</span><br><span class="line">&lt;&#x2F;table&gt;</span><br><span class="line"></span><br><span class="line">&lt;script src&#x3D;&quot;$&#123;pageContext.request.contextPath&#125;&#x2F;statics&#x2F;js&#x2F;jquery-3.1.1.min.js&quot;&gt;&lt;&#x2F;script&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line"></span><br><span class="line">   $(function () &#123;</span><br><span class="line">       $(&quot;#btn&quot;).click(function () &#123;</span><br><span class="line">           $.post(&quot;$&#123;pageContext.request.contextPath&#125;&#x2F;a2&quot;,function (data) &#123;</span><br><span class="line">               console.log(data)</span><br><span class="line">               var html&#x3D;&quot;&quot;;</span><br><span class="line">               for (var i &#x3D; 0; i &lt;data.length ; i++) &#123;</span><br><span class="line">                   html+&#x3D; &quot;&lt;tr&gt;&quot; +</span><br><span class="line">                       &quot;&lt;td&gt;&quot; + data[i].name + &quot;&lt;&#x2F;td&gt;&quot; +</span><br><span class="line">                       &quot;&lt;td&gt;&quot; + data[i].age + &quot;&lt;&#x2F;td&gt;&quot; +</span><br><span class="line">                       &quot;&lt;td&gt;&quot; + data[i].sex + &quot;&lt;&#x2F;td&gt;&quot; +</span><br><span class="line">                       &quot;&lt;&#x2F;tr&gt;&quot;</span><br><span class="line">              &#125;</span><br><span class="line">               $(&quot;#content&quot;).html(html);</span><br><span class="line">          &#125;);</span><br><span class="line">      &#125;)</span><br><span class="line">  &#125;)</span><br><span class="line">&lt;&#x2F;script&gt;</span><br><span class="line">&lt;&#x2F;body&gt;</span><br><span class="line">&lt;&#x2F;html&gt;</span><br></pre></td></tr></table></figure>
+
+<p><strong>成功实现了数据回显！可以体会一下Ajax的好处！</strong></p>
+<blockquote>
+<p>注册提示效果</p>
+</blockquote>
+<p>我们再测试一个小Demo，思考一下我们平时注册时候，输入框后面的实时提示怎么做到的；如何优化</p>
+<p>我们写一个Controller</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">@RequestMapping(&quot;&#x2F;a3&quot;)</span><br><span class="line">public String ajax3(String name,String pwd)&#123;</span><br><span class="line">   String msg &#x3D; &quot;&quot;;</span><br><span class="line">   &#x2F;&#x2F;模拟数据库中存在数据</span><br><span class="line">   if (name!&#x3D;null)&#123;</span><br><span class="line">       if (&quot;admin&quot;.equals(name))&#123;</span><br><span class="line">           msg &#x3D; &quot;OK&quot;;</span><br><span class="line">      &#125;else &#123;</span><br><span class="line">           msg &#x3D; &quot;用户名输入错误&quot;;</span><br><span class="line">      &#125;</span><br><span class="line">  &#125;</span><br><span class="line">   if (pwd!&#x3D;null)&#123;</span><br><span class="line">       if (&quot;123456&quot;.equals(pwd))&#123;</span><br><span class="line">           msg &#x3D; &quot;OK&quot;;</span><br><span class="line">      &#125;else &#123;</span><br><span class="line">           msg &#x3D; &quot;密码输入有误&quot;;</span><br><span class="line">      &#125;</span><br><span class="line">  &#125;</span><br><span class="line">   return msg; &#x2F;&#x2F;由于@RestController注解，将msg转成json格式返回</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>前端页面 login.jsp</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;%@ page contentType&#x3D;&quot;text&#x2F;html;charset&#x3D;UTF-8&quot; language&#x3D;&quot;java&quot; %&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">   &lt;title&gt;ajax&lt;&#x2F;title&gt;</span><br><span class="line">   &lt;script src&#x3D;&quot;$&#123;pageContext.request.contextPath&#125;&#x2F;statics&#x2F;js&#x2F;jquery-3.1.1.min.js&quot;&gt;&lt;&#x2F;script&gt;</span><br><span class="line">   &lt;script&gt;</span><br><span class="line"></span><br><span class="line">       function a1()&#123;</span><br><span class="line">           $.post(&#123;</span><br><span class="line">               url:&quot;$&#123;pageContext.request.contextPath&#125;&#x2F;a3&quot;,</span><br><span class="line">               data:&#123;&#39;name&#39;:$(&quot;#name&quot;).val()&#125;,</span><br><span class="line">               success:function (data) &#123;</span><br><span class="line">                   if (data.toString()&#x3D;&#x3D;&#39;OK&#39;)&#123;</span><br><span class="line">                       $(&quot;#userInfo&quot;).css(&quot;color&quot;,&quot;green&quot;);</span><br><span class="line">                  &#125;else &#123;</span><br><span class="line">                       $(&quot;#userInfo&quot;).css(&quot;color&quot;,&quot;red&quot;);</span><br><span class="line">                  &#125;</span><br><span class="line">                   $(&quot;#userInfo&quot;).html(data);</span><br><span class="line">              &#125;</span><br><span class="line">          &#125;);</span><br><span class="line">      &#125;</span><br><span class="line">       function a2()&#123;</span><br><span class="line">           $.post(&#123;</span><br><span class="line">               url:&quot;$&#123;pageContext.request.contextPath&#125;&#x2F;a3&quot;,</span><br><span class="line">               data:&#123;&#39;pwd&#39;:$(&quot;#pwd&quot;).val()&#125;,</span><br><span class="line">               success:function (data) &#123;</span><br><span class="line">                   if (data.toString()&#x3D;&#x3D;&#39;OK&#39;)&#123;</span><br><span class="line">                       $(&quot;#pwdInfo&quot;).css(&quot;color&quot;,&quot;green&quot;);</span><br><span class="line">                  &#125;else &#123;</span><br><span class="line">                       $(&quot;#pwdInfo&quot;).css(&quot;color&quot;,&quot;red&quot;);</span><br><span class="line">                  &#125;</span><br><span class="line">                   $(&quot;#pwdInfo&quot;).html(data);</span><br><span class="line">              &#125;</span><br><span class="line">          &#125;);</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">   &lt;&#x2F;script&gt;</span><br><span class="line">&lt;&#x2F;head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">&lt;p&gt;</span><br><span class="line">  用户名:&lt;input type&#x3D;&quot;text&quot; id&#x3D;&quot;name&quot; onblur&#x3D;&quot;a1()&quot;&#x2F;&gt;</span><br><span class="line">   &lt;span id&#x3D;&quot;userInfo&quot;&gt;&lt;&#x2F;span&gt;</span><br><span class="line">&lt;&#x2F;p&gt;</span><br><span class="line">&lt;p&gt;</span><br><span class="line">  密码:&lt;input type&#x3D;&quot;text&quot; id&#x3D;&quot;pwd&quot; onblur&#x3D;&quot;a2()&quot;&#x2F;&gt;</span><br><span class="line">   &lt;span id&#x3D;&quot;pwdInfo&quot;&gt;&lt;&#x2F;span&gt;</span><br><span class="line">&lt;&#x2F;p&gt;</span><br><span class="line">&lt;&#x2F;body&gt;</span><br><span class="line">&lt;&#x2F;html&gt;</span><br></pre></td></tr></table></figure>
+
+<p>【记得处理json乱码问题】</p>
+<p>测试一下效果，动态请求响应，局部刷新，就是如此！</p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/uJDAUKrGC7KZibKx8mbpgp9uicB6eJRNyNtU7ek8sJ1kpbFia5e5IoMRtGFwBiaylw7iakYBws0icEAqyH22l6Y7FMzQ/640?wx_fmt=png" alt="图片"></p>
+<blockquote>
+<p>获取baidu接口Demo</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;!DOCTYPE HTML&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">   &lt;meta http-equiv&#x3D;&quot;Content-Type&quot; content&#x3D;&quot;text&#x2F;html; charset&#x3D;utf-8&quot;&gt;</span><br><span class="line">   &lt;title&gt;JSONP百度搜索&lt;&#x2F;title&gt;</span><br><span class="line">   &lt;style&gt;</span><br><span class="line">       #q&#123;</span><br><span class="line">           width: 500px;</span><br><span class="line">           height: 30px;</span><br><span class="line">           border:1px solid #ddd;</span><br><span class="line">           line-height: 30px;</span><br><span class="line">           display: block;</span><br><span class="line">           margin: 0 auto;</span><br><span class="line">           padding: 0 10px;</span><br><span class="line">           font-size: 14px;</span><br><span class="line">      &#125;</span><br><span class="line">       #ul&#123;</span><br><span class="line">           width: 520px;</span><br><span class="line">           list-style: none;</span><br><span class="line">           margin: 0 auto;</span><br><span class="line">           padding: 0;</span><br><span class="line">           border:1px solid #ddd;</span><br><span class="line">           margin-top: -1px;</span><br><span class="line">           display: none;</span><br><span class="line">      &#125;</span><br><span class="line">       #ul li&#123;</span><br><span class="line">           line-height: 30px;</span><br><span class="line">           padding: 0 10px;</span><br><span class="line">      &#125;</span><br><span class="line">       #ul li:hover&#123;</span><br><span class="line">           background-color: #f60;</span><br><span class="line">           color: #fff;</span><br><span class="line">      &#125;</span><br><span class="line">   &lt;&#x2F;style&gt;</span><br><span class="line">   &lt;script&gt;</span><br><span class="line"></span><br><span class="line">       &#x2F;&#x2F; 2.步骤二</span><br><span class="line">       &#x2F;&#x2F; 定义demo函数 (分析接口、数据)</span><br><span class="line">       function demo(data)&#123;</span><br><span class="line">           var Ul &#x3D; document.getElementById(&#39;ul&#39;);</span><br><span class="line">           var html &#x3D; &#39;&#39;;</span><br><span class="line">           &#x2F;&#x2F; 如果搜索数据存在 把内容添加进去</span><br><span class="line">           if (data.s.length) &#123;</span><br><span class="line">               &#x2F;&#x2F; 隐藏掉的ul显示出来</span><br><span class="line">               Ul.style.display &#x3D; &#39;block&#39;;</span><br><span class="line">               &#x2F;&#x2F; 搜索到的数据循环追加到li里</span><br><span class="line">               for(var i &#x3D; 0;i&lt;data.s.length;i++)&#123;</span><br><span class="line">                   html +&#x3D; &#39;&lt;li&gt;&#39;+data.s[i]+&#39;&lt;&#x2F;li&gt;&#39;;</span><br><span class="line">              &#125;</span><br><span class="line">               &#x2F;&#x2F; 循环的li写入ul</span><br><span class="line">               Ul.innerHTML &#x3D; html;</span><br><span class="line">          &#125;</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">       &#x2F;&#x2F; 1.步骤一</span><br><span class="line">       window.onload &#x3D; function()&#123;</span><br><span class="line">           &#x2F;&#x2F; 获取输入框和ul</span><br><span class="line">           var Q &#x3D; document.getElementById(&#39;q&#39;);</span><br><span class="line">           var Ul &#x3D; document.getElementById(&#39;ul&#39;);</span><br><span class="line"></span><br><span class="line">           &#x2F;&#x2F; 事件鼠标抬起时候</span><br><span class="line">           Q.onkeyup &#x3D; function()&#123;</span><br><span class="line">               &#x2F;&#x2F; 如果输入框不等于空</span><br><span class="line">               if (this.value !&#x3D; &#39;&#39;) &#123;</span><br><span class="line">                   &#x2F;&#x2F; ☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆JSONPz重点☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆</span><br><span class="line">                   &#x2F;&#x2F; 创建标签</span><br><span class="line">                   var script &#x3D; document.createElement(&#39;script&#39;);</span><br><span class="line">                   &#x2F;&#x2F;给定要跨域的地址 赋值给src</span><br><span class="line">                   &#x2F;&#x2F;这里是要请求的跨域的地址 我写的是百度搜索的跨域地址</span><br><span class="line">                   script.src &#x3D; &#39;https:&#x2F;&#x2F;sp0.baidu.com&#x2F;5a1Fazu8AA54nxGko9WTAnF6hhy&#x2F;su?wd&#x3D;&#39;+this.value+&#39;&amp;cb&#x3D;demo&#39;;</span><br><span class="line">                   &#x2F;&#x2F; 将组合好的带src的script标签追加到body里</span><br><span class="line">                   document.body.appendChild(script);</span><br><span class="line">              &#125;</span><br><span class="line">          &#125;</span><br><span class="line">      &#125;</span><br><span class="line">   &lt;&#x2F;script&gt;</span><br><span class="line">&lt;&#x2F;head&gt;</span><br><span class="line"></span><br><span class="line">&lt;body&gt;</span><br><span class="line">&lt;input type&#x3D;&quot;text&quot; id&#x3D;&quot;q&quot; &#x2F;&gt;</span><br><span class="line">&lt;ul id&#x3D;&quot;ul&quot;&gt;</span><br><span class="line"></span><br><span class="line">&lt;&#x2F;ul&gt;</span><br><span class="line">&lt;&#x2F;body&gt;</span><br><span class="line">&lt;&#x2F;html&gt;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>Ajax在我们开发中十分重要，一定要学会使用！</p>
+<p>end</p>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/kity@2.0.4/dist/kity.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/kityminder-core@1.4.50/dist/kityminder.core.min.js"></script><script defer="true" type="text/javascript" src="https://cdn.jsdelivr.net/npm/hexo-simple-mindmap@0.2.0/dist/mindmap.min.js"></script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/hexo-simple-mindmap@0.2.0/dist/mindmap.min.css">]]></content>
+      <categories>
+        <category>ajax</category>
+      </categories>
+      <tags>
+        <tag>ajax</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>ECMA Script6</title>
+    <url>/2021/06/30/ECMA%20Script6/</url>
+    <content><![CDATA[<h3 id="一-let声明变量"><a href="#一-let声明变量" class="headerlink" title="一. let声明变量"></a>一. let声明变量</h3><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> a;</span><br><span class="line"><span class="keyword">let</span> b,c,d;</span><br><span class="line"><span class="keyword">let</span> e = <span class="number">100</span>;</span><br><span class="line"><span class="keyword">let</span> f = <span class="number">521</span>, g = <span class="string">&#x27;iloveyou&#x27;</span>, h = [];</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>变量不能重复声明</li>
+</ol>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> star = <span class="string">&#x27;罗志祥&#x27;</span>;</span><br><span class="line"><span class="keyword">let</span> star = <span class="string">&#x27;小猪&#x27;</span>;</span><br><span class="line"><span class="comment">// &quot;star&quot; has already been declared</span></span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>块级作用域</li>
+</ol>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="keyword">let</span> girl = <span class="string">&#x27;周扬青&#x27;</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(girl);</span><br><span class="line"><span class="comment">// referenceError: girl is not defined</span></span><br><span class="line"><span class="comment">// if else while for循环</span></span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>不存在变量提升</li>
+</ol>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(song);</span><br><span class="line"><span class="keyword">var</span> = song = <span class="string">&#x27;恋爱达人&#x27;</span>;</span><br><span class="line"><span class="comment">// Cannot access &#x27;song&#x27; before initialization</span></span><br></pre></td></tr></table></figure>
+
+<ol start="4">
+<li>不影响作用域链</li>
+</ol>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="keyword">let</span> school = <span class="string">&#x27;peking&#x27;</span>;</span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">fn</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(school);</span><br><span class="line">  &#125;</span><br><span class="line">  fn();</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// peking</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="二-const声明常量"><a href="#二-const声明常量" class="headerlink" title="二. const声明常量"></a>二. const声明常量</h3><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> SCHOOL = <span class="string">&#x27;尚硅谷&#x27;</span>;</span><br><span class="line"><span class="built_in">console</span>.log(SCHOOL);</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>一定要赋初始值</li>
+</ol>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> A;</span><br><span class="line"><span class="comment">// Missing initializer in const declaration</span></span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>一般常量使用大写(潜规则)</li>
+</ol>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> a = <span class="number">100</span>;</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>常量的值不能修改</li>
+</ol>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">SCHOOL = <span class="string">&#x27;ATGUIGU&#x27;</span>;</span><br><span class="line"><span class="comment">// Assignment to constant variable</span></span><br></pre></td></tr></table></figure>
+
+<ol start="4">
+<li>块级作用域</li>
+</ol>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="keyword">const</span> PLAYER = <span class="string">&#x27;UZI&#x27;</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(PLAYER);</span><br><span class="line"><span class="comment">// PLAYER is not defined</span></span><br></pre></td></tr></table></figure>
+
+<ol start="5">
+<li>对于数组和对象的元素修改,不算做对常量的修改,不会报错</li>
+</ol>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> TEAM = [<span class="string">&#x27;UZI&#x27;</span>, <span class="string">&#x27;MXLG&#x27;</span>, <span class="string">&#x27;Letme&#x27;</span>];</span><br><span class="line">TEAM.push(<span class="string">&#x27;Meiko&#x27;</span>);</span><br></pre></td></tr></table></figure>
+
+<h3 id="三-变量解构赋值"><a href="#三-变量解构赋值" class="headerlink" title="三. 变量解构赋值"></a>三. 变量解构赋值</h3><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// ES6 允许按照一定模式从数组和对象中提取值,对变量进行复制</span></span><br><span class="line"><span class="comment">// 这被称为解构赋值</span></span><br><span class="line"><span class="comment">// 1. 数组的解构</span></span><br><span class="line"><span class="keyword">const</span> F4 = [<span class="string">&#x27;小沈阳&#x27;</span>, <span class="string">&#x27;刘能&#x27;</span>, <span class="string">&#x27;赵四&#x27;</span>, <span class="string">&#x27;宋小宝&#x27;</span>];</span><br><span class="line"><span class="keyword">let</span> [xiao, liu, zhao, song] = F4;</span><br><span class="line"><span class="built_in">console</span>.log(xiao);</span><br><span class="line"><span class="built_in">console</span>.log(liu);</span><br><span class="line"><span class="built_in">console</span>.log(zhao);</span><br><span class="line"><span class="built_in">console</span>.log(song);</span><br><span class="line"><span class="comment">//小沈阳</span></span><br><span class="line"><span class="comment">//刘能</span></span><br><span class="line"><span class="comment">//赵四</span></span><br><span class="line"><span class="comment">//宋小宝</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 2. 对象的解构</span></span><br><span class="line"><span class="keyword">const</span> zhao = &#123;</span><br><span class="line">  name: <span class="string">&#x27;赵本山&#x27;</span>,</span><br><span class="line">  age: <span class="string">&#x27;不详&#x27;</span>,</span><br><span class="line">  xiaopin: <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&quot;我可以演小品&quot;</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> &#123;name, age, xiaopin&#125; = zhao;</span><br><span class="line"><span class="built_in">console</span>.log(name);</span><br><span class="line"><span class="built_in">console</span>.log(age);</span><br><span class="line"><span class="built_in">console</span>.log(xiaopin);</span><br><span class="line">xiaopin();</span><br><span class="line"><span class="comment">//赵本山</span></span><br><span class="line"><span class="comment">//不详</span></span><br><span class="line"><span class="comment">//f ()&#123;</span></span><br><span class="line"><span class="comment">// console.log(&quot;我可以演小品&quot;);</span></span><br><span class="line"><span class="comment">// &#125;</span></span><br><span class="line"><span class="comment">// 我可以演小品</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="四-ES6引入新的声明字符串的方式-‘-‘-“-“"><a href="#四-ES6引入新的声明字符串的方式-‘-‘-“-“" class="headerlink" title="四. ES6引入新的声明字符串的方式 [``]  ‘ ‘  “ “"></a>四. ES6引入新的声明字符串的方式 [``]  ‘ ‘  “ “</h3><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 1. 声明</span></span><br><span class="line"><span class="keyword">let</span> str = <span class="string">`我也是一个字符串哦!`</span>;</span><br><span class="line"><span class="built_in">console</span>.log(str, <span class="keyword">typeof</span> str);</span><br><span class="line"><span class="comment">//我也是一个字符串哦! string</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 2. 内容中可以直接出现换行符</span></span><br><span class="line"><span class="keyword">let</span> str = <span class="string">`&lt;ul&gt;</span></span><br><span class="line"><span class="string">						&lt;li&gt;沈腾&lt;li&gt;</span></span><br><span class="line"><span class="string">    				&lt;li&gt;玛丽&lt;li&gt;</span></span><br><span class="line"><span class="string">    				&lt;li&gt;魏翔&lt;li&gt;</span></span><br><span class="line"><span class="string">    				&lt;li&gt;艾伦&lt;li&gt;</span></span><br><span class="line"><span class="string">    				&lt;ul&gt;`</span>;</span><br><span class="line"><span class="comment">// 3. 变量拼接</span></span><br><span class="line"><span class="keyword">let</span> lovest = <span class="string">&#x27;魏翔&#x27;</span>;</span><br><span class="line"><span class="keyword">let</span> out = <span class="string">`<span class="subst">$&#123;lovest&#125;</span>是我心目中最搞笑的演员!!`</span>;</span><br><span class="line"><span class="built_in">console</span>.log(out);</span><br><span class="line"><span class="comment">// 魏翔是我心目中最搞笑的演员!!</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="五-简化对象写法"><a href="#五-简化对象写法" class="headerlink" title="五. 简化对象写法"></a>五. 简化对象写法</h3><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// ES6 允许在大括号里面,直接写入变量和函数,作为对象的属性和方法</span></span><br><span class="line"><span class="comment">// 这样的书写更加简洁</span></span><br><span class="line"><span class="keyword">let</span> name = <span class="string">&#x27;尚硅谷&#x27;</span>;</span><br><span class="line"><span class="keyword">let</span> change = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">&#x27;我们可以改变你&#x27;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> school = &#123;</span><br><span class="line">  name, <span class="comment">// name: name,</span></span><br><span class="line">  change,</span><br><span class="line">  improve: <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&quot;我们可以提高你的技能&quot;</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(school);</span><br></pre></td></tr></table></figure>
+
+<h3 id="六-箭头函数"><a href="#六-箭头函数" class="headerlink" title="六. 箭头函数"></a>六. 箭头函数</h3><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// ES6允许使用[箭头] (=&gt;)定义函数</span></span><br><span class="line"><span class="comment">// 声明一个函数</span></span><br><span class="line"><span class="comment">// let fn = function()&#123;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// &#125;</span></span><br><span class="line"><span class="comment">// 声明</span></span><br><span class="line"><span class="keyword">let</span> fn = <span class="function">(<span class="params">a, b</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> a + b;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 调用函数</span></span><br><span class="line"><span class="keyword">let</span> result = fn(<span class="number">1</span>, <span class="number">2</span>);</span><br><span class="line"><span class="built_in">console</span>.log(result);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 和之前区别:</span></span><br><span class="line"><span class="comment">// 1. this 是静态的. this 始终指向函数声明时所在作用域下的this的值</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getName</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="built_in">this</span>.name);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> getName2 = <span class="function">() =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="built_in">this</span>.name);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 设置 window对象的name属性</span></span><br><span class="line"><span class="built_in">window</span>.name = <span class="string">&#x27;乐乐&#x27;</span>;</span><br><span class="line"><span class="keyword">const</span> school = &#123;</span><br><span class="line">  name: <span class="string">&quot;LELE&quot;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 直接调用</span></span><br><span class="line">getName();</span><br><span class="line">getName2();</span><br><span class="line"><span class="comment">// 乐乐</span></span><br><span class="line"><span class="comment">// 乐乐</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// call方法调用</span></span><br><span class="line">getName.call(school);</span><br><span class="line">getName2.call(school);</span><br><span class="line"><span class="comment">// LELE</span></span><br><span class="line"><span class="comment">// 乐乐</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 2. 不能作为构造实例化对象</span></span><br><span class="line"><span class="keyword">let</span> Person = <span class="function">(<span class="params">name, age</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">this</span>.name = name;</span><br><span class="line">  <span class="built_in">this</span>.age = age;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> me = <span class="keyword">new</span> Person(<span class="string">&#x27;xiao&#x27;</span>, <span class="number">30</span>);</span><br><span class="line"><span class="built_in">console</span>.log(me);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 3. 不能使用arguments变量</span></span><br></pre></td></tr></table></figure>
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/kity@2.0.4/dist/kity.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/kityminder-core@1.4.50/dist/kityminder.core.min.js"></script><script defer="true" type="text/javascript" src="https://cdn.jsdelivr.net/npm/hexo-simple-mindmap@0.2.0/dist/mindmap.min.js"></script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/hexo-simple-mindmap@0.2.0/dist/mindmap.min.css">]]></content>
+      <categories>
+        <category>ES6</category>
+      </categories>
+      <tags>
+        <tag>ES6</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>React</title>
     <url>/2021/07/11/2021-07-11-React/</url>
     <content><![CDATA[<hr>
 <p><em><a href="https://www.notion.so/React-9d89c52f006147f49d9b01d7675adef9">top</a></em></p>
@@ -260,184 +438,6 @@
       </tags>
   </entry>
   <entry>
-    <title>ECMA Script6</title>
-    <url>/2021/06/30/ECMA%20Script6/</url>
-    <content><![CDATA[<h3 id="一-let声明变量"><a href="#一-let声明变量" class="headerlink" title="一. let声明变量"></a>一. let声明变量</h3><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> a;</span><br><span class="line"><span class="keyword">let</span> b,c,d;</span><br><span class="line"><span class="keyword">let</span> e = <span class="number">100</span>;</span><br><span class="line"><span class="keyword">let</span> f = <span class="number">521</span>, g = <span class="string">&#x27;iloveyou&#x27;</span>, h = [];</span><br></pre></td></tr></table></figure>
-
-<ol>
-<li>变量不能重复声明</li>
-</ol>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> star = <span class="string">&#x27;罗志祥&#x27;</span>;</span><br><span class="line"><span class="keyword">let</span> star = <span class="string">&#x27;小猪&#x27;</span>;</span><br><span class="line"><span class="comment">// &quot;star&quot; has already been declared</span></span><br></pre></td></tr></table></figure>
-
-<ol start="2">
-<li>块级作用域</li>
-</ol>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="keyword">let</span> girl = <span class="string">&#x27;周扬青&#x27;</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(girl);</span><br><span class="line"><span class="comment">// referenceError: girl is not defined</span></span><br><span class="line"><span class="comment">// if else while for循环</span></span><br></pre></td></tr></table></figure>
-
-<ol start="3">
-<li>不存在变量提升</li>
-</ol>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(song);</span><br><span class="line"><span class="keyword">var</span> = song = <span class="string">&#x27;恋爱达人&#x27;</span>;</span><br><span class="line"><span class="comment">// Cannot access &#x27;song&#x27; before initialization</span></span><br></pre></td></tr></table></figure>
-
-<ol start="4">
-<li>不影响作用域链</li>
-</ol>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="keyword">let</span> school = <span class="string">&#x27;peking&#x27;</span>;</span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">fn</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(school);</span><br><span class="line">  &#125;</span><br><span class="line">  fn();</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// peking</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="二-const声明常量"><a href="#二-const声明常量" class="headerlink" title="二. const声明常量"></a>二. const声明常量</h3><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> SCHOOL = <span class="string">&#x27;尚硅谷&#x27;</span>;</span><br><span class="line"><span class="built_in">console</span>.log(SCHOOL);</span><br></pre></td></tr></table></figure>
-
-<ol>
-<li>一定要赋初始值</li>
-</ol>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> A;</span><br><span class="line"><span class="comment">// Missing initializer in const declaration</span></span><br></pre></td></tr></table></figure>
-
-<ol start="2">
-<li>一般常量使用大写(潜规则)</li>
-</ol>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> a = <span class="number">100</span>;</span><br></pre></td></tr></table></figure>
-
-<ol start="3">
-<li>常量的值不能修改</li>
-</ol>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">SCHOOL = <span class="string">&#x27;ATGUIGU&#x27;</span>;</span><br><span class="line"><span class="comment">// Assignment to constant variable</span></span><br></pre></td></tr></table></figure>
-
-<ol start="4">
-<li>块级作用域</li>
-</ol>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="keyword">const</span> PLAYER = <span class="string">&#x27;UZI&#x27;</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(PLAYER);</span><br><span class="line"><span class="comment">// PLAYER is not defined</span></span><br></pre></td></tr></table></figure>
-
-<ol start="5">
-<li>对于数组和对象的元素修改,不算做对常量的修改,不会报错</li>
-</ol>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> TEAM = [<span class="string">&#x27;UZI&#x27;</span>, <span class="string">&#x27;MXLG&#x27;</span>, <span class="string">&#x27;Letme&#x27;</span>];</span><br><span class="line">TEAM.push(<span class="string">&#x27;Meiko&#x27;</span>);</span><br></pre></td></tr></table></figure>
-
-<h3 id="三-变量解构赋值"><a href="#三-变量解构赋值" class="headerlink" title="三. 变量解构赋值"></a>三. 变量解构赋值</h3><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// ES6 允许按照一定模式从数组和对象中提取值,对变量进行复制</span></span><br><span class="line"><span class="comment">// 这被称为解构赋值</span></span><br><span class="line"><span class="comment">// 1. 数组的解构</span></span><br><span class="line"><span class="keyword">const</span> F4 = [<span class="string">&#x27;小沈阳&#x27;</span>, <span class="string">&#x27;刘能&#x27;</span>, <span class="string">&#x27;赵四&#x27;</span>, <span class="string">&#x27;宋小宝&#x27;</span>];</span><br><span class="line"><span class="keyword">let</span> [xiao, liu, zhao, song] = F4;</span><br><span class="line"><span class="built_in">console</span>.log(xiao);</span><br><span class="line"><span class="built_in">console</span>.log(liu);</span><br><span class="line"><span class="built_in">console</span>.log(zhao);</span><br><span class="line"><span class="built_in">console</span>.log(song);</span><br><span class="line"><span class="comment">//小沈阳</span></span><br><span class="line"><span class="comment">//刘能</span></span><br><span class="line"><span class="comment">//赵四</span></span><br><span class="line"><span class="comment">//宋小宝</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 2. 对象的解构</span></span><br><span class="line"><span class="keyword">const</span> zhao = &#123;</span><br><span class="line">  name: <span class="string">&#x27;赵本山&#x27;</span>,</span><br><span class="line">  age: <span class="string">&#x27;不详&#x27;</span>,</span><br><span class="line">  xiaopin: <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&quot;我可以演小品&quot;</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> &#123;name, age, xiaopin&#125; = zhao;</span><br><span class="line"><span class="built_in">console</span>.log(name);</span><br><span class="line"><span class="built_in">console</span>.log(age);</span><br><span class="line"><span class="built_in">console</span>.log(xiaopin);</span><br><span class="line">xiaopin();</span><br><span class="line"><span class="comment">//赵本山</span></span><br><span class="line"><span class="comment">//不详</span></span><br><span class="line"><span class="comment">//f ()&#123;</span></span><br><span class="line"><span class="comment">// console.log(&quot;我可以演小品&quot;);</span></span><br><span class="line"><span class="comment">// &#125;</span></span><br><span class="line"><span class="comment">// 我可以演小品</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="四-ES6引入新的声明字符串的方式-‘-‘-“-“"><a href="#四-ES6引入新的声明字符串的方式-‘-‘-“-“" class="headerlink" title="四. ES6引入新的声明字符串的方式 [``]  ‘ ‘  “ “"></a>四. ES6引入新的声明字符串的方式 [``]  ‘ ‘  “ “</h3><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 1. 声明</span></span><br><span class="line"><span class="keyword">let</span> str = <span class="string">`我也是一个字符串哦!`</span>;</span><br><span class="line"><span class="built_in">console</span>.log(str, <span class="keyword">typeof</span> str);</span><br><span class="line"><span class="comment">//我也是一个字符串哦! string</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 2. 内容中可以直接出现换行符</span></span><br><span class="line"><span class="keyword">let</span> str = <span class="string">`&lt;ul&gt;</span></span><br><span class="line"><span class="string">						&lt;li&gt;沈腾&lt;li&gt;</span></span><br><span class="line"><span class="string">    				&lt;li&gt;玛丽&lt;li&gt;</span></span><br><span class="line"><span class="string">    				&lt;li&gt;魏翔&lt;li&gt;</span></span><br><span class="line"><span class="string">    				&lt;li&gt;艾伦&lt;li&gt;</span></span><br><span class="line"><span class="string">    				&lt;ul&gt;`</span>;</span><br><span class="line"><span class="comment">// 3. 变量拼接</span></span><br><span class="line"><span class="keyword">let</span> lovest = <span class="string">&#x27;魏翔&#x27;</span>;</span><br><span class="line"><span class="keyword">let</span> out = <span class="string">`<span class="subst">$&#123;lovest&#125;</span>是我心目中最搞笑的演员!!`</span>;</span><br><span class="line"><span class="built_in">console</span>.log(out);</span><br><span class="line"><span class="comment">// 魏翔是我心目中最搞笑的演员!!</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="五-简化对象写法"><a href="#五-简化对象写法" class="headerlink" title="五. 简化对象写法"></a>五. 简化对象写法</h3><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// ES6 允许在大括号里面,直接写入变量和函数,作为对象的属性和方法</span></span><br><span class="line"><span class="comment">// 这样的书写更加简洁</span></span><br><span class="line"><span class="keyword">let</span> name = <span class="string">&#x27;尚硅谷&#x27;</span>;</span><br><span class="line"><span class="keyword">let</span> change = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">&#x27;我们可以改变你&#x27;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> school = &#123;</span><br><span class="line">  name, <span class="comment">// name: name,</span></span><br><span class="line">  change,</span><br><span class="line">  improve: <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&quot;我们可以提高你的技能&quot;</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(school);</span><br></pre></td></tr></table></figure>
-
-<h3 id="六-箭头函数"><a href="#六-箭头函数" class="headerlink" title="六. 箭头函数"></a>六. 箭头函数</h3><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// ES6允许使用[箭头] (=&gt;)定义函数</span></span><br><span class="line"><span class="comment">// 声明一个函数</span></span><br><span class="line"><span class="comment">// let fn = function()&#123;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// &#125;</span></span><br><span class="line"><span class="comment">// 声明</span></span><br><span class="line"><span class="keyword">let</span> fn = <span class="function">(<span class="params">a, b</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> a + b;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 调用函数</span></span><br><span class="line"><span class="keyword">let</span> result = fn(<span class="number">1</span>, <span class="number">2</span>);</span><br><span class="line"><span class="built_in">console</span>.log(result);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 和之前区别:</span></span><br><span class="line"><span class="comment">// 1. this 是静态的. this 始终指向函数声明时所在作用域下的this的值</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getName</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="built_in">this</span>.name);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> getName2 = <span class="function">() =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="built_in">this</span>.name);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 设置 window对象的name属性</span></span><br><span class="line"><span class="built_in">window</span>.name = <span class="string">&#x27;乐乐&#x27;</span>;</span><br><span class="line"><span class="keyword">const</span> school = &#123;</span><br><span class="line">  name: <span class="string">&quot;LELE&quot;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 直接调用</span></span><br><span class="line">getName();</span><br><span class="line">getName2();</span><br><span class="line"><span class="comment">// 乐乐</span></span><br><span class="line"><span class="comment">// 乐乐</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// call方法调用</span></span><br><span class="line">getName.call(school);</span><br><span class="line">getName2.call(school);</span><br><span class="line"><span class="comment">// LELE</span></span><br><span class="line"><span class="comment">// 乐乐</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 2. 不能作为构造实例化对象</span></span><br><span class="line"><span class="keyword">let</span> Person = <span class="function">(<span class="params">name, age</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">this</span>.name = name;</span><br><span class="line">  <span class="built_in">this</span>.age = age;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> me = <span class="keyword">new</span> Person(<span class="string">&#x27;xiao&#x27;</span>, <span class="number">30</span>);</span><br><span class="line"><span class="built_in">console</span>.log(me);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 3. 不能使用arguments变量</span></span><br></pre></td></tr></table></figure>
-
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/kity@2.0.4/dist/kity.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/kityminder-core@1.4.50/dist/kityminder.core.min.js"></script><script defer="true" type="text/javascript" src="https://cdn.jsdelivr.net/npm/hexo-simple-mindmap@0.2.0/dist/mindmap.min.js"></script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/hexo-simple-mindmap@0.2.0/dist/mindmap.min.css">]]></content>
-      <categories>
-        <category>ES6</category>
-      </categories>
-      <tags>
-        <tag>ES6</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>SpringMVC07-Ajax</title>
-    <url>/2021/03/06/SpringMVC07%20Ajax/</url>
-    <content><![CDATA[<p>[转发]</p>
-<p>Ajax研究</p>
-<blockquote>
-<p>简介</p>
-</blockquote>
-<ul>
-<li><p><strong>AJAX = Asynchronous JavaScript and XML（异步的 JavaScript 和 XML）。</strong></p>
-</li>
-<li><p>AJAX 是一种在无需重新加载整个网页的情况下，能够更新部分网页的技术。</p>
-</li>
-<li><p><strong>Ajax 不是一种新的编程语言，而是一种用于创建更好更快以及交互性更强的Web应用程序的技术。</strong></p>
-</li>
-<li><p>在 2005 年，Google 通过其 Google Suggest 使 AJAX 变得流行起来。Google Suggest能够自动帮你完成搜索单词。</p>
-</li>
-<li><p>Google Suggest 使用 AJAX 创造出动态性极强的 web 界面：当您在谷歌的搜索框输入关键字时，JavaScript 会把这些字符发送到服务器，然后服务器会返回一个搜索建议的列表。</p>
-</li>
-<li><p>就和国内百度的搜索框一样!</p>
-</li>
-<li><p>传统的网页(即不用ajax技术的网页)，想要更新内容或者提交一个表单，都需要重新加载整个网页。</p>
-</li>
-<li><p>使用ajax技术的网页，通过在后台服务器进行少量的数据交换，就可以实现异步局部更新。</p>
-</li>
-<li><p>使用Ajax，用户可以创建接近本地桌面应用的直接、高可用、更丰富、更动态的Web用户界面。</p>
-</li>
-</ul>
-<blockquote>
-<p>伪造Ajax</p>
-</blockquote>
-<p>我们可以使用前端的一个标签来伪造一个ajax的样子。iframe标签</p>
-<p>1、新建一个module ：sspringmvc-06-ajax ， 导入web支持！</p>
-<p>2、编写一个 ajax-frame.html 使用 iframe 测试，感受下效果</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head lang&#x3D;&quot;en&quot;&gt;</span><br><span class="line">   &lt;meta charset&#x3D;&quot;UTF-8&quot;&gt;</span><br><span class="line">   &lt;title&gt;kuangshen&lt;&#x2F;title&gt;</span><br><span class="line">&lt;&#x2F;head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line"></span><br><span class="line">&lt;script type&#x3D;&quot;text&#x2F;javascript&quot;&gt;</span><br><span class="line">   window.onload &#x3D; function()&#123;</span><br><span class="line">       var myDate &#x3D; new Date();</span><br><span class="line">       document.getElementById(&#39;currentTime&#39;).innerText &#x3D; myDate.getTime();</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">   function LoadPage()&#123;</span><br><span class="line">       var targetUrl &#x3D;  document.getElementById(&#39;url&#39;).value;</span><br><span class="line">       console.log(targetUrl);</span><br><span class="line">       document.getElementById(&quot;iframePosition&quot;).src &#x3D; targetUrl;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">&lt;&#x2F;script&gt;</span><br><span class="line"></span><br><span class="line">&lt;div&gt;</span><br><span class="line">   &lt;p&gt;请输入要加载的地址：&lt;span id&#x3D;&quot;currentTime&quot;&gt;&lt;&#x2F;span&gt;&lt;&#x2F;p&gt;</span><br><span class="line">   &lt;p&gt;</span><br><span class="line">       &lt;input id&#x3D;&quot;url&quot; type&#x3D;&quot;text&quot; value&#x3D;&quot;https:&#x2F;&#x2F;www.baidu.com&#x2F;&quot;&#x2F;&gt;</span><br><span class="line">       &lt;input type&#x3D;&quot;button&quot; value&#x3D;&quot;提交&quot; onclick&#x3D;&quot;LoadPage()&quot;&gt;</span><br><span class="line">   &lt;&#x2F;p&gt;</span><br><span class="line">&lt;&#x2F;div&gt;</span><br><span class="line"></span><br><span class="line">&lt;div&gt;</span><br><span class="line">   &lt;h3&gt;加载页面位置：&lt;&#x2F;h3&gt;</span><br><span class="line">   &lt;iframe id&#x3D;&quot;iframePosition&quot; style&#x3D;&quot;width: 100%;height: 500px;&quot;&gt;&lt;&#x2F;iframe&gt;</span><br><span class="line">&lt;&#x2F;div&gt;</span><br><span class="line"></span><br><span class="line">&lt;&#x2F;body&gt;</span><br><span class="line">&lt;&#x2F;html&gt;</span><br></pre></td></tr></table></figure>
-
-<p>3、使用IDEA开浏览器测试一下！</p>
-<p><strong>利用AJAX可以做：</strong></p>
-<ul>
-<li>注册时，输入用户名自动检测用户是否已经存在。</li>
-<li>登陆时，提示用户名密码错误</li>
-<li>删除数据行时，将行ID发送到后台，后台在数据库中删除，数据库删除成功后，在页面DOM中将数据行也删除。</li>
-<li>….等等</li>
-</ul>
-<blockquote>
-<p>jQuery.ajax</p>
-</blockquote>
-<p>纯JS原生实现Ajax我们不去讲解这里，直接使用jquery提供的，方便学习和使用，避免重复造轮子，有兴趣的同学可以去了解下JS原生XMLHttpRequest ！</p>
-<p>Ajax的核心是XMLHttpRequest对象(XHR)。XHR为向服务器发送请求和解析服务器响应提供了接口。能够以异步方式从服务器获取新数据。</p>
-<p>jQuery 提供多个与 AJAX 有关的方法。</p>
-<p>通过 jQuery AJAX 方法，您能够使用 HTTP Get 和 HTTP Post 从远程服务器上请求文本、HTML、XML 或 JSON – 同时您能够把这些外部数据直接载入网页的被选元素中。</p>
-<p>jQuery 不是生产者，而是大自然搬运工。</p>
-<p>jQuery Ajax本质就是 XMLHttpRequest，对他进行了封装，方便调用！</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">jQuery.ajax(...)</span><br><span class="line">      部分参数：</span><br><span class="line">            url：请求地址</span><br><span class="line">            type：请求方式，GET、POST（1.9.0之后用method）</span><br><span class="line">        headers：请求头</span><br><span class="line">            data：要发送的数据</span><br><span class="line">    contentType：即将发送信息至服务器的内容编码类型(默认: &quot;application&#x2F;x-www-form-urlencoded; charset&#x3D;UTF-8&quot;)</span><br><span class="line">          async：是否异步</span><br><span class="line">        timeout：设置请求超时时间（毫秒）</span><br><span class="line">      beforeSend：发送请求前执行的函数(全局)</span><br><span class="line">        complete：完成之后执行的回调函数(全局)</span><br><span class="line">        success：成功之后执行的回调函数(全局)</span><br><span class="line">          error：失败之后执行的回调函数(全局)</span><br><span class="line">        accepts：通过请求头发送给服务器，告诉服务器当前客户端可接受的数据类型</span><br><span class="line">        dataType：将服务器端返回的数据转换成指定类型</span><br><span class="line">          &quot;xml&quot;: 将服务器端返回的内容转换成xml格式</span><br><span class="line">          &quot;text&quot;: 将服务器端返回的内容转换成普通文本格式</span><br><span class="line">          &quot;html&quot;: 将服务器端返回的内容转换成普通文本格式，在插入DOM中时，如果包含JavaScript标签，则会尝试去执行。</span><br><span class="line">        &quot;script&quot;: 尝试将返回值当作JavaScript去执行，然后再将服务器端返回的内容转换成普通文本格式</span><br><span class="line">          &quot;json&quot;: 将服务器端返回的内容转换成相应的JavaScript对象</span><br><span class="line">        &quot;jsonp&quot;: JSONP 格式使用 JSONP 形式调用函数时，如 &quot;myurl?callback&#x3D;?&quot; jQuery 将自动替换 ? 为正确的函数名，以执行回调函数</span><br></pre></td></tr></table></figure>
-
-<p><strong>我们来个简单的测试，使用最原始的HttpServletResponse处理 , .最简单 , 最通用</strong></p>
-<p>1、配置web.xml 和 springmvc的配置文件，复制上面案例的即可 【记得静态资源过滤和注解驱动配置上】</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;?xml version&#x3D;&quot;1.0&quot; encoding&#x3D;&quot;UTF-8&quot;?&gt;</span><br><span class="line">&lt;beans xmlns&#x3D;&quot;http:&#x2F;&#x2F;www.springframework.org&#x2F;schema&#x2F;beans&quot;</span><br><span class="line">      xmlns:xsi&#x3D;&quot;http:&#x2F;&#x2F;www.w3.org&#x2F;2001&#x2F;XMLSchema-instance&quot;</span><br><span class="line">      xmlns:context&#x3D;&quot;http:&#x2F;&#x2F;www.springframework.org&#x2F;schema&#x2F;context&quot;</span><br><span class="line">      xmlns:mvc&#x3D;&quot;http:&#x2F;&#x2F;www.springframework.org&#x2F;schema&#x2F;mvc&quot;</span><br><span class="line">      xsi:schemaLocation&#x3D;&quot;http:&#x2F;&#x2F;www.springframework.org&#x2F;schema&#x2F;beans</span><br><span class="line">       http:&#x2F;&#x2F;www.springframework.org&#x2F;schema&#x2F;beans&#x2F;spring-beans.xsd</span><br><span class="line">       http:&#x2F;&#x2F;www.springframework.org&#x2F;schema&#x2F;context</span><br><span class="line">       https:&#x2F;&#x2F;www.springframework.org&#x2F;schema&#x2F;context&#x2F;spring-context.xsd</span><br><span class="line">       http:&#x2F;&#x2F;www.springframework.org&#x2F;schema&#x2F;mvc</span><br><span class="line">       https:&#x2F;&#x2F;www.springframework.org&#x2F;schema&#x2F;mvc&#x2F;spring-mvc.xsd&quot;&gt;</span><br><span class="line"></span><br><span class="line">   &lt;!-- 自动扫描指定的包，下面所有注解类交给IOC容器管理 --&gt;</span><br><span class="line">   &lt;context:component-scan base-package&#x3D;&quot;com.kuang.controller&quot;&#x2F;&gt;</span><br><span class="line">   &lt;mvc:default-servlet-handler &#x2F;&gt;</span><br><span class="line">   &lt;mvc:annotation-driven &#x2F;&gt;</span><br><span class="line"></span><br><span class="line">   &lt;!-- 视图解析器 --&gt;</span><br><span class="line">   &lt;bean class&#x3D;&quot;org.springframework.web.servlet.view.InternalResourceViewResolver&quot;</span><br><span class="line">         id&#x3D;&quot;internalResourceViewResolver&quot;&gt;</span><br><span class="line">       &lt;!-- 前缀 --&gt;</span><br><span class="line">       &lt;property name&#x3D;&quot;prefix&quot; value&#x3D;&quot;&#x2F;WEB-INF&#x2F;jsp&#x2F;&quot; &#x2F;&gt;</span><br><span class="line">       &lt;!-- 后缀 --&gt;</span><br><span class="line">       &lt;property name&#x3D;&quot;suffix&quot; value&#x3D;&quot;.jsp&quot; &#x2F;&gt;</span><br><span class="line">   &lt;&#x2F;bean&gt;</span><br><span class="line"></span><br><span class="line">&lt;&#x2F;beans&gt;</span><br></pre></td></tr></table></figure>
-
-<p>2、编写一个AjaxController</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">@Controller</span><br><span class="line">public class AjaxController &#123;</span><br><span class="line"></span><br><span class="line">   @RequestMapping(&quot;&#x2F;a1&quot;)</span><br><span class="line">   public void ajax1(String name , HttpServletResponse response) throws IOException &#123;</span><br><span class="line">       if (&quot;admin&quot;.equals(name))&#123;</span><br><span class="line">           response.getWriter().print(&quot;true&quot;);</span><br><span class="line">      &#125;else&#123;</span><br><span class="line">           response.getWriter().print(&quot;false&quot;);</span><br><span class="line">      &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>3、导入jquery ， 可以使用在线的CDN ， 也可以下载导入</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;script src&#x3D;&quot;https:&#x2F;&#x2F;code.jquery.com&#x2F;jquery-3.1.1.min.js&quot;&gt;&lt;&#x2F;script&gt;</span><br><span class="line">&lt;script src&#x3D;&quot;$&#123;pageContext.request.contextPath&#125;&#x2F;statics&#x2F;js&#x2F;jquery-3.1.1.min.js&quot;&gt;&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
-
-<p>4、编写index.jsp测试</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;%@ page contentType&#x3D;&quot;text&#x2F;html;charset&#x3D;UTF-8&quot; language&#x3D;&quot;java&quot; %&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line"> &lt;head&gt;</span><br><span class="line">   &lt;title&gt;$Title$&lt;&#x2F;title&gt;</span><br><span class="line">  &lt;%--&lt;script src&#x3D;&quot;https:&#x2F;&#x2F;code.jquery.com&#x2F;jquery-3.1.1.min.js&quot;&gt;&lt;&#x2F;script&gt;--%&gt;</span><br><span class="line">   &lt;script src&#x3D;&quot;$&#123;pageContext.request.contextPath&#125;&#x2F;statics&#x2F;js&#x2F;jquery-3.1.1.min.js&quot;&gt;&lt;&#x2F;script&gt;</span><br><span class="line">   &lt;script&gt;</span><br><span class="line">       function a1()&#123;</span><br><span class="line">           $.post(&#123;</span><br><span class="line">               url:&quot;$&#123;pageContext.request.contextPath&#125;&#x2F;a1&quot;,</span><br><span class="line">               data:&#123;&#39;name&#39;:$(&quot;#txtName&quot;).val()&#125;,</span><br><span class="line">               success:function (data,status) &#123;</span><br><span class="line">                   alert(data);</span><br><span class="line">                   alert(status);</span><br><span class="line">              &#125;</span><br><span class="line">          &#125;);</span><br><span class="line">      &#125;</span><br><span class="line">   &lt;&#x2F;script&gt;</span><br><span class="line"> &lt;&#x2F;head&gt;</span><br><span class="line"> &lt;body&gt;</span><br><span class="line"></span><br><span class="line">&lt;%--onblur：失去焦点触发事件--%&gt;</span><br><span class="line">用户名:&lt;input type&#x3D;&quot;text&quot; id&#x3D;&quot;txtName&quot; onblur&#x3D;&quot;a1()&quot;&#x2F;&gt;</span><br><span class="line"></span><br><span class="line"> &lt;&#x2F;body&gt;</span><br><span class="line">&lt;&#x2F;html&gt;</span><br></pre></td></tr></table></figure>
-
-<p>5、启动tomcat测试！打开浏览器的控制台，当我们鼠标离开输入框的时候，可以看到发出了一个ajax的请求！是后台返回给我们的结果！测试成功！</p>
-<p><strong>Springmvc实现</strong></p>
-<p>实体类user</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">@Data</span><br><span class="line">@AllArgsConstructor</span><br><span class="line">@NoArgsConstructor</span><br><span class="line">public class User &#123;</span><br><span class="line"></span><br><span class="line">   private String name;</span><br><span class="line">   private int age;</span><br><span class="line">   private String sex;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>我们来获取一个集合对象，展示到前端页面</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">@RequestMapping(&quot;&#x2F;a2&quot;)</span><br><span class="line">public List&lt;User&gt; ajax2()&#123;</span><br><span class="line">   List&lt;User&gt; list &#x3D; new ArrayList&lt;User&gt;();</span><br><span class="line">   list.add(new User(&quot;秦疆1号&quot;,3,&quot;男&quot;));</span><br><span class="line">   list.add(new User(&quot;秦疆2号&quot;,3,&quot;男&quot;));</span><br><span class="line">   list.add(new User(&quot;秦疆3号&quot;,3,&quot;男&quot;));</span><br><span class="line">   return list; &#x2F;&#x2F;由于@RestController注解，将list转成json格式返回</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>前端页面</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;%@ page contentType&#x3D;&quot;text&#x2F;html;charset&#x3D;UTF-8&quot; language&#x3D;&quot;java&quot; %&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">   &lt;title&gt;Title&lt;&#x2F;title&gt;</span><br><span class="line">&lt;&#x2F;head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">&lt;input type&#x3D;&quot;button&quot; id&#x3D;&quot;btn&quot; value&#x3D;&quot;获取数据&quot;&#x2F;&gt;</span><br><span class="line">&lt;table width&#x3D;&quot;80%&quot; align&#x3D;&quot;center&quot;&gt;</span><br><span class="line">   &lt;tr&gt;</span><br><span class="line">       &lt;td&gt;姓名&lt;&#x2F;td&gt;</span><br><span class="line">       &lt;td&gt;年龄&lt;&#x2F;td&gt;</span><br><span class="line">       &lt;td&gt;性别&lt;&#x2F;td&gt;</span><br><span class="line">   &lt;&#x2F;tr&gt;</span><br><span class="line">   &lt;tbody id&#x3D;&quot;content&quot;&gt;</span><br><span class="line">   &lt;&#x2F;tbody&gt;</span><br><span class="line">&lt;&#x2F;table&gt;</span><br><span class="line"></span><br><span class="line">&lt;script src&#x3D;&quot;$&#123;pageContext.request.contextPath&#125;&#x2F;statics&#x2F;js&#x2F;jquery-3.1.1.min.js&quot;&gt;&lt;&#x2F;script&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line"></span><br><span class="line">   $(function () &#123;</span><br><span class="line">       $(&quot;#btn&quot;).click(function () &#123;</span><br><span class="line">           $.post(&quot;$&#123;pageContext.request.contextPath&#125;&#x2F;a2&quot;,function (data) &#123;</span><br><span class="line">               console.log(data)</span><br><span class="line">               var html&#x3D;&quot;&quot;;</span><br><span class="line">               for (var i &#x3D; 0; i &lt;data.length ; i++) &#123;</span><br><span class="line">                   html+&#x3D; &quot;&lt;tr&gt;&quot; +</span><br><span class="line">                       &quot;&lt;td&gt;&quot; + data[i].name + &quot;&lt;&#x2F;td&gt;&quot; +</span><br><span class="line">                       &quot;&lt;td&gt;&quot; + data[i].age + &quot;&lt;&#x2F;td&gt;&quot; +</span><br><span class="line">                       &quot;&lt;td&gt;&quot; + data[i].sex + &quot;&lt;&#x2F;td&gt;&quot; +</span><br><span class="line">                       &quot;&lt;&#x2F;tr&gt;&quot;</span><br><span class="line">              &#125;</span><br><span class="line">               $(&quot;#content&quot;).html(html);</span><br><span class="line">          &#125;);</span><br><span class="line">      &#125;)</span><br><span class="line">  &#125;)</span><br><span class="line">&lt;&#x2F;script&gt;</span><br><span class="line">&lt;&#x2F;body&gt;</span><br><span class="line">&lt;&#x2F;html&gt;</span><br></pre></td></tr></table></figure>
-
-<p><strong>成功实现了数据回显！可以体会一下Ajax的好处！</strong></p>
-<blockquote>
-<p>注册提示效果</p>
-</blockquote>
-<p>我们再测试一个小Demo，思考一下我们平时注册时候，输入框后面的实时提示怎么做到的；如何优化</p>
-<p>我们写一个Controller</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">@RequestMapping(&quot;&#x2F;a3&quot;)</span><br><span class="line">public String ajax3(String name,String pwd)&#123;</span><br><span class="line">   String msg &#x3D; &quot;&quot;;</span><br><span class="line">   &#x2F;&#x2F;模拟数据库中存在数据</span><br><span class="line">   if (name!&#x3D;null)&#123;</span><br><span class="line">       if (&quot;admin&quot;.equals(name))&#123;</span><br><span class="line">           msg &#x3D; &quot;OK&quot;;</span><br><span class="line">      &#125;else &#123;</span><br><span class="line">           msg &#x3D; &quot;用户名输入错误&quot;;</span><br><span class="line">      &#125;</span><br><span class="line">  &#125;</span><br><span class="line">   if (pwd!&#x3D;null)&#123;</span><br><span class="line">       if (&quot;123456&quot;.equals(pwd))&#123;</span><br><span class="line">           msg &#x3D; &quot;OK&quot;;</span><br><span class="line">      &#125;else &#123;</span><br><span class="line">           msg &#x3D; &quot;密码输入有误&quot;;</span><br><span class="line">      &#125;</span><br><span class="line">  &#125;</span><br><span class="line">   return msg; &#x2F;&#x2F;由于@RestController注解，将msg转成json格式返回</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>前端页面 login.jsp</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;%@ page contentType&#x3D;&quot;text&#x2F;html;charset&#x3D;UTF-8&quot; language&#x3D;&quot;java&quot; %&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">   &lt;title&gt;ajax&lt;&#x2F;title&gt;</span><br><span class="line">   &lt;script src&#x3D;&quot;$&#123;pageContext.request.contextPath&#125;&#x2F;statics&#x2F;js&#x2F;jquery-3.1.1.min.js&quot;&gt;&lt;&#x2F;script&gt;</span><br><span class="line">   &lt;script&gt;</span><br><span class="line"></span><br><span class="line">       function a1()&#123;</span><br><span class="line">           $.post(&#123;</span><br><span class="line">               url:&quot;$&#123;pageContext.request.contextPath&#125;&#x2F;a3&quot;,</span><br><span class="line">               data:&#123;&#39;name&#39;:$(&quot;#name&quot;).val()&#125;,</span><br><span class="line">               success:function (data) &#123;</span><br><span class="line">                   if (data.toString()&#x3D;&#x3D;&#39;OK&#39;)&#123;</span><br><span class="line">                       $(&quot;#userInfo&quot;).css(&quot;color&quot;,&quot;green&quot;);</span><br><span class="line">                  &#125;else &#123;</span><br><span class="line">                       $(&quot;#userInfo&quot;).css(&quot;color&quot;,&quot;red&quot;);</span><br><span class="line">                  &#125;</span><br><span class="line">                   $(&quot;#userInfo&quot;).html(data);</span><br><span class="line">              &#125;</span><br><span class="line">          &#125;);</span><br><span class="line">      &#125;</span><br><span class="line">       function a2()&#123;</span><br><span class="line">           $.post(&#123;</span><br><span class="line">               url:&quot;$&#123;pageContext.request.contextPath&#125;&#x2F;a3&quot;,</span><br><span class="line">               data:&#123;&#39;pwd&#39;:$(&quot;#pwd&quot;).val()&#125;,</span><br><span class="line">               success:function (data) &#123;</span><br><span class="line">                   if (data.toString()&#x3D;&#x3D;&#39;OK&#39;)&#123;</span><br><span class="line">                       $(&quot;#pwdInfo&quot;).css(&quot;color&quot;,&quot;green&quot;);</span><br><span class="line">                  &#125;else &#123;</span><br><span class="line">                       $(&quot;#pwdInfo&quot;).css(&quot;color&quot;,&quot;red&quot;);</span><br><span class="line">                  &#125;</span><br><span class="line">                   $(&quot;#pwdInfo&quot;).html(data);</span><br><span class="line">              &#125;</span><br><span class="line">          &#125;);</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">   &lt;&#x2F;script&gt;</span><br><span class="line">&lt;&#x2F;head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">&lt;p&gt;</span><br><span class="line">  用户名:&lt;input type&#x3D;&quot;text&quot; id&#x3D;&quot;name&quot; onblur&#x3D;&quot;a1()&quot;&#x2F;&gt;</span><br><span class="line">   &lt;span id&#x3D;&quot;userInfo&quot;&gt;&lt;&#x2F;span&gt;</span><br><span class="line">&lt;&#x2F;p&gt;</span><br><span class="line">&lt;p&gt;</span><br><span class="line">  密码:&lt;input type&#x3D;&quot;text&quot; id&#x3D;&quot;pwd&quot; onblur&#x3D;&quot;a2()&quot;&#x2F;&gt;</span><br><span class="line">   &lt;span id&#x3D;&quot;pwdInfo&quot;&gt;&lt;&#x2F;span&gt;</span><br><span class="line">&lt;&#x2F;p&gt;</span><br><span class="line">&lt;&#x2F;body&gt;</span><br><span class="line">&lt;&#x2F;html&gt;</span><br></pre></td></tr></table></figure>
-
-<p>【记得处理json乱码问题】</p>
-<p>测试一下效果，动态请求响应，局部刷新，就是如此！</p>
-<p><img src="https://mmbiz.qpic.cn/mmbiz_png/uJDAUKrGC7KZibKx8mbpgp9uicB6eJRNyNtU7ek8sJ1kpbFia5e5IoMRtGFwBiaylw7iakYBws0icEAqyH22l6Y7FMzQ/640?wx_fmt=png" alt="图片"></p>
-<blockquote>
-<p>获取baidu接口Demo</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;!DOCTYPE HTML&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">   &lt;meta http-equiv&#x3D;&quot;Content-Type&quot; content&#x3D;&quot;text&#x2F;html; charset&#x3D;utf-8&quot;&gt;</span><br><span class="line">   &lt;title&gt;JSONP百度搜索&lt;&#x2F;title&gt;</span><br><span class="line">   &lt;style&gt;</span><br><span class="line">       #q&#123;</span><br><span class="line">           width: 500px;</span><br><span class="line">           height: 30px;</span><br><span class="line">           border:1px solid #ddd;</span><br><span class="line">           line-height: 30px;</span><br><span class="line">           display: block;</span><br><span class="line">           margin: 0 auto;</span><br><span class="line">           padding: 0 10px;</span><br><span class="line">           font-size: 14px;</span><br><span class="line">      &#125;</span><br><span class="line">       #ul&#123;</span><br><span class="line">           width: 520px;</span><br><span class="line">           list-style: none;</span><br><span class="line">           margin: 0 auto;</span><br><span class="line">           padding: 0;</span><br><span class="line">           border:1px solid #ddd;</span><br><span class="line">           margin-top: -1px;</span><br><span class="line">           display: none;</span><br><span class="line">      &#125;</span><br><span class="line">       #ul li&#123;</span><br><span class="line">           line-height: 30px;</span><br><span class="line">           padding: 0 10px;</span><br><span class="line">      &#125;</span><br><span class="line">       #ul li:hover&#123;</span><br><span class="line">           background-color: #f60;</span><br><span class="line">           color: #fff;</span><br><span class="line">      &#125;</span><br><span class="line">   &lt;&#x2F;style&gt;</span><br><span class="line">   &lt;script&gt;</span><br><span class="line"></span><br><span class="line">       &#x2F;&#x2F; 2.步骤二</span><br><span class="line">       &#x2F;&#x2F; 定义demo函数 (分析接口、数据)</span><br><span class="line">       function demo(data)&#123;</span><br><span class="line">           var Ul &#x3D; document.getElementById(&#39;ul&#39;);</span><br><span class="line">           var html &#x3D; &#39;&#39;;</span><br><span class="line">           &#x2F;&#x2F; 如果搜索数据存在 把内容添加进去</span><br><span class="line">           if (data.s.length) &#123;</span><br><span class="line">               &#x2F;&#x2F; 隐藏掉的ul显示出来</span><br><span class="line">               Ul.style.display &#x3D; &#39;block&#39;;</span><br><span class="line">               &#x2F;&#x2F; 搜索到的数据循环追加到li里</span><br><span class="line">               for(var i &#x3D; 0;i&lt;data.s.length;i++)&#123;</span><br><span class="line">                   html +&#x3D; &#39;&lt;li&gt;&#39;+data.s[i]+&#39;&lt;&#x2F;li&gt;&#39;;</span><br><span class="line">              &#125;</span><br><span class="line">               &#x2F;&#x2F; 循环的li写入ul</span><br><span class="line">               Ul.innerHTML &#x3D; html;</span><br><span class="line">          &#125;</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">       &#x2F;&#x2F; 1.步骤一</span><br><span class="line">       window.onload &#x3D; function()&#123;</span><br><span class="line">           &#x2F;&#x2F; 获取输入框和ul</span><br><span class="line">           var Q &#x3D; document.getElementById(&#39;q&#39;);</span><br><span class="line">           var Ul &#x3D; document.getElementById(&#39;ul&#39;);</span><br><span class="line"></span><br><span class="line">           &#x2F;&#x2F; 事件鼠标抬起时候</span><br><span class="line">           Q.onkeyup &#x3D; function()&#123;</span><br><span class="line">               &#x2F;&#x2F; 如果输入框不等于空</span><br><span class="line">               if (this.value !&#x3D; &#39;&#39;) &#123;</span><br><span class="line">                   &#x2F;&#x2F; ☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆JSONPz重点☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆</span><br><span class="line">                   &#x2F;&#x2F; 创建标签</span><br><span class="line">                   var script &#x3D; document.createElement(&#39;script&#39;);</span><br><span class="line">                   &#x2F;&#x2F;给定要跨域的地址 赋值给src</span><br><span class="line">                   &#x2F;&#x2F;这里是要请求的跨域的地址 我写的是百度搜索的跨域地址</span><br><span class="line">                   script.src &#x3D; &#39;https:&#x2F;&#x2F;sp0.baidu.com&#x2F;5a1Fazu8AA54nxGko9WTAnF6hhy&#x2F;su?wd&#x3D;&#39;+this.value+&#39;&amp;cb&#x3D;demo&#39;;</span><br><span class="line">                   &#x2F;&#x2F; 将组合好的带src的script标签追加到body里</span><br><span class="line">                   document.body.appendChild(script);</span><br><span class="line">              &#125;</span><br><span class="line">          &#125;</span><br><span class="line">      &#125;</span><br><span class="line">   &lt;&#x2F;script&gt;</span><br><span class="line">&lt;&#x2F;head&gt;</span><br><span class="line"></span><br><span class="line">&lt;body&gt;</span><br><span class="line">&lt;input type&#x3D;&quot;text&quot; id&#x3D;&quot;q&quot; &#x2F;&gt;</span><br><span class="line">&lt;ul id&#x3D;&quot;ul&quot;&gt;</span><br><span class="line"></span><br><span class="line">&lt;&#x2F;ul&gt;</span><br><span class="line">&lt;&#x2F;body&gt;</span><br><span class="line">&lt;&#x2F;html&gt;</span><br></pre></td></tr></table></figure>
-
-
-
-<p>Ajax在我们开发中十分重要，一定要学会使用！</p>
-<p>end</p>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/kity@2.0.4/dist/kity.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/kityminder-core@1.4.50/dist/kityminder.core.min.js"></script><script defer="true" type="text/javascript" src="https://cdn.jsdelivr.net/npm/hexo-simple-mindmap@0.2.0/dist/mindmap.min.js"></script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/hexo-simple-mindmap@0.2.0/dist/mindmap.min.css">]]></content>
-      <categories>
-        <category>ajax</category>
-      </categories>
-      <tags>
-        <tag>ajax</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>vue生命周期</title>
     <url>/2021/04/20/Vue%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/</url>
     <content><![CDATA[<p>生命周期：事物从诞生到消亡的整个过程</p>
@@ -557,6 +557,23 @@
       </categories>
       <tags>
         <tag>node.js</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>docker</title>
+    <url>/2021/04/20/docker/</url>
+    <content><![CDATA[<p>什么是 Docker</p>
+<p>◆使用最广泛的开源容器引擎</p>
+<p>◆一种操作系统级的虚拟化技术</p>
+<p>◆依赖于 Linux内核特性：Namespace和 Groups个简单的应用程序打包工具</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">root@localhost -] docker run -i -t centos/bin/bash</span><br><span class="line">Unable to find image centos: latest locally</span><br><span class="line">Latest: Pulling <span class="keyword">from</span> Library/centos</span><br><span class="line">256b176beaff: Pull complete</span><br><span class="line">Digest: sha256: 5d9lc5535c41fd1bb48d4058la2c8b 53d38fc2eb26df774556b 53c 5a0bd4d44e</span><br><span class="line">Status: Downloaded newer image <span class="keyword">for</span> centos: latest</span><br></pre></td></tr></table></figure>
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/kity@2.0.4/dist/kity.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/kityminder-core@1.4.50/dist/kityminder.core.min.js"></script><script defer="true" type="text/javascript" src="https://cdn.jsdelivr.net/npm/hexo-simple-mindmap@0.2.0/dist/mindmap.min.js"></script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/hexo-simple-mindmap@0.2.0/dist/mindmap.min.css">]]></content>
+      <categories>
+        <category>docker</category>
+      </categories>
+      <tags>
+        <tag>docker</tag>
       </tags>
   </entry>
   <entry>
@@ -740,62 +757,6 @@
       </tags>
   </entry>
   <entry>
-    <title>docker</title>
-    <url>/2021/04/20/docker/</url>
-    <content><![CDATA[<p>什么是 Docker</p>
-<p>◆使用最广泛的开源容器引擎</p>
-<p>◆一种操作系统级的虚拟化技术</p>
-<p>◆依赖于 Linux内核特性：Namespace和 Groups个简单的应用程序打包工具</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">root@localhost -] docker run -i -t centos/bin/bash</span><br><span class="line">Unable to find image centos: latest locally</span><br><span class="line">Latest: Pulling <span class="keyword">from</span> Library/centos</span><br><span class="line">256b176beaff: Pull complete</span><br><span class="line">Digest: sha256: 5d9lc5535c41fd1bb48d4058la2c8b 53d38fc2eb26df774556b 53c 5a0bd4d44e</span><br><span class="line">Status: Downloaded newer image <span class="keyword">for</span> centos: latest</span><br></pre></td></tr></table></figure>
-
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/kity@2.0.4/dist/kity.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/kityminder-core@1.4.50/dist/kityminder.core.min.js"></script><script defer="true" type="text/javascript" src="https://cdn.jsdelivr.net/npm/hexo-simple-mindmap@0.2.0/dist/mindmap.min.js"></script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/hexo-simple-mindmap@0.2.0/dist/mindmap.min.css">]]></content>
-      <categories>
-        <category>docker</category>
-      </categories>
-      <tags>
-        <tag>docker</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Git基本配置</title>
-    <url>/2021/01/17/git/</url>
-    <content><![CDATA[<p>1.全局配置</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git config --global user.name **</span><br><span class="line">git config --global user.email ***@**.com</span><br><span class="line">git config --global push.default matching</span><br><span class="line">git config --global core.quotepath false</span><br><span class="line">git config --global core.editor &quot;vim&quot;</span><br><span class="line">git config -l;</span><br></pre></td></tr></table></figure>
-
-<p>2.密钥生成</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ssh-keygen -t rsa -b 4096 -C ***@qq.com</span><br><span class="line">cat ~&#x2F;.ssh&#x2F;id_rsa.pub</span><br><span class="line">ssh -T git@github.com</span><br><span class="line">ssh -T git@gitee.com</span><br></pre></td></tr></table></figure>
-
-<p>3.远程仓库连接</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git remote rm origin</span><br><span class="line">git remote add github git@github.com:****&#x2F;learngit.git</span><br><span class="line">git remote add gitee git@gitee.com:*****&#x2F;learngit.git</span><br><span class="line">git remote -v</span><br><span class="line">git push github master</span><br><span class="line">git push gitee master</span><br></pre></td></tr></table></figure>
-
-<p><img src="/2021/01/17/git/git.png"></p>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/kity@2.0.4/dist/kity.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/kityminder-core@1.4.50/dist/kityminder.core.min.js"></script><script defer="true" type="text/javascript" src="https://cdn.jsdelivr.net/npm/hexo-simple-mindmap@0.2.0/dist/mindmap.min.js"></script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/hexo-simple-mindmap@0.2.0/dist/mindmap.min.css">]]></content>
-      <categories>
-        <category>git</category>
-      </categories>
-      <tags>
-        <tag>git</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>hexo install</title>
-    <url>/2021/01/13/hexo%20install/</url>
-    <content><![CDATA[<p>1、安装之前可以先设置一下淘宝镜像加速器<br>    <code>npm install -g cnpm --registry=https://registry.npm.taobao.org</code><br>2、全局安装框架<br>    <code>npm install hexo-cli -g</code><br>1、创建你的博客目录<br>     <code>hexo init 你博客的文件夹名字</code><br>2、进入你博客的目录<br>    <code>cd 你博客的文件夹名字</code><br>3、复制文件到你博客的目录<br>    <code>npm install</code><br>4、安装Hexo部署插件<br>5、请在你博客的目录下启动cmd，再执行以下代码</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">npm install hexo-deployer-git --save</span><br></pre></td></tr></table></figure>
-
-<p>6、打开你博客根目录的 _config.yml 文件，将以下信息添加到里面去。</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">deploy:</span><br><span class="line">  type: git</span><br><span class="line">  repo: git@gitee.com:yzhou15&#x2F;yzhou15.git</span><br><span class="line">  # https:&#x2F;&#x2F;github.com&#x2F;&lt;username&gt;&#x2F;&lt;project&gt;</span><br><span class="line">  # example, https:&#x2F;&#x2F;github.com&#x2F;hexojs&#x2F;hexojs.github.io</span><br><span class="line">  branch: gh-pages</span><br></pre></td></tr></table></figure>
-
-<p>7、hexo cl&amp;hexo g&amp; hexo s<br>8、hexo d<br>每次部署完git pages要点更新</p>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/kity@2.0.4/dist/kity.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/kityminder-core@1.4.50/dist/kityminder.core.min.js"></script><script defer="true" type="text/javascript" src="https://cdn.jsdelivr.net/npm/hexo-simple-mindmap@0.2.0/dist/mindmap.min.js"></script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/hexo-simple-mindmap@0.2.0/dist/mindmap.min.css">]]></content>
-      <categories>
-        <category>hexo</category>
-      </categories>
-      <tags>
-        <tag>hexo</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>外卖项目</title>
     <url>/2021/04/20/guiguwaimai/</url>
     <content><![CDATA[<p>1.基于 Vue 的最新版本； </p>
@@ -862,22 +823,43 @@
       </tags>
   </entry>
   <entry>
-    <title>Hello World</title>
-    <url>/2021/01/13/hello-world/</url>
-    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+    <title>Git基本配置</title>
+    <url>/2021/01/17/git/</url>
+    <content><![CDATA[<p>1.全局配置</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git config --global user.name **</span><br><span class="line">git config --global user.email ***@**.com</span><br><span class="line">git config --global push.default matching</span><br><span class="line">git config --global core.quotepath false</span><br><span class="line">git config --global core.editor &quot;vim&quot;</span><br><span class="line">git config -l;</span><br></pre></td></tr></table></figure>
 
-<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+<p>2.密钥生成</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ssh-keygen -t rsa -b 4096 -C ***@qq.com</span><br><span class="line">cat ~&#x2F;.ssh&#x2F;id_rsa.pub</span><br><span class="line">ssh -T git@github.com</span><br><span class="line">ssh -T git@gitee.com</span><br></pre></td></tr></table></figure>
 
-<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+<p>3.远程仓库连接</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git remote rm origin</span><br><span class="line">git remote add github git@github.com:****&#x2F;learngit.git</span><br><span class="line">git remote add gitee git@gitee.com:*****&#x2F;learngit.git</span><br><span class="line">git remote -v</span><br><span class="line">git push github master</span><br><span class="line">git push gitee master</span><br></pre></td></tr></table></figure>
 
-<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+<p><img src="/2021/01/17/git/git.png"></p>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/kity@2.0.4/dist/kity.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/kityminder-core@1.4.50/dist/kityminder.core.min.js"></script><script defer="true" type="text/javascript" src="https://cdn.jsdelivr.net/npm/hexo-simple-mindmap@0.2.0/dist/mindmap.min.js"></script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/hexo-simple-mindmap@0.2.0/dist/mindmap.min.css">]]></content>
+      <categories>
+        <category>git</category>
+      </categories>
+      <tags>
+        <tag>git</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>hexo install</title>
+    <url>/2021/01/13/hexo%20install/</url>
+    <content><![CDATA[<p>1、安装之前可以先设置一下淘宝镜像加速器<br>    <code>npm install -g cnpm --registry=https://registry.npm.taobao.org</code><br>2、全局安装框架<br>    <code>npm install hexo-cli -g</code><br>1、创建你的博客目录<br>     <code>hexo init 你博客的文件夹名字</code><br>2、进入你博客的目录<br>    <code>cd 你博客的文件夹名字</code><br>3、复制文件到你博客的目录<br>    <code>npm install</code><br>4、安装Hexo部署插件<br>5、请在你博客的目录下启动cmd，再执行以下代码</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">npm install hexo-deployer-git --save</span><br></pre></td></tr></table></figure>
+
+<p>6、打开你博客根目录的 _config.yml 文件，将以下信息添加到里面去。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">deploy:</span><br><span class="line">  type: git</span><br><span class="line">  repo: git@gitee.com:yzhou15&#x2F;yzhou15.git</span><br><span class="line">  # https:&#x2F;&#x2F;github.com&#x2F;&lt;username&gt;&#x2F;&lt;project&gt;</span><br><span class="line">  # example, https:&#x2F;&#x2F;github.com&#x2F;hexojs&#x2F;hexojs.github.io</span><br><span class="line">  branch: gh-pages</span><br></pre></td></tr></table></figure>
+
+<p>7、hexo cl&amp;hexo g&amp; hexo s<br>8、hexo d<br>每次部署完git pages要点更新</p>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/kity@2.0.4/dist/kity.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/kityminder-core@1.4.50/dist/kityminder.core.min.js"></script><script defer="true" type="text/javascript" src="https://cdn.jsdelivr.net/npm/hexo-simple-mindmap@0.2.0/dist/mindmap.min.js"></script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/hexo-simple-mindmap@0.2.0/dist/mindmap.min.css">]]></content>
+      <categories>
+        <category>hexo</category>
+      </categories>
+      <tags>
+        <tag>hexo</tag>
+      </tags>
   </entry>
   <entry>
     <title>hexo使用技巧</title>
@@ -937,6 +919,49 @@
       </categories>
       <tags>
         <tag>hexo</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Hello World</title>
+    <url>/2021/01/13/hello-world/</url>
+    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/kity@2.0.4/dist/kity.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/kityminder-core@1.4.50/dist/kityminder.core.min.js"></script><script defer="true" type="text/javascript" src="https://cdn.jsdelivr.net/npm/hexo-simple-mindmap@0.2.0/dist/mindmap.min.js"></script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/hexo-simple-mindmap@0.2.0/dist/mindmap.min.css">]]></content>
+  </entry>
+  <entry>
+    <title>python使用技巧</title>
+    <url>/2021/02/22/python%E4%BD%BF%E7%94%A8%E6%8A%80%E5%B7%A7/</url>
+    <content><![CDATA[<p>转载自： <a href="https://inertia42.com/tips/pythontips/">https://inertia42.com/tips/pythontips/</a></p>
+<h2 id="在没有GUI的情况下使用matplotlib"><a href="#在没有GUI的情况下使用matplotlib" class="headerlink" title="在没有GUI的情况下使用matplotlib"></a>在没有GUI的情况下使用matplotlib</h2><p>在vps上运行调用matplotlib的python脚本时需在<code>import matplotlib.pyplot</code>前加上</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">import matplotlib as mpl</span><br><span class="line">mpl.use(&#39;Agg&#39;)</span><br></pre></td></tr></table></figure>
+
+
+
+<p>一定要加在<code>import matplotlib.pyplot</code>前</p>
+<h2 id="给pip更换源"><a href="#给pip更换源" class="headerlink" title="给pip更换源"></a>给pip更换源</h2><p>将windows下的pip源换为清华的源</p>
+<p>只需要在user文件夹下新建pip文件夹，并在其中新建<code>pip.ini</code>文件，并写入：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[global]</span><br><span class="line">index-url &#x3D; https:&#x2F;&#x2F;pypi.tuna.tsinghua.edu.cn&#x2F;simple</span><br></pre></td></tr></table></figure>
+
+
+
+<p>即可</p>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/kity@2.0.4/dist/kity.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/kityminder-core@1.4.50/dist/kityminder.core.min.js"></script><script defer="true" type="text/javascript" src="https://cdn.jsdelivr.net/npm/hexo-simple-mindmap@0.2.0/dist/mindmap.min.js"></script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/hexo-simple-mindmap@0.2.0/dist/mindmap.min.css">]]></content>
+      <categories>
+        <category>python</category>
+      </categories>
+      <tags>
+        <tag>python</tag>
       </tags>
   </entry>
   <entry>
@@ -1075,31 +1100,6 @@
       </tags>
   </entry>
   <entry>
-    <title>python使用技巧</title>
-    <url>/2021/02/22/python%E4%BD%BF%E7%94%A8%E6%8A%80%E5%B7%A7/</url>
-    <content><![CDATA[<p>转载自： <a href="https://inertia42.com/tips/pythontips/">https://inertia42.com/tips/pythontips/</a></p>
-<h2 id="在没有GUI的情况下使用matplotlib"><a href="#在没有GUI的情况下使用matplotlib" class="headerlink" title="在没有GUI的情况下使用matplotlib"></a>在没有GUI的情况下使用matplotlib</h2><p>在vps上运行调用matplotlib的python脚本时需在<code>import matplotlib.pyplot</code>前加上</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">import matplotlib as mpl</span><br><span class="line">mpl.use(&#39;Agg&#39;)</span><br></pre></td></tr></table></figure>
-
-
-
-<p>一定要加在<code>import matplotlib.pyplot</code>前</p>
-<h2 id="给pip更换源"><a href="#给pip更换源" class="headerlink" title="给pip更换源"></a>给pip更换源</h2><p>将windows下的pip源换为清华的源</p>
-<p>只需要在user文件夹下新建pip文件夹，并在其中新建<code>pip.ini</code>文件，并写入：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[global]</span><br><span class="line">index-url &#x3D; https:&#x2F;&#x2F;pypi.tuna.tsinghua.edu.cn&#x2F;simple</span><br></pre></td></tr></table></figure>
-
-
-
-<p>即可</p>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/kity@2.0.4/dist/kity.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/kityminder-core@1.4.50/dist/kityminder.core.min.js"></script><script defer="true" type="text/javascript" src="https://cdn.jsdelivr.net/npm/hexo-simple-mindmap@0.2.0/dist/mindmap.min.js"></script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/hexo-simple-mindmap@0.2.0/dist/mindmap.min.css">]]></content>
-      <categories>
-        <category>python</category>
-      </categories>
-      <tags>
-        <tag>python</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Vue Day 01</title>
     <url>/2021/01/14/vueDay1/</url>
     <content><![CDATA[<p>Vue Day 01</p>
@@ -1153,70 +1153,6 @@
 <h2 id="四、计算属性"><a href="#四、计算属性" class="headerlink" title="四、计算属性"></a>四、计算属性</h2><ul>
 <li>案例一：firstName + lastName</li>
 <li>案例二： books -&gt;price</li>
-</ul>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/kity@2.0.4/dist/kity.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/kityminder-core@1.4.50/dist/kityminder.core.min.js"></script><script defer="true" type="text/javascript" src="https://cdn.jsdelivr.net/npm/hexo-simple-mindmap@0.2.0/dist/mindmap.min.js"></script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/hexo-simple-mindmap@0.2.0/dist/mindmap.min.css">]]></content>
-      <categories>
-        <category>vue</category>
-      </categories>
-      <tags>
-        <tag>vue</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>vueDay2</title>
-    <url>/2021/01/16/vueDay2/</url>
-    <content><![CDATA[<p>一. 计算属性</p>
-<h4 id="1-1-计算属性的本质"><a href="#1-1-计算属性的本质" class="headerlink" title="1.1. 计算属性的本质"></a>1.1. 计算属性的本质</h4><ul>
-<li>fullname:(set(), get())</li>
-</ul>
-<h4 id="1-2-计算属性和methods对比"><a href="#1-2-计算属性和methods对比" class="headerlink" title="1.2. 计算属性和methods对比"></a>1.2. 计算属性和methods对比</h4><ul>
-<li>计算属性在多次使用时，只会调用一次</li>
-<li>它是有缓存的</li>
-</ul>
-<h3 id="二-事件监听"><a href="#二-事件监听" class="headerlink" title="二. 事件监听"></a>二. 事件监听</h3><h4 id="2-1-事件监听基本使用"><a href="#2-1-事件监听基本使用" class="headerlink" title="2.1. 事件监听基本使用"></a>2.1. 事件监听基本使用</h4><ul>
-<li>btnClick</li>
-<li>btnClick(enent)</li>
-<li>btnCLick(abc, event) -&gt; $event</li>
-</ul>
-<h4 id="2-3-修饰符"><a href="#2-3-修饰符" class="headerlink" title="2.3. 修饰符"></a>2.3. 修饰符</h4><ul>
-<li>stop</li>
-<li>prevent</li>
-<li>.enter</li>
-<li>.once</li>
-<li>.native</li>
-</ul>
-<h3 id="三-条件判断"><a href="#三-条件判断" class="headerlink" title="三. 条件判断"></a>三. 条件判断</h3><h4 id="3-1-v-if-v-else-if-v-else"><a href="#3-1-v-if-v-else-if-v-else" class="headerlink" title="3.1. v-if/v-else-if/v-else"></a>3.1. v-if/v-else-if/v-else</h4><h4 id="3-2-登陆小案例"><a href="#3-2-登陆小案例" class="headerlink" title="3.2. 登陆小案例"></a>3.2. 登陆小案例</h4><h4 id="3-3-v-show"><a href="#3-3-v-show" class="headerlink" title="3.3. v-show"></a>3.3. v-show</h4><ul>
-<li>v-show 和 v-if的区别</li>
-</ul>
-<h3 id="四-循环遍历"><a href="#四-循环遍历" class="headerlink" title="四. 循环遍历"></a>四. 循环遍历</h3><h4 id="4-1-遍历数组"><a href="#4-1-遍历数组" class="headerlink" title="4.1. 遍历数组"></a>4.1. 遍历数组</h4><h4 id="4-2-遍历对象"><a href="#4-2-遍历对象" class="headerlink" title="4.2 遍历对象"></a>4.2 遍历对象</h4><ul>
-<li>value</li>
-<li>value, key</li>
-<li>value, key, index</li>
-</ul>
-<h4 id="4-3-数组哪些方法是响应式的"><a href="#4-3-数组哪些方法是响应式的" class="headerlink" title="4.3. 数组哪些方法是响应式的"></a>4.3. 数组哪些方法是响应式的</h4><h4 id="4-4-作业完成"><a href="#4-4-作业完成" class="headerlink" title="4.4. 作业完成"></a>4.4. 作业完成</h4><h3 id="五-书籍案例"><a href="#五-书籍案例" class="headerlink" title="五. 书籍案例"></a>五. 书籍案例</h3><h3 id="六-v-model的使用"><a href="#六-v-model的使用" class="headerlink" title="六. v-model的使用"></a>六. v-model的使用</h3><h4 id="6-1-v-model的基本使用"><a href="#6-1-v-model的基本使用" class="headerlink" title="6.1. v-model的基本使用"></a>6.1. v-model的基本使用</h4><ul>
-<li>v-model=&gt;v-bind:value v-on:input</li>
-</ul>
-<h4 id="6-2-v-model和radio-checkbox-select"><a href="#6-2-v-model和radio-checkbox-select" class="headerlink" title="6.2 v-model和radio/checkbox/select"></a>6.2 v-model和radio/checkbox/select</h4><h4 id="6-3-修饰符"><a href="#6-3-修饰符" class="headerlink" title="6.3. 修饰符"></a>6.3. 修饰符</h4><ul>
-<li>lazy</li>
-<li>number</li>
-<li>trim</li>
-</ul>
-<h3 id="七-组件化开发"><a href="#七-组件化开发" class="headerlink" title="七. 组件化开发"></a>七. 组件化开发</h3><h4 id="7-1-认识组件化"><a href="#7-1-认识组件化" class="headerlink" title="7.1. 认识组件化"></a>7.1. 认识组件化</h4><h4 id="7-2-组件的基本使用"><a href="#7-2-组件的基本使用" class="headerlink" title="7.2. 组件的基本使用"></a>7.2. 组件的基本使用</h4><h4 id="7-3-全局组件和局部组件"><a href="#7-3-全局组件和局部组件" class="headerlink" title="7.3. 全局组件和局部组件"></a>7.3. 全局组件和局部组件</h4><h4 id="7-4-父组件和子组件"><a href="#7-4-父组件和子组件" class="headerlink" title="7.4. 父组件和子组件"></a>7.4. 父组件和子组件</h4><h4 id="7-5-注册的语法糖"><a href="#7-5-注册的语法糖" class="headerlink" title="7.5. 注册的语法糖"></a>7.5. 注册的语法糖</h4><h4 id="7-6-模板的分离写法"><a href="#7-6-模板的分离写法" class="headerlink" title="7.6. 模板的分离写法"></a>7.6. 模板的分离写法</h4><ul>
-<li>script</li>
-<li>template</li>
-</ul>
-<h4 id="7-7-数据的存放"><a href="#7-7-数据的存放" class="headerlink" title="7.7. 数据的存放"></a>7.7. 数据的存放</h4><ul>
-<li>子组件不能直接访问父组件</li>
-<li>子组件中有自己的data ,而且必须是一个函数</li>
-<li>为什么必须是一个函数</li>
-</ul>
-<h4 id="7-8-父子间组件的通信"><a href="#7-8-父子间组件的通信" class="headerlink" title="7.8. 父子间组件的通信"></a>7.8. 父子间组件的通信</h4><ul>
-<li>父传子：props</li>
-<li>子传父：$emit</li>
-</ul>
-<h4 id="7-9-项目"><a href="#7-9-项目" class="headerlink" title="7.9. 项目"></a>7.9. 项目</h4><ul>
-<li>npm install</li>
-<li>npm run serve</li>
 </ul>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/kity@2.0.4/dist/kity.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/kityminder-core@1.4.50/dist/kityminder.core.min.js"></script><script defer="true" type="text/javascript" src="https://cdn.jsdelivr.net/npm/hexo-simple-mindmap@0.2.0/dist/mindmap.min.js"></script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/hexo-simple-mindmap@0.2.0/dist/mindmap.min.css">]]></content>
       <categories>
@@ -1780,6 +1716,70 @@
       </tags>
   </entry>
   <entry>
+    <title>vueDay2</title>
+    <url>/2021/01/16/vueDay2/</url>
+    <content><![CDATA[<p>一. 计算属性</p>
+<h4 id="1-1-计算属性的本质"><a href="#1-1-计算属性的本质" class="headerlink" title="1.1. 计算属性的本质"></a>1.1. 计算属性的本质</h4><ul>
+<li>fullname:(set(), get())</li>
+</ul>
+<h4 id="1-2-计算属性和methods对比"><a href="#1-2-计算属性和methods对比" class="headerlink" title="1.2. 计算属性和methods对比"></a>1.2. 计算属性和methods对比</h4><ul>
+<li>计算属性在多次使用时，只会调用一次</li>
+<li>它是有缓存的</li>
+</ul>
+<h3 id="二-事件监听"><a href="#二-事件监听" class="headerlink" title="二. 事件监听"></a>二. 事件监听</h3><h4 id="2-1-事件监听基本使用"><a href="#2-1-事件监听基本使用" class="headerlink" title="2.1. 事件监听基本使用"></a>2.1. 事件监听基本使用</h4><ul>
+<li>btnClick</li>
+<li>btnClick(enent)</li>
+<li>btnCLick(abc, event) -&gt; $event</li>
+</ul>
+<h4 id="2-3-修饰符"><a href="#2-3-修饰符" class="headerlink" title="2.3. 修饰符"></a>2.3. 修饰符</h4><ul>
+<li>stop</li>
+<li>prevent</li>
+<li>.enter</li>
+<li>.once</li>
+<li>.native</li>
+</ul>
+<h3 id="三-条件判断"><a href="#三-条件判断" class="headerlink" title="三. 条件判断"></a>三. 条件判断</h3><h4 id="3-1-v-if-v-else-if-v-else"><a href="#3-1-v-if-v-else-if-v-else" class="headerlink" title="3.1. v-if/v-else-if/v-else"></a>3.1. v-if/v-else-if/v-else</h4><h4 id="3-2-登陆小案例"><a href="#3-2-登陆小案例" class="headerlink" title="3.2. 登陆小案例"></a>3.2. 登陆小案例</h4><h4 id="3-3-v-show"><a href="#3-3-v-show" class="headerlink" title="3.3. v-show"></a>3.3. v-show</h4><ul>
+<li>v-show 和 v-if的区别</li>
+</ul>
+<h3 id="四-循环遍历"><a href="#四-循环遍历" class="headerlink" title="四. 循环遍历"></a>四. 循环遍历</h3><h4 id="4-1-遍历数组"><a href="#4-1-遍历数组" class="headerlink" title="4.1. 遍历数组"></a>4.1. 遍历数组</h4><h4 id="4-2-遍历对象"><a href="#4-2-遍历对象" class="headerlink" title="4.2 遍历对象"></a>4.2 遍历对象</h4><ul>
+<li>value</li>
+<li>value, key</li>
+<li>value, key, index</li>
+</ul>
+<h4 id="4-3-数组哪些方法是响应式的"><a href="#4-3-数组哪些方法是响应式的" class="headerlink" title="4.3. 数组哪些方法是响应式的"></a>4.3. 数组哪些方法是响应式的</h4><h4 id="4-4-作业完成"><a href="#4-4-作业完成" class="headerlink" title="4.4. 作业完成"></a>4.4. 作业完成</h4><h3 id="五-书籍案例"><a href="#五-书籍案例" class="headerlink" title="五. 书籍案例"></a>五. 书籍案例</h3><h3 id="六-v-model的使用"><a href="#六-v-model的使用" class="headerlink" title="六. v-model的使用"></a>六. v-model的使用</h3><h4 id="6-1-v-model的基本使用"><a href="#6-1-v-model的基本使用" class="headerlink" title="6.1. v-model的基本使用"></a>6.1. v-model的基本使用</h4><ul>
+<li>v-model=&gt;v-bind:value v-on:input</li>
+</ul>
+<h4 id="6-2-v-model和radio-checkbox-select"><a href="#6-2-v-model和radio-checkbox-select" class="headerlink" title="6.2 v-model和radio/checkbox/select"></a>6.2 v-model和radio/checkbox/select</h4><h4 id="6-3-修饰符"><a href="#6-3-修饰符" class="headerlink" title="6.3. 修饰符"></a>6.3. 修饰符</h4><ul>
+<li>lazy</li>
+<li>number</li>
+<li>trim</li>
+</ul>
+<h3 id="七-组件化开发"><a href="#七-组件化开发" class="headerlink" title="七. 组件化开发"></a>七. 组件化开发</h3><h4 id="7-1-认识组件化"><a href="#7-1-认识组件化" class="headerlink" title="7.1. 认识组件化"></a>7.1. 认识组件化</h4><h4 id="7-2-组件的基本使用"><a href="#7-2-组件的基本使用" class="headerlink" title="7.2. 组件的基本使用"></a>7.2. 组件的基本使用</h4><h4 id="7-3-全局组件和局部组件"><a href="#7-3-全局组件和局部组件" class="headerlink" title="7.3. 全局组件和局部组件"></a>7.3. 全局组件和局部组件</h4><h4 id="7-4-父组件和子组件"><a href="#7-4-父组件和子组件" class="headerlink" title="7.4. 父组件和子组件"></a>7.4. 父组件和子组件</h4><h4 id="7-5-注册的语法糖"><a href="#7-5-注册的语法糖" class="headerlink" title="7.5. 注册的语法糖"></a>7.5. 注册的语法糖</h4><h4 id="7-6-模板的分离写法"><a href="#7-6-模板的分离写法" class="headerlink" title="7.6. 模板的分离写法"></a>7.6. 模板的分离写法</h4><ul>
+<li>script</li>
+<li>template</li>
+</ul>
+<h4 id="7-7-数据的存放"><a href="#7-7-数据的存放" class="headerlink" title="7.7. 数据的存放"></a>7.7. 数据的存放</h4><ul>
+<li>子组件不能直接访问父组件</li>
+<li>子组件中有自己的data ,而且必须是一个函数</li>
+<li>为什么必须是一个函数</li>
+</ul>
+<h4 id="7-8-父子间组件的通信"><a href="#7-8-父子间组件的通信" class="headerlink" title="7.8. 父子间组件的通信"></a>7.8. 父子间组件的通信</h4><ul>
+<li>父传子：props</li>
+<li>子传父：$emit</li>
+</ul>
+<h4 id="7-9-项目"><a href="#7-9-项目" class="headerlink" title="7.9. 项目"></a>7.9. 项目</h4><ul>
+<li>npm install</li>
+<li>npm run serve</li>
+</ul>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/kity@2.0.4/dist/kity.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/kityminder-core@1.4.50/dist/kityminder.core.min.js"></script><script defer="true" type="text/javascript" src="https://cdn.jsdelivr.net/npm/hexo-simple-mindmap@0.2.0/dist/mindmap.min.js"></script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/hexo-simple-mindmap@0.2.0/dist/mindmap.min.css">]]></content>
+      <categories>
+        <category>vue</category>
+      </categories>
+      <tags>
+        <tag>vue</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>品优购</title>
     <url>/2021/04/20/xiangmu/</url>
     <content><![CDATA[<p>项目名称：品优购</p>
@@ -1813,28 +1813,6 @@
       </categories>
       <tags>
         <tag>html css</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>组件化思想</title>
-    <url>/2021/01/14/zujianhua/</url>
-    <content><![CDATA[<h5 id="数据结构：数组、堆、栈、链表、树结构"><a href="#数据结构：数组、堆、栈、链表、树结构" class="headerlink" title="数据结构：数组、堆、栈、链表、树结构"></a>数据结构：数组、堆、栈、链表、树结构</h5><h5 id="组件化思想："><a href="#组件化思想：" class="headerlink" title="组件化思想："></a>组件化思想：</h5><ul>
-<li>提供了一种抽象，让我们可以开发出独立可复用的小组件来构造我们的应用</li>
-<li>任何应用都会被抽象成一颗组件树</li>
-</ul>
-<h5 id="注册组件的基本步骤："><a href="#注册组件的基本步骤：" class="headerlink" title="注册组件的基本步骤："></a>注册组件的基本步骤：</h5><ul>
-<li>创建组件构造器</li>
-<li>注册组件</li>
-<li>使用组件</li>
-</ul>
-<p>Vue CLI 3.x(构造Vue的项目)</p>
-<p>Vue 2.5.21 -&gt;v2.6.12</p>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/kity@2.0.4/dist/kity.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/kityminder-core@1.4.50/dist/kityminder.core.min.js"></script><script defer="true" type="text/javascript" src="https://cdn.jsdelivr.net/npm/hexo-simple-mindmap@0.2.0/dist/mindmap.min.js"></script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/hexo-simple-mindmap@0.2.0/dist/mindmap.min.css">]]></content>
-      <categories>
-        <category>vue</category>
-      </categories>
-      <tags>
-        <tag>vue</tag>
       </tags>
   </entry>
   <entry>
@@ -2446,128 +2424,6 @@
       </tags>
   </entry>
   <entry>
-    <title>heimamm</title>
-    <url>/2021/04/20/%E9%BB%91%E9%A9%AC%E9%9D%A2%E9%9D%A2%E7%A7%BB%E5%8A%A8%E9%A1%B5%E9%9D%A2%E5%B8%83%E5%B1%80/</url>
-    <content><![CDATA[<h2 id="黑马面面布局开发"><a href="#黑马面面布局开发" class="headerlink" title="黑马面面布局开发"></a>黑马面面布局开发</h2><h3 id="一、目的"><a href="#一、目的" class="headerlink" title="一、目的"></a>一、目的</h3><ol>
-<li>了解移动端页面开发流程</li>
-<li>掌握移动端常见布局思路</li>
-</ol>
-<h4 id="1-1-技术方案"><a href="#1-1-技术方案" class="headerlink" title="1.1  技术方案"></a>1.1  技术方案</h4><figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="number">1</span>. 弹性盒子 + rem + LESS </span><br><span class="line"><span class="number">4</span>. 最小适配设备为iphone5 <span class="number">320px</span>  最大设配设备为iphone8plus(ipad能正常查看内容即可)</span><br></pre></td></tr></table></figure>
-
-<h4 id="1-2-代码规范"><a href="#1-2-代码规范" class="headerlink" title="1.2 代码规范"></a>1.2 代码规范</h4><figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="number">1</span>. 类名语义化,尽量精短、明确，必须以字母开头命名，且全部字母为小写，单词之间统一使用下划线“_” 连接</span><br><span class="line"><span class="number">2</span>. 类名嵌套层次尽量不超过三层</span><br><span class="line"><span class="number">3</span>. 尽量避免直接使用元素选择器</span><br><span class="line"><span class="number">4</span>. 属性书写顺序</span><br><span class="line">   布局定位属性：<span class="attribute">display</span> / <span class="attribute">position</span> / <span class="attribute">float</span> / <span class="attribute">clear</span> / <span class="attribute">visibility</span> / <span class="attribute">overflow</span></span><br><span class="line">   尺寸属性：<span class="attribute">width</span> / <span class="attribute">height</span> / <span class="attribute">margin</span> / <span class="attribute">padding</span> / <span class="attribute">border</span> / <span class="attribute">background</span></span><br><span class="line">   文本属性：<span class="attribute">color</span> / <span class="attribute">font</span> / <span class="attribute">text-decoration</span> / <span class="attribute">text-align</span> / <span class="attribute">vertical-align</span></span><br><span class="line">   其他属性（CSS3）：<span class="attribute">content</span> / <span class="attribute">cursor</span> / <span class="attribute">border-radius</span> / <span class="attribute">box-shadow</span> / <span class="attribute">text-shadow</span></span><br><span class="line"><span class="number">5</span>. 避免使用id选择器</span><br><span class="line"><span class="number">6</span>. 避免使用通配符*和!important</span><br></pre></td></tr></table></figure>
-
-<h4 id="1-2-目录规范"><a href="#1-2-目录规范" class="headerlink" title="1.2 目录规范"></a>1.2 目录规范</h4><figure class="highlight css"><table><tr><td class="code"><pre><span class="line">项目文件夹：heimamm</span><br><span class="line">	样式文件夹：css</span><br><span class="line">	业务类图片文件夹：images</span><br><span class="line">	样式类图片文件夹： icons</span><br><span class="line">	字体类文件夹： fonts</span><br></pre></td></tr></table></figure>
-
-<h3 id="二、流程开发"><a href="#二、流程开发" class="headerlink" title="二、流程开发"></a>二、流程开发</h3><h4 id="2-1-蓝湖-摹客协作平台"><a href="#2-1-蓝湖-摹客协作平台" class="headerlink" title="2.1 蓝湖/摹客协作平台"></a>2.1 蓝湖/摹客协作平台</h4><ul>
-<li>UI设计师 psd效果图完成后，会上传到蓝湖//摹客里面，同时会拉前端工程师进入开发</li>
-<li>大部分情况下，UI会把图片按照前端设计要求给切好</li>
-<li>UI设计师 上传蓝湖到或者/摹客（了解）</li>
-</ul>
-<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="number">1</span>. /摹客官网地址： https://www.mockplus.cn/  注册一个账号</span><br><span class="line"><span class="number">2</span>. 下载moke  ps插件 </span><br><span class="line"><span class="number">3</span>. PS 安装/摹客/蓝湖插件</span><br><span class="line"><span class="number">3</span>. 打开PS/摹客/蓝湖插件</span><br><span class="line"><span class="number">4</span>. 上传（需要切图，需要先标注切图）</span><br><span class="line"><span class="number">5</span>. 查看项目</span><br><span class="line"><span class="number">6</span>. 邀请成员进入（分享按钮，链接地址）</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>前端设计师可以直接/摹客/蓝湖测量取值</li>
-</ul>
-<h4 id="2-2-适配方案"><a href="#2-2-适配方案" class="headerlink" title="2.2 适配方案"></a>2.2 适配方案</h4><ul>
-<li>flex 布局  </li>
-<li>百分比布局</li>
-<li>rem布局</li>
-<li>vw/vh布局</li>
-<li>响应式布局</li>
-<li>本次案例  flex + rem + + flexible.js +  LESS   </li>
-</ul>
-<h4 id="2-3-初始化文件"><a href="#2-3-初始化文件" class="headerlink" title="2.3  初始化文件"></a>2.3  初始化文件</h4><ul>
-<li><p>引入  normalize.css</p>
-</li>
-<li><p>less 中 初始化body样式</p>
-</li>
-<li><p>约束范围</p>
-</li>
-<li><p>~~~css<br>@media screen and (min-width: 750px) {<br>  html {</p>
-<pre><code>font-size: 37.5px !important;
-</code></pre>
-<p>  }<br>}</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line">#### 2.4 布局模块</span><br><span class="line"></span><br><span class="line">1. 头部模块  .header    高度为 80px </span><br><span class="line"></span><br><span class="line">2. nav 模块制作  多用 flex</span><br><span class="line"></span><br><span class="line">3. 充电学习 阴影</span><br><span class="line"></span><br><span class="line">   ~~~css</span><br><span class="line">   box-shadow: 0 0px 10px rgba(0, 0, 0, 0.1)</span><br></pre></td></tr></table></figure>
-
-</li>
-</ul>
-<h4 id="2-5-swiper-插件使用"><a href="#2-5-swiper-插件使用" class="headerlink" title="2.5 swiper 插件使用"></a>2.5 swiper 插件使用</h4><p>官网地址：<a href="https://www.swiper.com.cn/">https://www.swiper.com.cn/</a></p>
-<ul>
-<li>下载需要的css和js文件  html页面中 引入相关文件</li>
-<li>官网找到类似案例，复制html结构，css样式  js 语法</li>
-<li> 根据需求定制修改模块</li>
-</ul>
-<h4 id="2-6-图标字体上传下载"><a href="#2-6-图标字体上传下载" class="headerlink" title="2.6 图标字体上传下载"></a>2.6 图标字体上传下载</h4><p>上传步骤：</p>
-<ol>
-<li><p>让UI美工准备好 图标字体（必须是svg格式）</p>
-</li>
-<li><p>点上传按钮（保留颜色并提交）</p>
-<p><img src="/2021/04/20/%E9%BB%91%E9%A9%AC%E9%9D%A2%E9%9D%A2%E7%A7%BB%E5%8A%A8%E9%A1%B5%E9%9D%A2%E5%B8%83%E5%B1%80/Users\kandy\AppData\Local\Temp\1593317258207.png" alt="59331725820"></p>
-</li>
-<li><p>生成之后加入购物车即可</p>
-</li>
-<li><p>点击下载 — 下载代码</p>
-</li>
-</ol>
-<p>小技巧：  如何批量下载全部字体图标呢？</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> span = <span class="built_in">document</span>.querySelectorAll(<span class="string">&#x27;.icon-cover&#x27;</span>);</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>, len = span.length; i &lt; len; i++) &#123;</span><br><span class="line">     <span class="built_in">console</span>.log(span[i].querySelector(<span class="string">&#x27;span&#x27;</span>).click());</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h4 id="2-7-上传码云并发布部署静态网站"><a href="#2-7-上传码云并发布部署静态网站" class="headerlink" title="2.7  上传码云并发布部署静态网站"></a>2.7  上传码云并发布部署静态网站</h4><p>准备工作：  需要下载git软件    需要码云注册账号</p>
-<p>git 可以把我们的本地网站提交上传到远程仓库（码云 gitee）里面    类似以前的   ftp  </p>
-<p>码云  就是远程仓库， 类似服务器 </p>
-<ol>
-<li><p>码云创建新的仓库。   heimamm  </p>
-</li>
-<li><p>利用git 提交 把本地网站提交到 码云新建的仓库里面</p>
-<ul>
-<li><p>在网站根目录右键– Git Bash Here</p>
-</li>
-<li><p>如果是第一次利用git提交，请配置好全局选项</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">git config --<span class="built_in">global</span> user.name <span class="string">&quot;用户名&quot;</span></span><br><span class="line">git config --<span class="built_in">global</span> user.email <span class="string">&quot;你的邮箱地址&quot;</span></span><br></pre></td></tr></table></figure></li>
-<li><p>初始化仓库</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">git init</span><br></pre></td></tr></table></figure></li>
-<li><p>把本地文件放到暂存区</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">git add .</span><br></pre></td></tr></table></figure></li>
-<li><p>把本地文件放到本地仓库里面</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">git commit -m <span class="string">&#x27;提交黑马面面网站&#x27;</span></span><br></pre></td></tr></table></figure></li>
-<li><p>链接远程仓库</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">git remote add origin 你新建的仓库地址</span><br></pre></td></tr></table></figure></li>
-<li><p>把本地仓库的文件推送到远程仓库 push</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">git push -u origin master</span><br></pre></td></tr></table></figure></li>
-</ul>
-</li>
-<li><p>码云部署发布静态网站</p>
-<ul>
-<li><p>在当前仓库中，点击  “服务”   菜单 </p>
-<p><img src="/2021/04/20/%E9%BB%91%E9%A9%AC%E9%9D%A2%E9%9D%A2%E7%A7%BB%E5%8A%A8%E9%A1%B5%E9%9D%A2%E5%B8%83%E5%B1%80/Users\kandy\AppData\Local\Temp\1593336007530.png" alt="59333600753"></p>
-</li>
-<li><p>选择 Gitee Pages</p>
-<p> <img src="/2021/04/20/%E9%BB%91%E9%A9%AC%E9%9D%A2%E9%9D%A2%E7%A7%BB%E5%8A%A8%E9%A1%B5%E9%9D%A2%E5%B8%83%E5%B1%80/Users\kandy\AppData\Local\Temp\1593336043016.png" alt="59333604301"></p>
-</li>
-<li><p>选择 “启动” 按钮</p>
-<p> <img src="/2021/04/20/%E9%BB%91%E9%A9%AC%E9%9D%A2%E9%9D%A2%E7%A7%BB%E5%8A%A8%E9%A1%B5%E9%9D%A2%E5%B8%83%E5%B1%80/Users\kandy\AppData\Local\Temp\1593336091814.png" alt="59333609181"></p>
-</li>
-<li><p>稍等之后，会拿到地址，就可以利用这个地址来预览网页了<img src="/2021/04/20/%E9%BB%91%E9%A9%AC%E9%9D%A2%E9%9D%A2%E7%A7%BB%E5%8A%A8%E9%A1%B5%E9%9D%A2%E5%B8%83%E5%B1%80/Users\kandy\AppData\Local\Temp\1593336164295.png" alt="59333616429"></p>
-</li>
-<li><p>当然你也可以利用  草料二维码 生成二维码    <a href="https://cli.im/">https://cli.im/</a></p>
-<p><img src="/2021/04/20/%E9%BB%91%E9%A9%AC%E9%9D%A2%E9%9D%A2%E7%A7%BB%E5%8A%A8%E9%A1%B5%E9%9D%A2%E5%B8%83%E5%B1%80/Users\kandy\AppData\Local\Temp\1593336349811.png" alt="59333634981"></p>
-</li>
-</ul>
-</li>
-</ol>
-<p>最后： 如果提交网站，你不愿意用git 提交， 可以直接找到仓库，里面有文件，选择上传本地文件即可。</p>
-<p> <img src="/2021/04/20/%E9%BB%91%E9%A9%AC%E9%9D%A2%E9%9D%A2%E7%A7%BB%E5%8A%A8%E9%A1%B5%E9%9D%A2%E5%B8%83%E5%B1%80/Users\kandy\AppData\Local\Temp\1593336426566.png" alt="59333642656"></p>
-<p><img src="/2021/04/20/%E9%BB%91%E9%A9%AC%E9%9D%A2%E9%9D%A2%E7%A7%BB%E5%8A%A8%E9%A1%B5%E9%9D%A2%E5%B8%83%E5%B1%80/Users\kandy\AppData\Local\Temp\1593336450481.png" alt="59333645048"></p>
-<p>但是，1个小时内，只能上传 20个以内的文件， 前端人员，git必备技能</p>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/kity@2.0.4/dist/kity.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/kityminder-core@1.4.50/dist/kityminder.core.min.js"></script><script defer="true" type="text/javascript" src="https://cdn.jsdelivr.net/npm/hexo-simple-mindmap@0.2.0/dist/mindmap.min.js"></script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/hexo-simple-mindmap@0.2.0/dist/mindmap.min.css">]]></content>
-      <categories>
-        <category>html css</category>
-      </categories>
-      <tags>
-        <tag>flex rem less</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>vueDay5</title>
     <url>/2021/04/23/vueDay5/</url>
     <content><![CDATA[<h3 id="一、Promise"><a href="#一、Promise" class="headerlink" title="一、Promise"></a>一、Promise</h3><h4 id="1-1-是什么？"><a href="#1-1-是什么？" class="headerlink" title="1.1. 是什么？"></a>1.1. 是什么？</h4><p>Promise是异步编程的一种解决方案。</p>
@@ -2828,6 +2684,150 @@
 <p><img src="/2021/04/23/vueDay5/goods%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B.jpg"></p>
 </li>
 </ol>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/kity@2.0.4/dist/kity.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/kityminder-core@1.4.50/dist/kityminder.core.min.js"></script><script defer="true" type="text/javascript" src="https://cdn.jsdelivr.net/npm/hexo-simple-mindmap@0.2.0/dist/mindmap.min.js"></script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/hexo-simple-mindmap@0.2.0/dist/mindmap.min.css">]]></content>
+      <categories>
+        <category>vue</category>
+      </categories>
+      <tags>
+        <tag>vue</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>heimamm</title>
+    <url>/2021/04/20/%E9%BB%91%E9%A9%AC%E9%9D%A2%E9%9D%A2%E7%A7%BB%E5%8A%A8%E9%A1%B5%E9%9D%A2%E5%B8%83%E5%B1%80/</url>
+    <content><![CDATA[<h2 id="黑马面面布局开发"><a href="#黑马面面布局开发" class="headerlink" title="黑马面面布局开发"></a>黑马面面布局开发</h2><h3 id="一、目的"><a href="#一、目的" class="headerlink" title="一、目的"></a>一、目的</h3><ol>
+<li>了解移动端页面开发流程</li>
+<li>掌握移动端常见布局思路</li>
+</ol>
+<h4 id="1-1-技术方案"><a href="#1-1-技术方案" class="headerlink" title="1.1  技术方案"></a>1.1  技术方案</h4><figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="number">1</span>. 弹性盒子 + rem + LESS </span><br><span class="line"><span class="number">4</span>. 最小适配设备为iphone5 <span class="number">320px</span>  最大设配设备为iphone8plus(ipad能正常查看内容即可)</span><br></pre></td></tr></table></figure>
+
+<h4 id="1-2-代码规范"><a href="#1-2-代码规范" class="headerlink" title="1.2 代码规范"></a>1.2 代码规范</h4><figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="number">1</span>. 类名语义化,尽量精短、明确，必须以字母开头命名，且全部字母为小写，单词之间统一使用下划线“_” 连接</span><br><span class="line"><span class="number">2</span>. 类名嵌套层次尽量不超过三层</span><br><span class="line"><span class="number">3</span>. 尽量避免直接使用元素选择器</span><br><span class="line"><span class="number">4</span>. 属性书写顺序</span><br><span class="line">   布局定位属性：<span class="attribute">display</span> / <span class="attribute">position</span> / <span class="attribute">float</span> / <span class="attribute">clear</span> / <span class="attribute">visibility</span> / <span class="attribute">overflow</span></span><br><span class="line">   尺寸属性：<span class="attribute">width</span> / <span class="attribute">height</span> / <span class="attribute">margin</span> / <span class="attribute">padding</span> / <span class="attribute">border</span> / <span class="attribute">background</span></span><br><span class="line">   文本属性：<span class="attribute">color</span> / <span class="attribute">font</span> / <span class="attribute">text-decoration</span> / <span class="attribute">text-align</span> / <span class="attribute">vertical-align</span></span><br><span class="line">   其他属性（CSS3）：<span class="attribute">content</span> / <span class="attribute">cursor</span> / <span class="attribute">border-radius</span> / <span class="attribute">box-shadow</span> / <span class="attribute">text-shadow</span></span><br><span class="line"><span class="number">5</span>. 避免使用id选择器</span><br><span class="line"><span class="number">6</span>. 避免使用通配符*和!important</span><br></pre></td></tr></table></figure>
+
+<h4 id="1-2-目录规范"><a href="#1-2-目录规范" class="headerlink" title="1.2 目录规范"></a>1.2 目录规范</h4><figure class="highlight css"><table><tr><td class="code"><pre><span class="line">项目文件夹：heimamm</span><br><span class="line">	样式文件夹：css</span><br><span class="line">	业务类图片文件夹：images</span><br><span class="line">	样式类图片文件夹： icons</span><br><span class="line">	字体类文件夹： fonts</span><br></pre></td></tr></table></figure>
+
+<h3 id="二、流程开发"><a href="#二、流程开发" class="headerlink" title="二、流程开发"></a>二、流程开发</h3><h4 id="2-1-蓝湖-摹客协作平台"><a href="#2-1-蓝湖-摹客协作平台" class="headerlink" title="2.1 蓝湖/摹客协作平台"></a>2.1 蓝湖/摹客协作平台</h4><ul>
+<li>UI设计师 psd效果图完成后，会上传到蓝湖//摹客里面，同时会拉前端工程师进入开发</li>
+<li>大部分情况下，UI会把图片按照前端设计要求给切好</li>
+<li>UI设计师 上传蓝湖到或者/摹客（了解）</li>
+</ul>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="number">1</span>. /摹客官网地址： https://www.mockplus.cn/  注册一个账号</span><br><span class="line"><span class="number">2</span>. 下载moke  ps插件 </span><br><span class="line"><span class="number">3</span>. PS 安装/摹客/蓝湖插件</span><br><span class="line"><span class="number">3</span>. 打开PS/摹客/蓝湖插件</span><br><span class="line"><span class="number">4</span>. 上传（需要切图，需要先标注切图）</span><br><span class="line"><span class="number">5</span>. 查看项目</span><br><span class="line"><span class="number">6</span>. 邀请成员进入（分享按钮，链接地址）</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>前端设计师可以直接/摹客/蓝湖测量取值</li>
+</ul>
+<h4 id="2-2-适配方案"><a href="#2-2-适配方案" class="headerlink" title="2.2 适配方案"></a>2.2 适配方案</h4><ul>
+<li>flex 布局  </li>
+<li>百分比布局</li>
+<li>rem布局</li>
+<li>vw/vh布局</li>
+<li>响应式布局</li>
+<li>本次案例  flex + rem + + flexible.js +  LESS   </li>
+</ul>
+<h4 id="2-3-初始化文件"><a href="#2-3-初始化文件" class="headerlink" title="2.3  初始化文件"></a>2.3  初始化文件</h4><ul>
+<li><p>引入  normalize.css</p>
+</li>
+<li><p>less 中 初始化body样式</p>
+</li>
+<li><p>约束范围</p>
+</li>
+<li><p>~~~css<br>@media screen and (min-width: 750px) {<br>  html {</p>
+<pre><code>font-size: 37.5px !important;
+</code></pre>
+<p>  }<br>}</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line">#### 2.4 布局模块</span><br><span class="line"></span><br><span class="line">1. 头部模块  .header    高度为 80px </span><br><span class="line"></span><br><span class="line">2. nav 模块制作  多用 flex</span><br><span class="line"></span><br><span class="line">3. 充电学习 阴影</span><br><span class="line"></span><br><span class="line">   ~~~css</span><br><span class="line">   box-shadow: 0 0px 10px rgba(0, 0, 0, 0.1)</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h4 id="2-5-swiper-插件使用"><a href="#2-5-swiper-插件使用" class="headerlink" title="2.5 swiper 插件使用"></a>2.5 swiper 插件使用</h4><p>官网地址：<a href="https://www.swiper.com.cn/">https://www.swiper.com.cn/</a></p>
+<ul>
+<li>下载需要的css和js文件  html页面中 引入相关文件</li>
+<li>官网找到类似案例，复制html结构，css样式  js 语法</li>
+<li> 根据需求定制修改模块</li>
+</ul>
+<h4 id="2-6-图标字体上传下载"><a href="#2-6-图标字体上传下载" class="headerlink" title="2.6 图标字体上传下载"></a>2.6 图标字体上传下载</h4><p>上传步骤：</p>
+<ol>
+<li><p>让UI美工准备好 图标字体（必须是svg格式）</p>
+</li>
+<li><p>点上传按钮（保留颜色并提交）</p>
+<p><img src="/2021/04/20/%E9%BB%91%E9%A9%AC%E9%9D%A2%E9%9D%A2%E7%A7%BB%E5%8A%A8%E9%A1%B5%E9%9D%A2%E5%B8%83%E5%B1%80/Users\kandy\AppData\Local\Temp\1593317258207.png" alt="59331725820"></p>
+</li>
+<li><p>生成之后加入购物车即可</p>
+</li>
+<li><p>点击下载 — 下载代码</p>
+</li>
+</ol>
+<p>小技巧：  如何批量下载全部字体图标呢？</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> span = <span class="built_in">document</span>.querySelectorAll(<span class="string">&#x27;.icon-cover&#x27;</span>);</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>, len = span.length; i &lt; len; i++) &#123;</span><br><span class="line">     <span class="built_in">console</span>.log(span[i].querySelector(<span class="string">&#x27;span&#x27;</span>).click());</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h4 id="2-7-上传码云并发布部署静态网站"><a href="#2-7-上传码云并发布部署静态网站" class="headerlink" title="2.7  上传码云并发布部署静态网站"></a>2.7  上传码云并发布部署静态网站</h4><p>准备工作：  需要下载git软件    需要码云注册账号</p>
+<p>git 可以把我们的本地网站提交上传到远程仓库（码云 gitee）里面    类似以前的   ftp  </p>
+<p>码云  就是远程仓库， 类似服务器 </p>
+<ol>
+<li><p>码云创建新的仓库。   heimamm  </p>
+</li>
+<li><p>利用git 提交 把本地网站提交到 码云新建的仓库里面</p>
+<ul>
+<li><p>在网站根目录右键– Git Bash Here</p>
+</li>
+<li><p>如果是第一次利用git提交，请配置好全局选项</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">git config --<span class="built_in">global</span> user.name <span class="string">&quot;用户名&quot;</span></span><br><span class="line">git config --<span class="built_in">global</span> user.email <span class="string">&quot;你的邮箱地址&quot;</span></span><br></pre></td></tr></table></figure></li>
+<li><p>初始化仓库</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">git init</span><br></pre></td></tr></table></figure></li>
+<li><p>把本地文件放到暂存区</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">git add .</span><br></pre></td></tr></table></figure></li>
+<li><p>把本地文件放到本地仓库里面</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">git commit -m <span class="string">&#x27;提交黑马面面网站&#x27;</span></span><br></pre></td></tr></table></figure></li>
+<li><p>链接远程仓库</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">git remote add origin 你新建的仓库地址</span><br></pre></td></tr></table></figure></li>
+<li><p>把本地仓库的文件推送到远程仓库 push</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">git push -u origin master</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>码云部署发布静态网站</p>
+<ul>
+<li><p>在当前仓库中，点击  “服务”   菜单 </p>
+<p><img src="/2021/04/20/%E9%BB%91%E9%A9%AC%E9%9D%A2%E9%9D%A2%E7%A7%BB%E5%8A%A8%E9%A1%B5%E9%9D%A2%E5%B8%83%E5%B1%80/Users\kandy\AppData\Local\Temp\1593336007530.png" alt="59333600753"></p>
+</li>
+<li><p>选择 Gitee Pages</p>
+<p> <img src="/2021/04/20/%E9%BB%91%E9%A9%AC%E9%9D%A2%E9%9D%A2%E7%A7%BB%E5%8A%A8%E9%A1%B5%E9%9D%A2%E5%B8%83%E5%B1%80/Users\kandy\AppData\Local\Temp\1593336043016.png" alt="59333604301"></p>
+</li>
+<li><p>选择 “启动” 按钮</p>
+<p> <img src="/2021/04/20/%E9%BB%91%E9%A9%AC%E9%9D%A2%E9%9D%A2%E7%A7%BB%E5%8A%A8%E9%A1%B5%E9%9D%A2%E5%B8%83%E5%B1%80/Users\kandy\AppData\Local\Temp\1593336091814.png" alt="59333609181"></p>
+</li>
+<li><p>稍等之后，会拿到地址，就可以利用这个地址来预览网页了<img src="/2021/04/20/%E9%BB%91%E9%A9%AC%E9%9D%A2%E9%9D%A2%E7%A7%BB%E5%8A%A8%E9%A1%B5%E9%9D%A2%E5%B8%83%E5%B1%80/Users\kandy\AppData\Local\Temp\1593336164295.png" alt="59333616429"></p>
+</li>
+<li><p>当然你也可以利用  草料二维码 生成二维码    <a href="https://cli.im/">https://cli.im/</a></p>
+<p><img src="/2021/04/20/%E9%BB%91%E9%A9%AC%E9%9D%A2%E9%9D%A2%E7%A7%BB%E5%8A%A8%E9%A1%B5%E9%9D%A2%E5%B8%83%E5%B1%80/Users\kandy\AppData\Local\Temp\1593336349811.png" alt="59333634981"></p>
+</li>
+</ul>
+</li>
+</ol>
+<p>最后： 如果提交网站，你不愿意用git 提交， 可以直接找到仓库，里面有文件，选择上传本地文件即可。</p>
+<p> <img src="/2021/04/20/%E9%BB%91%E9%A9%AC%E9%9D%A2%E9%9D%A2%E7%A7%BB%E5%8A%A8%E9%A1%B5%E9%9D%A2%E5%B8%83%E5%B1%80/Users\kandy\AppData\Local\Temp\1593336426566.png" alt="59333642656"></p>
+<p><img src="/2021/04/20/%E9%BB%91%E9%A9%AC%E9%9D%A2%E9%9D%A2%E7%A7%BB%E5%8A%A8%E9%A1%B5%E9%9D%A2%E5%B8%83%E5%B1%80/Users\kandy\AppData\Local\Temp\1593336450481.png" alt="59333645048"></p>
+<p>但是，1个小时内，只能上传 20个以内的文件， 前端人员，git必备技能</p>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/kity@2.0.4/dist/kity.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/kityminder-core@1.4.50/dist/kityminder.core.min.js"></script><script defer="true" type="text/javascript" src="https://cdn.jsdelivr.net/npm/hexo-simple-mindmap@0.2.0/dist/mindmap.min.js"></script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/hexo-simple-mindmap@0.2.0/dist/mindmap.min.css">]]></content>
+      <categories>
+        <category>html css</category>
+      </categories>
+      <tags>
+        <tag>flex rem less</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>组件化思想</title>
+    <url>/2021/01/14/zujianhua/</url>
+    <content><![CDATA[<h5 id="数据结构：数组、堆、栈、链表、树结构"><a href="#数据结构：数组、堆、栈、链表、树结构" class="headerlink" title="数据结构：数组、堆、栈、链表、树结构"></a>数据结构：数组、堆、栈、链表、树结构</h5><h5 id="组件化思想："><a href="#组件化思想：" class="headerlink" title="组件化思想："></a>组件化思想：</h5><ul>
+<li>提供了一种抽象，让我们可以开发出独立可复用的小组件来构造我们的应用</li>
+<li>任何应用都会被抽象成一颗组件树</li>
+</ul>
+<h5 id="注册组件的基本步骤："><a href="#注册组件的基本步骤：" class="headerlink" title="注册组件的基本步骤："></a>注册组件的基本步骤：</h5><ul>
+<li>创建组件构造器</li>
+<li>注册组件</li>
+<li>使用组件</li>
+</ul>
+<p>Vue CLI 3.x(构造Vue的项目)</p>
+<p>Vue 2.5.21 -&gt;v2.6.12</p>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/kity@2.0.4/dist/kity.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/kityminder-core@1.4.50/dist/kityminder.core.min.js"></script><script defer="true" type="text/javascript" src="https://cdn.jsdelivr.net/npm/hexo-simple-mindmap@0.2.0/dist/mindmap.min.js"></script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/hexo-simple-mindmap@0.2.0/dist/mindmap.min.css">]]></content>
       <categories>
         <category>vue</category>
