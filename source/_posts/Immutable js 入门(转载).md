@@ -2,7 +2,7 @@
 title: Immutable.js
 date: '2021-08-06 10:30'
 tags: Immutable.js
-abbrlink: 
+abbrlink: a762ba3d
 categories: Immutable.js
 ---
 
