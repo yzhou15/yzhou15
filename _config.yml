@@ -3,12 +3,13 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: yzhou
+title: yzhou's blog
 subtitle: 
-description: ''
+description: 'You are here, welcome!'
 keywords:
 author: yzhou
-language: zh-CN
+# language: zh-CN
+language: zh-Hans
 timezone: Asia/Shanghai 
 
 # URL
@@ -117,7 +118,7 @@ search:
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
 # theme: landscape
-theme: next7.8.0
+theme: next5.1.4
 
 # Deployment
 ## Docs: https://hexo.io/docs/one-command-deployment
