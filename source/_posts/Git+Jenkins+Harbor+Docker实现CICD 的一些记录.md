@@ -2,9 +2,8 @@
 title: Git+Jenkins+Harbor+Docker实现CICD 的一些记录
 date: 2021.8.8
 tags: CICD
-abbrlink: '0'
 categories: CICD
-abbrlink: 
+abbrlink: c059ee95
 ---
 ## 环境准备:
 

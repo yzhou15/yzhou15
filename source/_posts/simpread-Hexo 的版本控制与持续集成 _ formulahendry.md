@@ -2,7 +2,6 @@
 title: [转载]simpread-Hexo的版本控制和持续集成
 tags: hexo 
 categories: hexo
-abbrlink: 
 date: 2021-08-05 18:05
 ---
 
