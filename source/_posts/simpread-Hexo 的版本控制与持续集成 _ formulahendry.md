@@ -2,7 +2,7 @@
 title: [转载]simpread-Hexo的版本控制和持续集成
 tags: hexo 
 categories: hexo
-date: 2021-08-05 18:05
+date: 2021.08.05 18:05
 ---
 
 > 本文由 [简悦 SimpRead](http://ksria.com/simpread/) 转码， 原文地址 [formulahendry.github.io](https://formulahendry.github.io/2016/12/04/hexo-ci/)

@@ -61,7 +61,7 @@ docker-compose down -v
 docker-compose up -d
 ```
 
-![2](Git+Jenkins+Harbor+Docker%E5%AE%9E%E7%8E%B0CICD%20%E7%9A%84%E4%B8%80%E4%BA%9B%E8%AE%B0%E5%BD%95.assets/2.png)
+![1](Git+Jenkins+Harbor+Docker%E5%AE%9E%E7%8E%B0CICD%20%E7%9A%84%E4%B8%80%E4%BA%9B%E8%AE%B0%E5%BD%95.assets/1.jpg)
 
 ## docker服务器安装
 
@@ -102,7 +102,9 @@ sed -i  's/$releasever/8/g' /etc/yum.repos.d/CentOS-Base.repo
 yum repolist
 ```
 
-![Untitled](Git+Jenkins+Harbor+Docker%E5%AE%9E%E7%8E%B0CICD%20%E7%9A%84%E4%B8%80%E4%BA%9B%E8%AE%B0%E5%BD%95.assets/Untitled.png)
+![2](Git+Jenkins+Harbor+Docker%E5%AE%9E%E7%8E%B0CICD%20%E7%9A%84%E4%B8%80%E4%BA%9B%E8%AE%B0%E5%BD%95.assets/2.jpg)
+
+
 
 jenkins配置:
 
