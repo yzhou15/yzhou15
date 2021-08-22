@@ -1,0 +1,1143 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="vue," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="一、Promise1.1. 是什么？Promise是异步编程的一种解决方案。 1.2. 做什么？用于网络请求非常复杂的情形下 口一种很常见的场景应该就是网络请求了口我们封装一个网络请求的函数,因为不能立即拿到结果,所以不能像简单的3+4&#x3D;7—样将结果返回口所以往往我们会传入另外一个函数,在数据请求成功时,将数据通过传入的函数回调出去口如果只是一个简单的网络请求,那么这种方案不会给我们带来很大的麻烦">
+<meta property="og:type" content="article">
+<meta property="og:title" content="vueDay5">
+<meta property="og:url" content="https://yzhou15.gitee.io/2021/04/23/vueDay5/index.html">
+<meta property="og:site_name" content="yzhou&#39;s blog">
+<meta property="og:description" content="一、Promise1.1. 是什么？Promise是异步编程的一种解决方案。 1.2. 做什么？用于网络请求非常复杂的情形下 口一种很常见的场景应该就是网络请求了口我们封装一个网络请求的函数,因为不能立即拿到结果,所以不能像简单的3+4&#x3D;7—样将结果返回口所以往往我们会传入另外一个函数,在数据请求成功时,将数据通过传入的函数回调出去口如果只是一个简单的网络请求,那么这种方案不会给我们带来很大的麻烦">
+<meta property="og:locale">
+<meta property="og:image" content="https://yzhou15.gitee.io/2021/04/23/vueDay5/promise%E4%B8%89%E7%A7%8D%E7%8A%B6%E6%80%81.jpg">
+<meta property="og:image" content="https://yzhou15.gitee.io/2021/04/23/vueDay5/%E5%8D%95%E9%A1%B5%E9%9D%A2%E7%8A%B6%E6%80%81%E7%AE%A1%E7%90%86.jpg">
+<meta property="og:image" content="https://yzhou15.gitee.io/2021/04/23/vueDay5/vuex%E7%8A%B6%E6%80%81%E7%AE%A1%E7%90%86%E5%9B%BE%E4%BE%8B.jpg">
+<meta property="og:image" content="https://yzhou15.gitee.io/2021/04/23/vueDay5/Getters%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8.jpg">
+<meta property="og:image" content="https://yzhou15.gitee.io/2021/04/23/vueDay5/axios%E5%B8%B8%E8%A7%81%E9%85%8D%E7%BD%AE%E9%80%89%E9%A1%B9.jpg">
+<meta property="og:image" content="https://yzhou15.gitee.io/2021/04/23/vueDay5/%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6.jpg">
+<meta property="og:image" content="https://yzhou15.gitee.io/2021/04/23/vueDay5/goods%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B.jpg">
+<meta property="article:published_time" content="2021-04-23T14:51:18.000Z">
+<meta property="article:modified_time" content="2021-08-08T08:26:29.785Z">
+<meta property="article:author" content="yzhou">
+<meta property="article:tag" content="vue">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://yzhou15.gitee.io/2021/04/23/vueDay5/promise%E4%B8%89%E7%A7%8D%E7%8A%B6%E6%80%81.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://yzhou15.gitee.io/2021/04/23/vueDay5/"/>
+
+
+
+
+
+  <title>vueDay5 | yzhou's blog</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">yzhou's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://yzhou15.gitee.io/2021/04/23/vueDay5/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="yzhou's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">vueDay5</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-04-23T22:51:18+08:00">
+                2021-04-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/vue/" itemprop="url" rel="index">
+                    <span itemprop="name">vue</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2021/04/23/vueDay5/" class="leancloud_visitors" data-flag-title="vueDay5">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="一、Promise"><a href="#一、Promise" class="headerlink" title="一、Promise"></a>一、Promise</h3><h4 id="1-1-是什么？"><a href="#1-1-是什么？" class="headerlink" title="1.1. 是什么？"></a>1.1. 是什么？</h4><p>Promise是异步编程的一种解决方案。</p>
+<h4 id="1-2-做什么？"><a href="#1-2-做什么？" class="headerlink" title="1.2. 做什么？"></a>1.2. 做什么？</h4><p>用于网络请求非常复杂的情形下</p>
+<p>口一种很常见的场景应该就是网络请求了<br>口我们封装一个网络请求的函数,因为不能立即拿到结果,所以不能像简单的3+4=7—样将结果返回<br>口所以往往我们会传入另外一个函数,在数据请求成功时,将数据通过传入的函数回调出去<br>口如果只是一个简单的网络请求,那么这种方案不会给我们带来很大的麻烦。</p>
+<p>■但是,当网络请求非常复杂时,就会出现回调地狱</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//  什么情况下会用到Promise?</span></span><br><span class="line">  <span class="comment">//  一般情况下是有一些异步操作的时，使用promise对这个一步操作进行封装</span></span><br><span class="line">  <span class="comment">// executor:执行</span></span><br><span class="line">  <span class="comment">// new -&gt; 构造函数(1.保存了一些状态 2.执行传入的函数)</span></span><br><span class="line">  <span class="comment">// 在执行传入的回调函数时，会传入两个参数，resolve,reject，这两个参数本身又是函数</span></span><br><span class="line">  <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">      <span class="comment">// 失败的时候调用reject</span></span><br><span class="line">      reject(<span class="string">&#x27;error message&#x27;</span>)</span><br><span class="line">      <span class="comment">// 成功的时候调用resolve</span></span><br><span class="line">      <span class="comment">// resolve(&#x27;Hello World&#x27;)</span></span><br><span class="line">    &#125;, <span class="number">1000</span>)</span><br><span class="line">  &#125;).then(<span class="function">(<span class="params">data</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">// 100行的处理代码</span></span><br><span class="line">    <span class="built_in">console</span>.log(data);</span><br><span class="line">    <span class="built_in">console</span>.log(data);</span><br><span class="line">    <span class="built_in">console</span>.log(data);</span><br><span class="line">    <span class="built_in">console</span>.log(data);</span><br><span class="line">  &#125;).catch(<span class="function">(<span class="params">err</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(err);</span><br><span class="line">  &#125;)</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="1-3-promise的三种状态"><a href="#1-3-promise的三种状态" class="headerlink" title="1.3. promise的三种状态"></a>1.3. promise的三种状态</h4><ul>
+<li>pending:等待状态,比如正在进行网络请求,或者定时<br>器没有到时间。</li>
+<li>fufl:满足状态,当我们主动回调了 resolve时,就处于<br>该状态,并且会回调then0</li>
+<li>reject:拒绝状态,当我们主动回调了 reject时,就处于该<br>状态,并且会回调 catch0</li>
+</ul>
+<p><img src="/2021/04/23/vueDay5/promise%E4%B8%89%E7%A7%8D%E7%8A%B6%E6%80%81.jpg"></p>
+<p>sync→&gt;同步(synchronization)<br>asnc→&gt;异步(asynchronization)</p>
+<p>asnc operation异步操作</p>
+<p>wropped into 包裹进去</p>
+<p>另一种写法</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">      <span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">        <span class="comment">// resolve(&#x27;Hello World&#x27;)</span></span><br><span class="line">        reject(<span class="string">&#x27;error message&#x27;</span>)</span><br><span class="line">      &#125;, <span class="number">1000</span>)</span><br><span class="line">    &#125;).then((<span class="function"><span class="params">data</span> =&gt;</span> &#123;</span><br><span class="line">      <span class="built_in">console</span>.log(data);</span><br><span class="line">    &#125;), <span class="function"><span class="params">err</span> =&gt;</span> &#123;</span><br><span class="line">      <span class="built_in">console</span>.log(err);</span><br><span class="line">    &#125;)</span><br></pre></td></tr></table></figure>
+
+<h4 id="1-4-Promise链式调用："><a href="#1-4-Promise链式调用：" class="headerlink" title="1.4. Promise链式调用："></a>1.4. Promise链式调用：</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 链式编程</span></span><br><span class="line">  <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">//第一次网络请求的代码</span></span><br><span class="line">    <span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">      resolve()</span><br><span class="line">    &#125;, <span class="number">1000</span>)</span><br><span class="line">  &#125;).then(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">//第一次拿到结果的处理代码</span></span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;Hello World&#x27;</span>);</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;Hello World&#x27;</span>);</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;Hello World&#x27;</span>);</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;Hello World&#x27;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">      <span class="comment">//第二次网络请求的代码</span></span><br><span class="line">      <span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">        resolve()</span><br><span class="line">      &#125;, <span class="number">1000</span>)</span><br><span class="line">    &#125;).then(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">      <span class="comment">//第二次拿到结果的处理代码</span></span><br><span class="line">      <span class="built_in">console</span>.log(<span class="string">&#x27;Hello Vuejs&#x27;</span>)</span><br><span class="line">      <span class="built_in">console</span>.log(<span class="string">&#x27;Hello Vuejs&#x27;</span>)</span><br><span class="line">      <span class="built_in">console</span>.log(<span class="string">&#x27;Hello Vuejs&#x27;</span>)</span><br><span class="line">      <span class="built_in">console</span>.log(<span class="string">&#x27;Hello Vuejs&#x27;</span>)</span><br><span class="line"></span><br><span class="line">      <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="comment">//第三次网络请求的代码</span></span><br><span class="line">        <span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">          resolve()</span><br><span class="line">        &#125;).then(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">          <span class="comment">//第三次拿到结果的处理代码</span></span><br><span class="line">          <span class="built_in">console</span>.log(<span class="string">&#x27;Hello Python&#x27;</span>)</span><br><span class="line">          <span class="built_in">console</span>.log(<span class="string">&#x27;Hello Python&#x27;</span>)</span><br><span class="line">          <span class="built_in">console</span>.log(<span class="string">&#x27;Hello Python&#x27;</span>)</span><br><span class="line">          <span class="built_in">console</span>.log(<span class="string">&#x27;Hello Python&#x27;</span>)</span><br><span class="line">        &#125;, <span class="number">1000</span>)</span><br><span class="line">        &#125;)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// wrapped into</span></span><br><span class="line">   <span class="comment">// 网络请求: aaa -&gt; 自己处理(10行)</span></span><br><span class="line">   <span class="comment">// 处理: aaa111 -&gt; 自己处理(10行)</span></span><br><span class="line">   <span class="comment">// 处理: aaa111222 -&gt; 自己处理</span></span><br><span class="line">  <span class="comment">/*new Promise((resolve, reject) =&gt; &#123;</span></span><br><span class="line"><span class="comment">    setTimeout(() =&gt; &#123;</span></span><br><span class="line"><span class="comment">      resolve(&#x27;aaa&#x27;)</span></span><br><span class="line"><span class="comment">    &#125;, 1000)</span></span><br><span class="line"><span class="comment">  &#125;).then(res =&gt; &#123;</span></span><br><span class="line"><span class="comment">     // 1.自己处理10行代码</span></span><br><span class="line"><span class="comment">     console.log(res, &#x27;第一层的10行处理代码&#x27;);</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">     // 2.对结果进行第一次处理</span></span><br><span class="line"><span class="comment">     return new Promise((resolve) =&gt; &#123;</span></span><br><span class="line"><span class="comment">       resolve(res + &#x27;111&#x27;)</span></span><br><span class="line"><span class="comment">     &#125;)</span></span><br><span class="line"><span class="comment">   &#125;).then(res =&gt; &#123;</span></span><br><span class="line"><span class="comment">     console.log(res, &#x27;第二层的10行处理代码&#x27;);</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">     return new Promise((resolve) =&gt; &#123;</span></span><br><span class="line"><span class="comment">       resolve(res + &#x27;222&#x27;)</span></span><br><span class="line"><span class="comment">     &#125;)</span></span><br><span class="line"><span class="comment">   &#125;).then(res =&gt; &#123;</span></span><br><span class="line"><span class="comment">     console.log((res + &#x27;第三层的10行处理代码&#x27;))</span></span><br><span class="line"><span class="comment">   &#125;)*/</span></span><br><span class="line"></span><br><span class="line">   <span class="comment">// new Promise(resolve =&gt; resolve(结果))简写</span></span><br><span class="line">   <span class="comment">/*new Promise((resolve, reject) =&gt; &#123;</span></span><br><span class="line"><span class="comment">     setTimeout(() =&gt; &#123;</span></span><br><span class="line"><span class="comment">       resolve(&#x27;aaa&#x27;)</span></span><br><span class="line"><span class="comment">     &#125;, 1000)</span></span><br><span class="line"><span class="comment">   &#125;).then(res =&gt; &#123;</span></span><br><span class="line"><span class="comment">     // 1.自己处理10行代码</span></span><br><span class="line"><span class="comment">     console.log(res, &#x27;第一层的10行处理代码&#x27;);</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">     // 2.对结果进行第一次处理</span></span><br><span class="line"><span class="comment">     return Promise.resolve(res + &#x27;111&#x27;)</span></span><br><span class="line"><span class="comment">   &#125;).then(res =&gt; &#123;</span></span><br><span class="line"><span class="comment">     console.log(res, &#x27;第二层的10行处理代码&#x27;);</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">     return Promise.resolve(res + &#x27;222&#x27;)</span></span><br><span class="line"><span class="comment">   &#125;).then(res =&gt; &#123;</span></span><br><span class="line"><span class="comment">     console.log((res + &#x27;第三层的10行处理代码&#x27;))</span></span><br><span class="line"><span class="comment">   &#125;)*/</span></span><br><span class="line"></span><br><span class="line">   <span class="comment">// 继续简写</span></span><br><span class="line">   <span class="comment">/*new Promise((resolve, reject) =&gt; &#123;</span></span><br><span class="line"><span class="comment">     setTimeout(() =&gt; &#123;</span></span><br><span class="line"><span class="comment">       resolve(&#x27;aaa&#x27;)</span></span><br><span class="line"><span class="comment">     &#125;, 1000)</span></span><br><span class="line"><span class="comment">   &#125;).then(res =&gt; &#123;</span></span><br><span class="line"><span class="comment">     // 1.自己处理10行代码</span></span><br><span class="line"><span class="comment">     console.log(res, &#x27;第一层的10行处理代码&#x27;);</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">     // 2.对结果进行第一次处理</span></span><br><span class="line"><span class="comment">     return (res + &#x27;111&#x27;)</span></span><br><span class="line"><span class="comment">   &#125;).then(res =&gt; &#123;</span></span><br><span class="line"><span class="comment">     console.log(res, &#x27;第二层的10行处理代码&#x27;);</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">     return (res + &#x27;222&#x27;)</span></span><br><span class="line"><span class="comment">   &#125;).then(res =&gt; &#123;</span></span><br><span class="line"><span class="comment">     console.log((res + &#x27;第三层的10行处理代码&#x27;))</span></span><br><span class="line"><span class="comment">   &#125;)*/</span></span><br><span class="line"></span><br><span class="line">   <span class="comment">// 失败了时</span></span><br><span class="line">   <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">     <span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">       resolve(<span class="string">&#x27;aaa&#x27;</span>)</span><br><span class="line">     &#125;, <span class="number">1000</span>)</span><br><span class="line">   &#125;).then(<span class="function"><span class="params">res</span> =&gt;</span> &#123;</span><br><span class="line">     <span class="comment">// 1.自己处理10行代码</span></span><br><span class="line">     <span class="built_in">console</span>.log(res, <span class="string">&#x27;第一层的10行处理代码&#x27;</span>);</span><br><span class="line"></span><br><span class="line">     <span class="comment">// 2.对结果进行第一次处理</span></span><br><span class="line">     <span class="comment">// return Promise.reject(&#x27;error message&#x27;)</span></span><br><span class="line">     <span class="keyword">throw</span> <span class="string">&#x27;error message&#x27;</span></span><br><span class="line">   &#125;).then(<span class="function"><span class="params">res</span> =&gt;</span> &#123;</span><br><span class="line">     <span class="built_in">console</span>.log(res, <span class="string">&#x27;第二层的10行处理代码&#x27;</span>);</span><br><span class="line"></span><br><span class="line">     <span class="keyword">return</span> (res + <span class="string">&#x27;222&#x27;</span>)</span><br><span class="line">   &#125;).then(<span class="function"><span class="params">res</span> =&gt;</span> &#123;</span><br><span class="line">     <span class="built_in">console</span>.log((res + <span class="string">&#x27;第三层的10行处理代码&#x27;</span>))</span><br><span class="line">   &#125;).catch(<span class="function"><span class="params">err</span> =&gt;</span> &#123;</span><br><span class="line">     <span class="built_in">console</span>.log(err);</span><br><span class="line">   &#125;)</span><br></pre></td></tr></table></figure>
+
+<h4 id="1-5-Promise的all方法使用"><a href="#1-5-Promise的all方法使用" class="headerlink" title="1.5. Promise的all方法使用"></a>1.5. Promise的all方法使用</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Promise</span>.all([</span><br><span class="line">    <span class="comment">/*new Promise((resolve, reject) =&gt; &#123;</span></span><br><span class="line"><span class="comment">      $.ajax(&#123;</span></span><br><span class="line"><span class="comment">        url: &#x27;url1&#x27;,</span></span><br><span class="line"><span class="comment">        success: function (data) &#123;</span></span><br><span class="line"><span class="comment">          resolve(data)</span></span><br><span class="line"><span class="comment">        &#125;</span></span><br><span class="line"><span class="comment">      &#125;)</span></span><br><span class="line"><span class="comment">    &#125;),</span></span><br><span class="line"><span class="comment">    new Promise((resolve, reject) =&gt; &#123;</span></span><br><span class="line"><span class="comment">      $.ajax(&#123;</span></span><br><span class="line"><span class="comment">        url: &#x27;url2&#x27;,</span></span><br><span class="line"><span class="comment">        success: function (data) &#123;</span></span><br><span class="line"><span class="comment">          resolve(data)</span></span><br><span class="line"><span class="comment">        &#125;</span></span><br><span class="line"><span class="comment">      &#125;)</span></span><br><span class="line"><span class="comment">    &#125;)*/</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">      <span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">        <span class="comment">// resolve(&#x27;result1&#x27;)</span></span><br><span class="line">        resolve(&#123;<span class="attr">name</span>: <span class="string">&#x27;why&#x27;</span>, <span class="attr">age</span>: <span class="number">18</span>&#125;)</span><br><span class="line">      &#125;, <span class="number">2000</span>)</span><br><span class="line">    &#125;),</span><br><span class="line">    <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">      <span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">        <span class="comment">// resolve(&#x27;result2&#x27;)</span></span><br><span class="line">        resolve(&#123;<span class="attr">name</span>: <span class="string">&#x27;why&#x27;</span>, <span class="attr">age</span>: <span class="number">18</span>&#125;)</span><br><span class="line">      &#125;, <span class="number">1000</span>)</span><br><span class="line">    &#125;)</span><br><span class="line">  ]).then(<span class="function"><span class="params">results</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">/*results[0]</span></span><br><span class="line"><span class="comment">    results[1]*/</span></span><br><span class="line">    <span class="built_in">console</span>.log(results);</span><br><span class="line">  &#125;)</span><br></pre></td></tr></table></figure>
+
+<h3 id="二、Vuex"><a href="#二、Vuex" class="headerlink" title="二、Vuex"></a>二、Vuex</h3><h4 id="2-1-Vuex是做什么的"><a href="#2-1-Vuex是做什么的" class="headerlink" title="2.1. Vuex是做什么的"></a>2.1. Vuex是做什么的</h4><ul>
+<li>官方解释:Vuex是一个专为 Vue. js应用程序开发的<strong>状态管理</strong>模式<ul>
+<li>它采用集中式存储管理应用的所有组件的状态,并以相应的规则保证状态以一种可预测的方式发生变化。</li>
+<li>Vuex也集成到Vue的官方调试工具 devtools extension,提供了诸如零配置的time- travel调试、状态快照导入导出等高级调试功能。</li>
+</ul>
+</li>
+<li>状态管理到底是什么?<ul>
+<li>状态管理模式、集中式存储管理这些名词听起来就非常高大上,让人捉摸不透。</li>
+<li>其实,你可以简单的将其看成把需要多个组件共享的变量全部存储在一个对象里面。</li>
+<li>然后,将这个对象放在顶层的Vue实例中,让其他组件可以使用。</li>
+<li>那么,多个组件就可以共享这个对象中的所有变量属性</li>
+</ul>
+</li>
+</ul>
+<h4 id="2-2-管理什么状态"><a href="#2-2-管理什么状态" class="headerlink" title="2.2. 管理什么状态"></a>2.2. 管理什么状态</h4><ul>
+<li>有什么状态时需要我们在多个组件间共享的呢?<ul>
+<li>如果你做过大型开放,你一定遇到过多个状态,在多个界面问的共享问题。<ul>
+<li>比如用户的登录状态、用户名称、头像、地理位置信息等等。</li>
+<li>比如商品的收藏、购物车中的物品等等。</li>
+<li>这些状态信息,我们都可以放在统一的地方,对它进行保存和管理,而且它们还是响应式的</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>Talk is cheap, Show me the code. （来自LInus)</p>
+<p>linus -&gt; linux, git</p>
+</blockquote>
+<h4 id="2-3-单界面到多界面状态管理切换"><a href="#2-3-单界面到多界面状态管理切换" class="headerlink" title="2.3. 单界面到多界面状态管理切换"></a>2.3. 单界面到多界面状态管理切换</h4><p>单页面管理状态</p>
+<p><img src="/2021/04/23/vueDay5/%E5%8D%95%E9%A1%B5%E9%9D%A2%E7%8A%B6%E6%80%81%E7%AE%A1%E7%90%86.jpg"></p>
+<p>多界面状态管理</p>
+<ul>
+<li>全局单例摸式(大管家)<ul>
+<li>我们现在要做的就是将共享的状态抽取出来,交给我们的大管家,统一进行管理</li>
+<li>之后,你们每个试图,按照我规定好的规定,进行访问和修改等操作。</li>
+<li>这就是vuex背后的基本思想</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm intall vuex --save</span><br></pre></td></tr></table></figure>
+
+<p>store-&gt; index.js</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> Vue <span class="keyword">from</span> <span class="string">&#x27;vue&#x27;</span></span><br><span class="line"><span class="keyword">import</span> Vuex <span class="keyword">from</span> <span class="string">&#x27;vuex&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 1. 安装插件</span></span><br><span class="line">Vue.use(Vuex)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 2. 创建对象</span></span><br><span class="line"><span class="keyword">const</span> store = <span class="keyword">new</span> Vuex.Store(&#123;</span><br><span class="line">  state: &#123;</span><br><span class="line">    counter: <span class="number">1000</span></span><br><span class="line">  &#125;,</span><br><span class="line">  mutations: &#123;</span><br><span class="line">    <span class="function"><span class="title">increment</span>(<span class="params">state</span>)</span> &#123;</span><br><span class="line">      state.counter++</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="function"><span class="title">decrement</span>(<span class="params">state</span>)</span> &#123;</span><br><span class="line">      state.counter--</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  actions: &#123;</span><br><span class="line"></span><br><span class="line">  &#125;,</span><br><span class="line">  getters: &#123;</span><br><span class="line"></span><br><span class="line">  &#125;,</span><br><span class="line">  modules: &#123;</span><br><span class="line"></span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 3. 导出store独享</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> store</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>main.js</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> Vue <span class="keyword">from</span> <span class="string">&#x27;vue&#x27;</span></span><br><span class="line"><span class="keyword">import</span> App <span class="keyword">from</span> <span class="string">&#x27;./App&#x27;</span></span><br><span class="line"><span class="keyword">import</span> store <span class="keyword">from</span> <span class="string">&quot;./store&quot;</span>;</span><br><span class="line"></span><br><span class="line">Vue.config.productionTip = <span class="literal">false</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/* eslint-disable no-new */</span></span><br><span class="line"><span class="keyword">new</span> Vue(&#123;</span><br><span class="line">  el: <span class="string">&#x27;#app&#x27;</span>,</span><br><span class="line">  store,</span><br><span class="line">  render: <span class="function"><span class="params">h</span> =&gt;</span> h(App)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<p>App.vue</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div id&#x3D;&quot;app&quot;&gt;</span><br><span class="line">    &lt;h2&gt;--------App内容-------------&lt;&#x2F;h2&gt;</span><br><span class="line">    &lt;h2&gt;&#123;&#123; message &#125;&#125;&lt;&#x2F;h2&gt;</span><br><span class="line">&lt;!--    &lt;h2&gt;&#123;&#123; counter &#125;&#125;&lt;&#x2F;h2&gt;--&gt;</span><br><span class="line">    &lt;h2&gt;&#123;&#123;$store.state.counter&#125;&#125;&lt;&#x2F;h2&gt;</span><br><span class="line"></span><br><span class="line">&lt;!--    &lt;button @click&#x3D;&quot;counter&amp;#45;&amp;#45;&quot;&gt;-&lt;&#x2F;button&gt;--&gt;</span><br><span class="line">&lt;!--    &lt;button @click&#x3D;&quot;counter++&quot;&gt;+&lt;&#x2F;button&gt;--&gt;</span><br><span class="line">    &lt;button @click&#x3D;&quot;addition&quot;&gt;+&lt;&#x2F;button&gt;</span><br><span class="line">    &lt;button @click&#x3D;&quot;subtraction&quot;&gt;-&lt;&#x2F;button&gt;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    &lt;h2&gt;----------Hello Vuex内容---------&lt;&#x2F;h2&gt;</span><br><span class="line">&lt;!--    &lt;hello-vuex :counter&#x3D;&quot;counter&quot;&#x2F;&gt;--&gt;</span><br><span class="line">    &lt;hello-vuex &#x2F;&gt;</span><br><span class="line"></span><br><span class="line">  &lt;&#x2F;div&gt;</span><br><span class="line">&lt;&#x2F;template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">import HelloVuex from &quot;.&#x2F;components&#x2F;HelloVuex&quot;;</span><br><span class="line"></span><br><span class="line">export default &#123;</span><br><span class="line">  name: &#39;App&#39;,</span><br><span class="line">  components: &#123;</span><br><span class="line">    HelloVuex</span><br><span class="line">  &#125;,</span><br><span class="line">  data() &#123;</span><br><span class="line">    return &#123;</span><br><span class="line">      message: &#39;我是App组件&#39;,</span><br><span class="line">      &#x2F;&#x2F; counter: 0</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  methods: &#123;</span><br><span class="line">    addition()&#123;</span><br><span class="line">      this.$store.commit(&#39;increment&#39;)</span><br><span class="line">    &#125;,</span><br><span class="line">    subtraction()&#123;</span><br><span class="line">      this.$store.commit(&#39;decrement&#39;)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">&lt;&#x2F;script&gt;</span><br><span class="line">&lt;style&gt;</span><br><span class="line">&lt;&#x2F;style&gt;</span><br></pre></td></tr></table></figure>
+
+<h4 id="2-4-Vue状态管理图例"><a href="#2-4-Vue状态管理图例" class="headerlink" title="2.4. Vue状态管理图例"></a>2.4. Vue状态管理图例</h4><p><img src="/2021/04/23/vueDay5/vuex%E7%8A%B6%E6%80%81%E7%AE%A1%E7%90%86%E5%9B%BE%E4%BE%8B.jpg"></p>
+<h4 id="2-5-vuex核心概念"><a href="#2-5-vuex核心概念" class="headerlink" title="2.5. vuex核心概念"></a>2.5. vuex核心概念</h4><ul>
+<li>State 保存共享状态 -&gt;单一状态数</li>
+<li>Getters 类似于组件中计算属性</li>
+<li>Mutation 状态更新</li>
+<li>Action 异步操作</li>
+<li>Module 划分模块</li>
+</ul>
+<h5 id="2-5-1-State单一状态树"><a href="#2-5-1-State单一状态树" class="headerlink" title="2.5.1 State单一状态树"></a>2.5.1 State单一状态树</h5><p>（Single Source of Truth，可以翻译成单一数据源）<br>如果你的状态信息是保存到多个 Store对象中的,那么之后的管理和维护等等都会变得特别困难。<br>所以∨uex也使用了单一状态树来管理应用层级的全部状态。<br>单一状态树能够让我们最直接的方式找到某个状态的片段,而且在之后的维护和调试过程中,也可以非常方便的管理和维护。</p>
+<h5 id="2-5-2-Getters基本使用"><a href="#2-5-2-Getters基本使用" class="headerlink" title="2.5.2. Getters基本使用"></a>2.5.2. Getters基本使用</h5><p>需要从 store中获取一些 state变异后的状态</p>
+<p><img src="/2021/04/23/vueDay5/Getters%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8.jpg"></p>
+<h5 id="2-5-3-Mutation状态更新"><a href="#2-5-3-Mutation状态更新" class="headerlink" title="2.5.3 Mutation状态更新"></a>2.5.3 Mutation状态更新</h5><ol>
+<li><strong>Vuex的 store状态的更新唯一方式:提交 Mutation</strong></li>
+</ol>
+<ul>
+<li> Mutation主要包括两部分:</li>
+<li>字符串的事件类型(type)</li>
+<li>一个回调函数( handler),该回调函数的第一个参数就是 state</li>
+</ul>
+<ol start="2">
+<li>Mutation传递参数<br>参数被称为是 mutation的载荷( Payload)<br>■ Mutation中的代码:</li>
+</ol>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="title">decrement</span>(<span class="params">state, n</span>)</span> &#123;</span><br><span class="line">  state.count -= n</span><br><span class="line">&#125;</span><br><span class="line">decrement: <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">  <span class="built_in">this</span>.$store.commit(<span class="string">&#x27;decrement&#x27;</span>, <span class="number">2</span> )</span><br><span class="line">&#125;              </span><br></pre></td></tr></table></figure>
+
+<p>很多参数需要传递,通常会以对象的形式传递也就是 payload是一个对象，可以再从对象中取出相关的信息</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="title">changeCount</span>(<span class="params">state, payload</span>)</span> &#123;</span><br><span class="line">  state.count = payload.count</span><br><span class="line">&#125;</span><br><span class="line">changeCount: <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">  <span class="built_in">this</span>.$store.commit(<span class="string">&#x27;changeCount&#x27;</span>, &#123;<span class="attr">count</span>: <span class="number">0</span>&#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>Mutation提交风格<ol>
+<li>上面的通过 commit进行提交是种普通的方式</li>
+<li>Vue还提供了另外一种风格,它是一个包含type属性的对象</li>
+</ol>
+</li>
+</ol>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="title">addCount</span>(<span class="params">count</span>)</span> &#123;</span><br><span class="line">      <span class="comment">// payload: 负载</span></span><br><span class="line">      <span class="comment">// 1. 普通的提交封装</span></span><br><span class="line">      <span class="built_in">this</span>.$store.commit(<span class="string">&quot;incrementCount&quot;</span>, count)</span><br><span class="line">    <span class="comment">//  2. 特出的提交封装</span></span><br><span class="line">      <span class="built_in">this</span>.$store.commit(&#123;</span><br><span class="line">        type: <span class="string">&#x27;incrementCount&#x27;</span>,</span><br><span class="line">        count</span><br><span class="line">      &#125;)</span><br><span class="line">    &#125;,</span><br></pre></td></tr></table></figure>
+
+<ol start="4">
+<li>Mutation响应规则</li>
+</ol>
+<ul>
+<li>Vuex的 store中的 state是响应式的,当 state中的数据发生改变时,Wue组件会自动更新</li>
+<li>这就要求我们必须遵守一些vuex对应的规则:<ul>
+<li>提前在 store中初始化好所需的属性.</li>
+<li>当给 state中的对象添加新属性时,使用下面的方式</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>方式一:使用 Vue. set(obj, newProp,123)<br>方式二:用新对象给旧对象重新赋值</p>
+</blockquote>
+<ol start="5">
+<li><p>Mutation常量类型一概念</p>
+<ul>
+<li>我们来考虑下面的问题<ul>
+<li>在 mutation中我们定义了很多事件类型(也就是其中的方法名称）</li>
+<li>当我们的项目增大时,Wuex管理的状态越来越多,需要更新状态的情况越来越多,那么意味着 Mutation中的方法越来越多</li>
+<li>方法过多,使用者需要花费大量的经历去记住这些方法甚至是多个文件间来回切换查看方法名称甚至如果不<br>是复制的时候可能还会出现写铠的情况</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Mutation同步函数</p>
+<ul>
+<li>通常情况下,∨uex要求我们 Mutation中的方法必须是同步方法</li>
+<li>主要的原因是当我们使用 devtools时,可以 devtools可以帮助我们捕捉 mutation的快照</li>
+<li>但是如果是异步操作,那么 devtools将不能很好的追踪这个操作什么时候会被完成</li>
+</ul>
+</li>
+</ol>
+<h4 id="2-6Action的基本定义"><a href="#2-6Action的基本定义" class="headerlink" title="2.6Action的基本定义"></a>2.6Action的基本定义</h4><p>我们强调,不要再 Mutation中进行异步操作<br>口但是某些情况我们确实希望在vUex味进行些异步操作比如网络请求必<br>然是异步的这个时候怎么处理呢<br>口 Action类似于 Mutation,但是是用来代替 Mutation进行异步操作的</p>
+<h4 id="2-7-认识Module"><a href="#2-7-认识Module" class="headerlink" title="2.7. 认识Module"></a>2.7. 认识Module</h4><p>Module是模块的意思,为什么在vuex中我们要使用模块呢?<br>口Vue使用单一状态树那么也意味着很多状态都会交给<br>Vuex来管理<br>口当应用变得非常复杂时, store对象就有可能变得相当臃<br>肿<br>口为了解决这个问题Vuex允许我们将 store分割成模块<br>( Module),而每个模块拥有自己的 Istate、 mutations<br>actions、 getters等<br>■我们按照什么样的方式来组织模块呢?<br>口我们来看左边的代码</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> moduleA = &#123;</span><br><span class="line">  state:&#123;&#125;,</span><br><span class="line">  mutations:&#123;&#125;,</span><br><span class="line">	actions:&#123;&#125;,</span><br><span class="line">	getters:&#123;&#125;,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> moduleB = &#123;</span><br><span class="line">  state:&#123;&#125;,</span><br><span class="line">  mutations:&#123;&#125;,</span><br><span class="line">	actions:&#123;&#125;,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> store = <span class="keyword">new</span> Vuex.Store([</span><br><span class="line">	modules: &#123;</span><br><span class="line">  	a: moduleA,</span><br><span class="line">  	b: moduleB</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">store.state.a <span class="comment">//-&gt; moduleA 的状态</span></span><br><span class="line">store.state.b <span class="comment">//-&gt; moduleB 的状态</span></span><br></pre></td></tr></table></figure>
+
+<p>ES6语法：(对象的解构)</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Const obj=&#123;</span><br><span class="line">	name: <span class="string">&#x27;why&#x27;</span></span><br><span class="line">	age: <span class="number">18</span>,</span><br><span class="line">	height: <span class="number">1.88</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// const name = obj.name;</span></span><br><span class="line"><span class="comment">// const name = obj.name;</span></span><br><span class="line"><span class="comment">// const name = obj.name;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> &#123;name, age, height&#125; = obj;</span><br><span class="line"><span class="built_in">console</span>.log(name);</span><br></pre></td></tr></table></figure>
+
+<p>Actions的写法<br>■ actions的写法呢?接收一个 context参数对象<br>口局部状态通过 context.state暴露出来,根节点状态则为 context.rootState. </p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> moduleA = &#123;</span><br><span class="line">actions: &#123;</span><br><span class="line">  incrementIfoddOnRootSum (&#123; state, commit, rootState &#125;)&#123;</span><br><span class="line">    <span class="keyword">if</span> ((state.count + rootState.count)% <span class="number">2</span> === <span class="number">1</span>) &#123;</span><br><span class="line">      commit(<span class="string">&#x27;increment&#x27;</span>)</span><br><span class="line">    	&#125;</span><br><span class="line">  	&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>■如果 getters中也需要使用全局的状态,可以接受更多的参数</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> moduleA = &#123;</span><br><span class="line">  getters: &#123;</span><br><span class="line">    sumwithRootCount (state, getters, rootState) &#123;</span><br><span class="line">      <span class="keyword">return</span> state. count root state. coun</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="三、网络请求封装"><a href="#三、网络请求封装" class="headerlink" title="三、网络请求封装"></a>三、网络请求封装</h3><h4 id="3-1-选择什么网络模块"><a href="#3-1-选择什么网络模块" class="headerlink" title="3.1. 选择什么网络模块"></a>3.1. 选择什么网络模块</h4><p>主要内容<br>■常见的网络请求模块,以及优缺点对比<br>JSONP的原理和封装<br>口 JSONP原理回顾<br>口 JSONP请求封装<br>■ axIos的内容详解<br>口认识 axIos网络模块<br>口发送基本请求<br>口 axIos创建实例<br>口 axIos拦截器的使用</p>
+<p>选择什么网络模块？<br>vue中发送网络请求有非常多的方式那么在开发中如何选择呢？<br>选择一: 传统的Ajax是基于 XmlHttpreqUesT(xhr)<br>为什么不用它呢?</p>
+<ul>
+<li>非常好解释,配置和调用方式等非常混乱</li>
+<li>编码起来看起来就非常蛋疼</li>
+<li>所以真实开发中很少直接使用,而是使用 Query-Ajax</li>
+</ul>
+<p>■选择二:在前面的学习中,我们经常会使用 jQuery-Ajax</p>
+<ul>
+<li><p>相对于传统的Aax非常好用</p>
+<p>■为什么不选择它呢?</p>
+<ul>
+<li>首先,我们先明确一点:在vue的整个开发中都是不需要<br>使用 jQuery了</li>
+<li>那么,就意味着为了方便我们进行一个网络请求,特意引<br>用一个 jQuery你觉得合理吗?</li>
+<li>jQuery的代码1w+行</li>
+<li>vue的代码才1W+行</li>
+<li>完全没有必要为了用网络请求就引用这个重量级的框架</li>
+</ul>
+</li>
+</ul>
+<p>选择三:官方在vue1.x的时候推出了vue- resource</p>
+<ul>
+<li>vue- resource的体积相对于 jQuery小很多</li>
+<li>另外vue- resource是官方推出的.<br>为什么不选择它呢?<ul>
+<li>在vue20退出后,ue作者就在 GitHubl的 ISsues中说明<br>了去掉vue- resource,并且以后也不会再更新</li>
+<li>那么意味着以后vue- reource不再支持新的版本时,也不<br>会再继续更新和维护</li>
+<li>对以后的项目开发和维护都存在很大的隐患</li>
+</ul>
+</li>
+</ul>
+<p>■选择四:在说明不再继续更新和维护vue- resource的同时,作者<br>还推荐了一个框架: axIos</p>
+<ul>
+<li>axIos有非常多的优点并且用起来也非常方便</li>
+</ul>
+<h4 id="3-2jsonp"><a href="#3-2jsonp" class="headerlink" title="3.2jsonp"></a>3.2jsonp</h4><p>在前端开发中,我们种常见的网络请求方式就是丿SONP<br>口使用 JSONP最主要的原因往往是为了解决跨域访问的问题.<br>JSONPI的原理是什么呢?<br>口 JSONP的核心在于通过&lt; script&gt;标签的src来帮助我们请求数据.<br>口原因是我们的项目部署在 domain1com服务器上时,是不能直接访<br>问 domain2com服务器上的资料的<br>口这个时候我们利用&lt; script&gt;标签的src帮助我们去服务器请求到数<br>据将数据当做个 javascript的函数来执行并且执行的过程中传<br>入我们需要的json<br>口所以封装 ason的核心就在于我们监听 window上的 Jsonp进行回<br>调时的名称</p>
+<p>3.3. 为什么选择axios</p>
+<p>■功能特点<br>口在浏览器中发送 XmlhTtpreqUesTs请求<br>口在nodejs中发送http请求<br>口支持 Promise APi<br>口拦截请求和响应<br>口转换请求和响应数据<br>口等等</p>
+<p>补充: axios名称的由来?个人理解<br>没有具体的翻译.<br>aXIOs: ajax l/onSystem</p>
+<p>axios请求方式<br>■支持多种请求方式</p>
+<ul>
+<li>axIos( config)</li>
+<li>axios request(config)</li>
+<li>axiosget(url, config])</li>
+<li>axios delete(url config])</li>
+<li>axios head(url config)</li>
+<li>axios post(url[ dataL config])</li>
+<li>axios put(urIL dataL, config])</li>
+<li>axios patch(url[, dataL, config])</li>
+</ul>
+<h4 id="3-3-axios框架的基本使用"><a href="#3-3-axios框架的基本使用" class="headerlink" title="3.3. axios框架的基本使用"></a>3.3. axios框架的基本使用</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">npm install axios --save</span><br><span class="line"></span><br><span class="line">main.js</span><br><span class="line"><span class="keyword">import</span> axios <span class="keyword">from</span> <span class="string">&#x27;axios&#x27;</span></span><br><span class="line"><span class="comment">// axios(config)</span></span><br><span class="line"><span class="comment">// config是一个对象类型</span></span><br><span class="line">axios (&#123;</span><br><span class="line">  <span class="comment">//url: &#x27;httpbin.org/&#x27; 这个可以用来测试</span></span><br><span class="line">  url: <span class="string">&#x27;http://123.207.32.32:8000/home/multidata&#x27;</span>,</span><br><span class="line">  methods: <span class="string">&#x27;get&#x27;</span></span><br><span class="line">&#125;).then(<span class="function"><span class="params">res</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(res);</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">axios (&#123;</span></span><br><span class="line"><span class="comment">  //url: &#x27;httpbin.org/&#x27; 这个可以用来测试</span></span><br><span class="line"><span class="comment">  url: &#x27;http://123.207.32.32:8000/home/data?type=sell&amp;page=3&#x27;,</span></span><br><span class="line"><span class="comment">&#125;).then(res =&gt; &#123;</span></span><br><span class="line"><span class="comment">  console.log(res);</span></span><br><span class="line"><span class="comment">&#125;)*/</span></span><br><span class="line"></span><br><span class="line">axios (&#123;</span><br><span class="line">  <span class="comment">//url: &#x27;httpbin.org/&#x27; 这个可以用来测试</span></span><br><span class="line">  url: <span class="string">&#x27;http://123.207.32.32:8000/home/data&#x27;</span>,</span><br><span class="line">  <span class="comment">// 专门针对get请求的参数拼接</span></span><br><span class="line">  params: &#123;</span><br><span class="line">    type: <span class="string">&#x27;pop&#x27;</span>,</span><br><span class="line">    page: <span class="number">1</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;).then(<span class="function"><span class="params">res</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(res);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>3.4. axios发送并发请求</p>
+<ul>
+<li>axios.all，可以放入多个请求的数组</li>
+<li>axios.all([])返回的结果是一个数组，使用axios.spread可将数组[res1,res2]展开为res1,res2</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 2. axios发送并发请求</span></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">axios.all([axios(&#123;</span></span><br><span class="line"><span class="comment">  url: &#x27;http://123.207.32.32:8000/home/multidata&#x27;,</span></span><br><span class="line"><span class="comment">&#125;), axios(&#123;</span></span><br><span class="line"><span class="comment">  url: &#x27;http://123.207.32.32:8000/home/data&#x27;,</span></span><br><span class="line"><span class="comment">  params: &#123;</span></span><br><span class="line"><span class="comment">    type: &#x27;sell&#x27;,</span></span><br><span class="line"><span class="comment">    page: 5</span></span><br><span class="line"><span class="comment">  &#125;</span></span><br><span class="line"><span class="comment">&#125;)]).then(results =&gt; &#123;</span></span><br><span class="line"><span class="comment">  console.log(results);</span></span><br><span class="line"><span class="comment">  console.log(results[0]);</span></span><br><span class="line"><span class="comment">  console.log(results[1]);</span></span><br><span class="line"><span class="comment">&#125;)*/</span></span><br><span class="line">axios.all([axios(&#123;</span><br><span class="line">  url: <span class="string">&#x27;http://123.207.32.32:8000/home/multidata&#x27;</span>,</span><br><span class="line">&#125;), axios(&#123;</span><br><span class="line">  url: <span class="string">&#x27;http://123.207.32.32:8000/home/data&#x27;</span>,</span><br><span class="line">  params: &#123;</span><br><span class="line">    type: <span class="string">&#x27;sell&#x27;</span>,</span><br><span class="line">    page: <span class="number">5</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;)]).then(axios.spread(<span class="function">(<span class="params">res1, res2</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(res1);</span><br><span class="line">  <span class="built_in">console</span>.log(res2);</span><br><span class="line">&#125;))</span><br></pre></td></tr></table></figure>
+
+<p>3.4. 全局配置</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">axios.defaults.baseURL = <span class="string">&#x27;http://123.207.32.32:8000&#x27;</span></span><br><span class="line">axios.defaults.timeout = <span class="number">5</span></span><br><span class="line"></span><br><span class="line">axios.all([axios(&#123;</span><br><span class="line">  url: <span class="string">&#x27;/home/multidata&#x27;</span>,</span><br><span class="line">&#125;), axios(&#123;</span><br><span class="line">  url: <span class="string">&#x27;/home/data&#x27;</span>,</span><br><span class="line">  params: &#123;</span><br><span class="line">    type: <span class="string">&#x27;sell&#x27;</span>,</span><br><span class="line">    page: <span class="number">5000</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;)]).then(axios.spread(<span class="function">(<span class="params">res1, res2</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(res1);</span><br><span class="line">  <span class="built_in">console</span>.log(res2);</span><br><span class="line">&#125;))</span><br></pre></td></tr></table></figure>
+
+<h4 id="3-4-常见配置选项"><a href="#3-4-常见配置选项" class="headerlink" title="3.4. 常见配置选项"></a>3.4. 常见配置选项</h4><p><img src="/2021/04/23/vueDay5/axios%E5%B8%B8%E8%A7%81%E9%85%8D%E7%BD%AE%E9%80%89%E9%A1%B9.jpg"></p>
+<h4 id="3-5-创建对应的axios实例"><a href="#3-5-创建对应的axios实例" class="headerlink" title="3.5. 创建对应的axios实例"></a>3.5. 创建对应的axios实例</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 4. 创建对应的axios实例</span></span><br><span class="line"><span class="keyword">const</span> instance = axios.create(&#123;</span><br><span class="line">  baseUrl: <span class="string">&#x27;http://123.207.32.32:8000&#x27;</span>,</span><br><span class="line">  timeout: <span class="number">5000</span></span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">instance1(&#123;</span><br><span class="line">  url: <span class="string">&#x27;/home/multidata&#x27;</span></span><br><span class="line">&#125;).then(<span class="function"><span class="params">res</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(res);</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">instance1(&#123;</span><br><span class="line">  url: <span class="string">&#x27;/home/data&#x27;</span>,</span><br><span class="line">  params: &#123;</span><br><span class="line">    type: <span class="string">&#x27;pop&#x27;</span>,</span><br><span class="line">    page: <span class="number">1</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;).then(<span class="function"><span class="params">res</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(res);</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> instence2 = axios.create(&#123;</span><br><span class="line">  baseURL: <span class="string">&#x27;&#x27;</span>,</span><br><span class="line">  timeout: <span class="number">10000</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h4 id="3-6-封装request模块"><a href="#3-6-封装request模块" class="headerlink" title="3.6. 封装request模块"></a>3.6. 封装request模块</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 5. 封装request模块</span></span><br><span class="line"><span class="keyword">import</span> &#123;request&#125; <span class="keyword">from</span> <span class="string">&quot;./network/request&quot;</span>;</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">request(&#123;</span></span><br><span class="line"><span class="comment">  url: &#x27;/home/multidata&#x27;</span></span><br><span class="line"><span class="comment">&#125;, res =&gt; &#123;</span></span><br><span class="line"><span class="comment">  console.log(res);</span></span><br><span class="line"><span class="comment">&#125;, err =&gt; &#123;</span></span><br><span class="line"><span class="comment">  console.log(err);</span></span><br><span class="line"><span class="comment">&#125;)*/</span></span><br><span class="line"></span><br><span class="line">request(&#123;</span><br><span class="line">  url: <span class="string">&#x27;/home/multidata&#x27;</span></span><br><span class="line">&#125;).then(<span class="function"><span class="params">res</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(res);</span><br><span class="line">&#125;).catch(<span class="function"><span class="params">err</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(err);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+
+
+<p>network -&gt; request.js</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">import axios from &#39;axios&#39;</span><br><span class="line">export function request(config) &#123;</span><br><span class="line">  &#x2F;&#x2F; 1. 创建axios实例</span><br><span class="line">  const instance &#x3D; axios.create(&#123;</span><br><span class="line">    baseUrl: &#39;http:&#x2F;&#x2F;123.207.32.32:8000&#39;,</span><br><span class="line">    timeout: 5000</span><br><span class="line">  &#125;)</span><br><span class="line">  &#x2F;&#x2F; 2. 发送真正的网络请求</span><br><span class="line">  return instance(config)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="3-7-axios的拦截器"><a href="#3-7-axios的拦截器" class="headerlink" title="3.7. axios的拦截器"></a>3.7. axios的拦截器</h4><ul>
+<li>请求拦截的作用</li>
+<li>响应拦截</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">request</span>(<span class="params">config</span>) </span>&#123;</span><br><span class="line">  <span class="comment">// 1. 创建axios实例</span></span><br><span class="line">  <span class="keyword">const</span> instance = axios.create(&#123;</span><br><span class="line">    baseUrl: <span class="string">&#x27;http://123.207.32.32:8000&#x27;</span>,</span><br><span class="line">    timeout: <span class="number">5000</span></span><br><span class="line">  &#125;)</span><br><span class="line">  <span class="comment">// 2. axios的拦截器</span></span><br><span class="line">  instance.interceptors.request.use(<span class="function"><span class="params">config</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">// console.log(config);</span></span><br><span class="line">    <span class="comment">// 2.1 请求拦截的作用</span></span><br><span class="line">    <span class="comment">// 1.比如config中的一些信息不符合服务器要求</span></span><br><span class="line">    <span class="comment">// 2.比如每次发送网络请求时，都希望在界面中显示一个请求的图标 show</span></span><br><span class="line">    <span class="comment">// 3.某些网络请求（比如登陆（token）），必须携带一些特殊信息</span></span><br><span class="line">    <span class="keyword">return</span> config</span><br><span class="line">  &#125;, <span class="function"><span class="params">err</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">// console.log(err);</span></span><br><span class="line">  &#125;)</span><br><span class="line">  <span class="comment">// 2.2 响应拦截</span></span><br><span class="line">  instance.interceptors.response.use(<span class="function"><span class="params">res</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">// console.log(res);</span></span><br><span class="line">    <span class="keyword">return</span> res.data</span><br><span class="line">  &#125;), <span class="function"><span class="params">err</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(err);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// 3. 发送真正的网络请求</span></span><br><span class="line">  <span class="keyword">return</span> instance(config)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="四、项目开发"><a href="#四、项目开发" class="headerlink" title="四、项目开发"></a>四、项目开发</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git branch -M main</span><br><span class="line">git remote add origin git@github.com:yzhou15/supermall.git</span><br><span class="line">git push -u origin main</span><br></pre></td></tr></table></figure>
+
+<h4 id="4-1-划分目录结构"><a href="#4-1-划分目录结构" class="headerlink" title="4.1. 划分目录结构"></a>4.1. 划分目录结构</h4><h4 id="4-2-引入CSS文件"><a href="#4-2-引入CSS文件" class="headerlink" title="4.2. 引入CSS文件"></a>4.2. 引入CSS文件</h4><p>：root 伪类 获取根元素html</p>
+<h4 id="4-3-vue-config-js-和-editorconfig"><a href="#4-3-vue-config-js-和-editorconfig" class="headerlink" title="4.3. vue.config.js 和 editorconfig"></a>4.3. vue.config.js 和 editorconfig</h4><p>别名配置vue.config.js</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">  configureWebpack: &#123;</span><br><span class="line">    resolve: &#123;</span><br><span class="line">      alias: &#123;</span><br><span class="line">        <span class="string">&#x27;assets&#x27;</span>: <span class="string">&#x27;@/assets&#x27;</span>,</span><br><span class="line">        <span class="string">&#x27;common&#x27;</span>: <span class="string">&#x27;@/common&#x27;</span>,</span><br><span class="line">        <span class="string">&#x27;components&#x27;</span>: <span class="string">&#x27;@/components&#x27;</span>,</span><br><span class="line">        <span class="string">&#x27;network&#x27;</span>: <span class="string">&#x27;@/network&#x27;</span>,</span><br><span class="line">        <span class="string">&#x27;views&#x27;</span>: <span class="string">&#x27;@/views&#x27;</span>,</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="4-4-项目的横向划分：tabbar-gt-路由的映射关系"><a href="#4-4-项目的横向划分：tabbar-gt-路由的映射关系" class="headerlink" title="4.4. 项目的横向划分：tabbar -&gt; 路由的映射关系"></a>4.4. 项目的横向划分：tabbar -&gt; 路由的映射关系</h4><p>以前网页服务端渲染用jsp</p>
+<h4 id="4-5-首页开发"><a href="#4-5-首页开发" class="headerlink" title="4.5. 首页开发"></a>4.5. 首页开发</h4><ul>
+<li>navbar的封装</li>
+<li>网络数据的请求</li>
+<li>轮播图</li>
+<li>推荐信息</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 函数调用-&gt; 压入函数栈（保存函数调用过程中的所有变量）</span></span><br><span class="line"><span class="comment">// 函数调用结束 -&gt; 弹出函数栈（释放函数所有的变量）</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">text</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> names = [<span class="string">&#x27;why&#x27;</span>, <span class="string">&#x27;aaa&#x27;</span>]</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">test()</span><br></pre></td></tr></table></figure>
+
+<p>垃圾回收</p>
+<p><img src="/2021/04/23/vueDay5/%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6.jpg"></p>
+<p>vueui库：mint-ui/iview</p>
+<p><img src="/2021/04/23/vueDay5/goods%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B.jpg"></p>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/kity@2.0.4/dist/kity.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/kityminder-core@1.4.50/dist/kityminder.core.min.js"></script><script defer="true" type="text/javascript" src="https://cdn.jsdelivr.net/npm/hexo-simple-mindmap@0.2.0/dist/mindmap.min.js"></script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/hexo-simple-mindmap@0.2.0/dist/mindmap.min.css">
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/vue/" rel="tag"># vue</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2021/04/20/docker/" rel="next" title="docker">
+                <i class="fa fa-chevron-left"></i> docker
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2021/04/30/dnpicture/" rel="prev" title="dnpicture">
+                dnpicture <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+                <a href="/archives">
+                  <span class="site-state-item-count">28</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/yzhou15" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:403708416@qq.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%E3%80%81Promise"><span class="nav-number">1.</span> <span class="nav-text">一、Promise</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-1-%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="nav-number">1.1.</span> <span class="nav-text">1.1. 是什么？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-2-%E5%81%9A%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="nav-number">1.2.</span> <span class="nav-text">1.2. 做什么？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-3-promise%E7%9A%84%E4%B8%89%E7%A7%8D%E7%8A%B6%E6%80%81"><span class="nav-number">1.3.</span> <span class="nav-text">1.3. promise的三种状态</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-4-Promise%E9%93%BE%E5%BC%8F%E8%B0%83%E7%94%A8%EF%BC%9A"><span class="nav-number">1.4.</span> <span class="nav-text">1.4. Promise链式调用：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-5-Promise%E7%9A%84all%E6%96%B9%E6%B3%95%E4%BD%BF%E7%94%A8"><span class="nav-number">1.5.</span> <span class="nav-text">1.5. Promise的all方法使用</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8C%E3%80%81Vuex"><span class="nav-number">2.</span> <span class="nav-text">二、Vuex</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-Vuex%E6%98%AF%E5%81%9A%E4%BB%80%E4%B9%88%E7%9A%84"><span class="nav-number">2.1.</span> <span class="nav-text">2.1. Vuex是做什么的</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2-%E7%AE%A1%E7%90%86%E4%BB%80%E4%B9%88%E7%8A%B6%E6%80%81"><span class="nav-number">2.2.</span> <span class="nav-text">2.2. 管理什么状态</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-3-%E5%8D%95%E7%95%8C%E9%9D%A2%E5%88%B0%E5%A4%9A%E7%95%8C%E9%9D%A2%E7%8A%B6%E6%80%81%E7%AE%A1%E7%90%86%E5%88%87%E6%8D%A2"><span class="nav-number">2.3.</span> <span class="nav-text">2.3. 单界面到多界面状态管理切换</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-4-Vue%E7%8A%B6%E6%80%81%E7%AE%A1%E7%90%86%E5%9B%BE%E4%BE%8B"><span class="nav-number">2.4.</span> <span class="nav-text">2.4. Vue状态管理图例</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-5-vuex%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5"><span class="nav-number">2.5.</span> <span class="nav-text">2.5. vuex核心概念</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#2-5-1-State%E5%8D%95%E4%B8%80%E7%8A%B6%E6%80%81%E6%A0%91"><span class="nav-number">2.5.1.</span> <span class="nav-text">2.5.1 State单一状态树</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-5-2-Getters%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8"><span class="nav-number">2.5.2.</span> <span class="nav-text">2.5.2. Getters基本使用</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-5-3-Mutation%E7%8A%B6%E6%80%81%E6%9B%B4%E6%96%B0"><span class="nav-number">2.5.3.</span> <span class="nav-text">2.5.3 Mutation状态更新</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-6Action%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%AE%9A%E4%B9%89"><span class="nav-number">2.6.</span> <span class="nav-text">2.6Action的基本定义</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-7-%E8%AE%A4%E8%AF%86Module"><span class="nav-number">2.7.</span> <span class="nav-text">2.7. 认识Module</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E7%BD%91%E7%BB%9C%E8%AF%B7%E6%B1%82%E5%B0%81%E8%A3%85"><span class="nav-number">3.</span> <span class="nav-text">三、网络请求封装</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#3-1-%E9%80%89%E6%8B%A9%E4%BB%80%E4%B9%88%E7%BD%91%E7%BB%9C%E6%A8%A1%E5%9D%97"><span class="nav-number">3.1.</span> <span class="nav-text">3.1. 选择什么网络模块</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-2jsonp"><span class="nav-number">3.2.</span> <span class="nav-text">3.2jsonp</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-3-axios%E6%A1%86%E6%9E%B6%E7%9A%84%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8"><span class="nav-number">3.3.</span> <span class="nav-text">3.3. axios框架的基本使用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-4-%E5%B8%B8%E8%A7%81%E9%85%8D%E7%BD%AE%E9%80%89%E9%A1%B9"><span class="nav-number">3.4.</span> <span class="nav-text">3.4. 常见配置选项</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-5-%E5%88%9B%E5%BB%BA%E5%AF%B9%E5%BA%94%E7%9A%84axios%E5%AE%9E%E4%BE%8B"><span class="nav-number">3.5.</span> <span class="nav-text">3.5. 创建对应的axios实例</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-6-%E5%B0%81%E8%A3%85request%E6%A8%A1%E5%9D%97"><span class="nav-number">3.6.</span> <span class="nav-text">3.6. 封装request模块</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-7-axios%E7%9A%84%E6%8B%A6%E6%88%AA%E5%99%A8"><span class="nav-number">3.7.</span> <span class="nav-text">3.7. axios的拦截器</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9B%9B%E3%80%81%E9%A1%B9%E7%9B%AE%E5%BC%80%E5%8F%91"><span class="nav-number">4.</span> <span class="nav-text">四、项目开发</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#4-1-%E5%88%92%E5%88%86%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84"><span class="nav-number">4.1.</span> <span class="nav-text">4.1. 划分目录结构</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-2-%E5%BC%95%E5%85%A5CSS%E6%96%87%E4%BB%B6"><span class="nav-number">4.2.</span> <span class="nav-text">4.2. 引入CSS文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-3-vue-config-js-%E5%92%8C-editorconfig"><span class="nav-number">4.3.</span> <span class="nav-text">4.3. vue.config.js 和 editorconfig</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-4-%E9%A1%B9%E7%9B%AE%E7%9A%84%E6%A8%AA%E5%90%91%E5%88%92%E5%88%86%EF%BC%9Atabbar-gt-%E8%B7%AF%E7%94%B1%E7%9A%84%E6%98%A0%E5%B0%84%E5%85%B3%E7%B3%BB"><span class="nav-number">4.4.</span> <span class="nav-text">4.4. 项目的横向划分：tabbar -&gt; 路由的映射关系</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-5-%E9%A6%96%E9%A1%B5%E5%BC%80%E5%8F%91"><span class="nav-number">4.5.</span> <span class="nav-text">4.5. 首页开发</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">yzhou</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("3wjOUeqVBQavMfdkONQMUCFf-gzGzoHsz", "QigEM16HhM3Y3X97ESVCTL57");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

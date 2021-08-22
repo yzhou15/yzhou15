@@ -1,0 +1,994 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="flex rem less," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="黑马面面布局开发一、目的 了解移动端页面开发流程 掌握移动端常见布局思路  1.1  技术方案121. 弹性盒子 + rem + LESS 4. 最小适配设备为iphone5 320px  最大设配设备为iphone8plus(ipad能正常查看内容即可)  1.2 代码规范123456789101. 类名语义化,尽量精短、明确，必须以字母开头命名，且全部字母为小写，单词之间统一使用下划线“_”">
+<meta property="og:type" content="article">
+<meta property="og:title" content="heimamm">
+<meta property="og:url" content="https://yzhou15.gitee.io/2021/04/20/%E9%BB%91%E9%A9%AC%E9%9D%A2%E9%9D%A2%E7%A7%BB%E5%8A%A8%E9%A1%B5%E9%9D%A2%E5%B8%83%E5%B1%80/index.html">
+<meta property="og:site_name" content="yzhou&#39;s blog">
+<meta property="og:description" content="黑马面面布局开发一、目的 了解移动端页面开发流程 掌握移动端常见布局思路  1.1  技术方案121. 弹性盒子 + rem + LESS 4. 最小适配设备为iphone5 320px  最大设配设备为iphone8plus(ipad能正常查看内容即可)  1.2 代码规范123456789101. 类名语义化,尽量精短、明确，必须以字母开头命名，且全部字母为小写，单词之间统一使用下划线“_”">
+<meta property="og:locale">
+<meta property="og:image" content="https://yzhou15.gitee.io/2021/04/20/%E9%BB%91%E9%A9%AC%E9%9D%A2%E9%9D%A2%E7%A7%BB%E5%8A%A8%E9%A1%B5%E9%9D%A2%E5%B8%83%E5%B1%80/Users/kandy/AppData/Local/Temp/1593317258207.png">
+<meta property="og:image" content="https://yzhou15.gitee.io/2021/04/20/%E9%BB%91%E9%A9%AC%E9%9D%A2%E9%9D%A2%E7%A7%BB%E5%8A%A8%E9%A1%B5%E9%9D%A2%E5%B8%83%E5%B1%80/Users/kandy/AppData/Local/Temp/1593336007530.png">
+<meta property="og:image" content="https://yzhou15.gitee.io/2021/04/20/%E9%BB%91%E9%A9%AC%E9%9D%A2%E9%9D%A2%E7%A7%BB%E5%8A%A8%E9%A1%B5%E9%9D%A2%E5%B8%83%E5%B1%80/Users/kandy/AppData/Local/Temp/1593336043016.png">
+<meta property="og:image" content="https://yzhou15.gitee.io/2021/04/20/%E9%BB%91%E9%A9%AC%E9%9D%A2%E9%9D%A2%E7%A7%BB%E5%8A%A8%E9%A1%B5%E9%9D%A2%E5%B8%83%E5%B1%80/Users/kandy/AppData/Local/Temp/1593336091814.png">
+<meta property="og:image" content="https://yzhou15.gitee.io/2021/04/20/%E9%BB%91%E9%A9%AC%E9%9D%A2%E9%9D%A2%E7%A7%BB%E5%8A%A8%E9%A1%B5%E9%9D%A2%E5%B8%83%E5%B1%80/Users/kandy/AppData/Local/Temp/1593336164295.png">
+<meta property="og:image" content="https://yzhou15.gitee.io/2021/04/20/%E9%BB%91%E9%A9%AC%E9%9D%A2%E9%9D%A2%E7%A7%BB%E5%8A%A8%E9%A1%B5%E9%9D%A2%E5%B8%83%E5%B1%80/Users/kandy/AppData/Local/Temp/1593336349811.png">
+<meta property="og:image" content="https://yzhou15.gitee.io/2021/04/20/%E9%BB%91%E9%A9%AC%E9%9D%A2%E9%9D%A2%E7%A7%BB%E5%8A%A8%E9%A1%B5%E9%9D%A2%E5%B8%83%E5%B1%80/Users/kandy/AppData/Local/Temp/1593336426566.png">
+<meta property="og:image" content="https://yzhou15.gitee.io/2021/04/20/%E9%BB%91%E9%A9%AC%E9%9D%A2%E9%9D%A2%E7%A7%BB%E5%8A%A8%E9%A1%B5%E9%9D%A2%E5%B8%83%E5%B1%80/Users/kandy/AppData/Local/Temp/1593336450481.png">
+<meta property="article:published_time" content="2021-04-20T14:51:18.000Z">
+<meta property="article:modified_time" content="2021-08-08T08:26:29.795Z">
+<meta property="article:author" content="yzhou">
+<meta property="article:tag" content="flex rem less">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://yzhou15.gitee.io/2021/04/20/%E9%BB%91%E9%A9%AC%E9%9D%A2%E9%9D%A2%E7%A7%BB%E5%8A%A8%E9%A1%B5%E9%9D%A2%E5%B8%83%E5%B1%80/Users/kandy/AppData/Local/Temp/1593317258207.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://yzhou15.gitee.io/2021/04/20/黑马面面移动页面布局/"/>
+
+
+
+
+
+  <title>heimamm | yzhou's blog</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">yzhou's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://yzhou15.gitee.io/2021/04/20/%E9%BB%91%E9%A9%AC%E9%9D%A2%E9%9D%A2%E7%A7%BB%E5%8A%A8%E9%A1%B5%E9%9D%A2%E5%B8%83%E5%B1%80/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="yzhou's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">heimamm</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-04-20T22:51:18+08:00">
+                2021-04-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/html-css/" itemprop="url" rel="index">
+                    <span itemprop="name">html css</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2021/04/20/%E9%BB%91%E9%A9%AC%E9%9D%A2%E9%9D%A2%E7%A7%BB%E5%8A%A8%E9%A1%B5%E9%9D%A2%E5%B8%83%E5%B1%80/" class="leancloud_visitors" data-flag-title="heimamm">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="黑马面面布局开发"><a href="#黑马面面布局开发" class="headerlink" title="黑马面面布局开发"></a>黑马面面布局开发</h2><h3 id="一、目的"><a href="#一、目的" class="headerlink" title="一、目的"></a>一、目的</h3><ol>
+<li>了解移动端页面开发流程</li>
+<li>掌握移动端常见布局思路</li>
+</ol>
+<h4 id="1-1-技术方案"><a href="#1-1-技术方案" class="headerlink" title="1.1  技术方案"></a>1.1  技术方案</h4><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span>. 弹性盒子 + rem + LESS </span><br><span class="line"><span class="number">4</span>. 最小适配设备为iphone5 <span class="number">320px</span>  最大设配设备为iphone8plus(ipad能正常查看内容即可)</span><br></pre></td></tr></table></figure>
+
+<h4 id="1-2-代码规范"><a href="#1-2-代码规范" class="headerlink" title="1.2 代码规范"></a>1.2 代码规范</h4><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span>. 类名语义化,尽量精短、明确，必须以字母开头命名，且全部字母为小写，单词之间统一使用下划线“_” 连接</span><br><span class="line"><span class="number">2</span>. 类名嵌套层次尽量不超过三层</span><br><span class="line"><span class="number">3</span>. 尽量避免直接使用元素选择器</span><br><span class="line"><span class="number">4</span>. 属性书写顺序</span><br><span class="line">   布局定位属性：<span class="attribute">display</span> / <span class="attribute">position</span> / <span class="attribute">float</span> / <span class="attribute">clear</span> / <span class="attribute">visibility</span> / <span class="attribute">overflow</span></span><br><span class="line">   尺寸属性：<span class="attribute">width</span> / <span class="attribute">height</span> / <span class="attribute">margin</span> / <span class="attribute">padding</span> / <span class="attribute">border</span> / <span class="attribute">background</span></span><br><span class="line">   文本属性：<span class="attribute">color</span> / <span class="attribute">font</span> / <span class="attribute">text-decoration</span> / <span class="attribute">text-align</span> / <span class="attribute">vertical-align</span></span><br><span class="line">   其他属性（CSS3）：<span class="attribute">content</span> / <span class="attribute">cursor</span> / <span class="attribute">border-radius</span> / <span class="attribute">box-shadow</span> / <span class="attribute">text-shadow</span></span><br><span class="line"><span class="number">5</span>. 避免使用id选择器</span><br><span class="line"><span class="number">6</span>. 避免使用通配符*和!important</span><br></pre></td></tr></table></figure>
+
+<h4 id="1-2-目录规范"><a href="#1-2-目录规范" class="headerlink" title="1.2 目录规范"></a>1.2 目录规范</h4><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">项目文件夹：heimamm</span><br><span class="line">	样式文件夹：css</span><br><span class="line">	业务类图片文件夹：images</span><br><span class="line">	样式类图片文件夹： icons</span><br><span class="line">	字体类文件夹： fonts</span><br></pre></td></tr></table></figure>
+
+<h3 id="二、流程开发"><a href="#二、流程开发" class="headerlink" title="二、流程开发"></a>二、流程开发</h3><h4 id="2-1-蓝湖-摹客协作平台"><a href="#2-1-蓝湖-摹客协作平台" class="headerlink" title="2.1 蓝湖/摹客协作平台"></a>2.1 蓝湖/摹客协作平台</h4><ul>
+<li>UI设计师 psd效果图完成后，会上传到蓝湖//摹客里面，同时会拉前端工程师进入开发</li>
+<li>大部分情况下，UI会把图片按照前端设计要求给切好</li>
+<li>UI设计师 上传蓝湖到或者/摹客（了解）</li>
+</ul>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span>. /摹客官网地址： https://www.mockplus.cn/  注册一个账号</span><br><span class="line"><span class="number">2</span>. 下载moke  ps插件 </span><br><span class="line"><span class="number">3</span>. PS 安装/摹客/蓝湖插件</span><br><span class="line"><span class="number">3</span>. 打开PS/摹客/蓝湖插件</span><br><span class="line"><span class="number">4</span>. 上传（需要切图，需要先标注切图）</span><br><span class="line"><span class="number">5</span>. 查看项目</span><br><span class="line"><span class="number">6</span>. 邀请成员进入（分享按钮，链接地址）</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>前端设计师可以直接/摹客/蓝湖测量取值</li>
+</ul>
+<h4 id="2-2-适配方案"><a href="#2-2-适配方案" class="headerlink" title="2.2 适配方案"></a>2.2 适配方案</h4><ul>
+<li>flex 布局  </li>
+<li>百分比布局</li>
+<li>rem布局</li>
+<li>vw/vh布局</li>
+<li>响应式布局</li>
+<li>本次案例  flex + rem + + flexible.js +  LESS   </li>
+</ul>
+<h4 id="2-3-初始化文件"><a href="#2-3-初始化文件" class="headerlink" title="2.3  初始化文件"></a>2.3  初始化文件</h4><ul>
+<li><p>引入  normalize.css</p>
+</li>
+<li><p>less 中 初始化body样式</p>
+</li>
+<li><p>约束范围</p>
+</li>
+<li><p>~~~css<br>@media screen and (min-width: 750px) {<br>  html {</p>
+<pre><code>font-size: 37.5px !important;
+</code></pre>
+<p>  }<br>}</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line">#### 2.4 布局模块</span><br><span class="line"></span><br><span class="line">1. 头部模块  .header    高度为 80px </span><br><span class="line"></span><br><span class="line">2. nav 模块制作  多用 flex</span><br><span class="line"></span><br><span class="line">3. 充电学习 阴影</span><br><span class="line"></span><br><span class="line">   ~~~css</span><br><span class="line">   box-shadow: 0 0px 10px rgba(0, 0, 0, 0.1)</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h4 id="2-5-swiper-插件使用"><a href="#2-5-swiper-插件使用" class="headerlink" title="2.5 swiper 插件使用"></a>2.5 swiper 插件使用</h4><p>官网地址：<a target="_blank" rel="noopener" href="https://www.swiper.com.cn/">https://www.swiper.com.cn/</a></p>
+<ul>
+<li>下载需要的css和js文件  html页面中 引入相关文件</li>
+<li>官网找到类似案例，复制html结构，css样式  js 语法</li>
+<li> 根据需求定制修改模块</li>
+</ul>
+<h4 id="2-6-图标字体上传下载"><a href="#2-6-图标字体上传下载" class="headerlink" title="2.6 图标字体上传下载"></a>2.6 图标字体上传下载</h4><p>上传步骤：</p>
+<ol>
+<li><p>让UI美工准备好 图标字体（必须是svg格式）</p>
+</li>
+<li><p>点上传按钮（保留颜色并提交）</p>
+<p><img src="/2021/04/20/%E9%BB%91%E9%A9%AC%E9%9D%A2%E9%9D%A2%E7%A7%BB%E5%8A%A8%E9%A1%B5%E9%9D%A2%E5%B8%83%E5%B1%80/Users\kandy\AppData\Local\Temp\1593317258207.png" alt="59331725820"></p>
+</li>
+<li><p>生成之后加入购物车即可</p>
+</li>
+<li><p>点击下载 — 下载代码</p>
+</li>
+</ol>
+<p>小技巧：  如何批量下载全部字体图标呢？</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> span = <span class="built_in">document</span>.querySelectorAll(<span class="string">&#x27;.icon-cover&#x27;</span>);</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>, len = span.length; i &lt; len; i++) &#123;</span><br><span class="line">     <span class="built_in">console</span>.log(span[i].querySelector(<span class="string">&#x27;span&#x27;</span>).click());</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h4 id="2-7-上传码云并发布部署静态网站"><a href="#2-7-上传码云并发布部署静态网站" class="headerlink" title="2.7  上传码云并发布部署静态网站"></a>2.7  上传码云并发布部署静态网站</h4><p>准备工作：  需要下载git软件    需要码云注册账号</p>
+<p>git 可以把我们的本地网站提交上传到远程仓库（码云 gitee）里面    类似以前的   ftp  </p>
+<p>码云  就是远程仓库， 类似服务器 </p>
+<ol>
+<li><p>码云创建新的仓库。   heimamm  </p>
+</li>
+<li><p>利用git 提交 把本地网站提交到 码云新建的仓库里面</p>
+<ul>
+<li><p>在网站根目录右键– Git Bash Here</p>
+</li>
+<li><p>如果是第一次利用git提交，请配置好全局选项</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git config --<span class="built_in">global</span> user.name <span class="string">&quot;用户名&quot;</span></span><br><span class="line">git config --<span class="built_in">global</span> user.email <span class="string">&quot;你的邮箱地址&quot;</span></span><br></pre></td></tr></table></figure></li>
+<li><p>初始化仓库</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git init</span><br></pre></td></tr></table></figure></li>
+<li><p>把本地文件放到暂存区</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git add .</span><br></pre></td></tr></table></figure></li>
+<li><p>把本地文件放到本地仓库里面</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git commit -m <span class="string">&#x27;提交黑马面面网站&#x27;</span></span><br></pre></td></tr></table></figure></li>
+<li><p>链接远程仓库</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git remote add origin 你新建的仓库地址</span><br></pre></td></tr></table></figure></li>
+<li><p>把本地仓库的文件推送到远程仓库 push</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push -u origin master</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>码云部署发布静态网站</p>
+<ul>
+<li><p>在当前仓库中，点击  “服务”   菜单 </p>
+<p><img src="/2021/04/20/%E9%BB%91%E9%A9%AC%E9%9D%A2%E9%9D%A2%E7%A7%BB%E5%8A%A8%E9%A1%B5%E9%9D%A2%E5%B8%83%E5%B1%80/Users\kandy\AppData\Local\Temp\1593336007530.png" alt="59333600753"></p>
+</li>
+<li><p>选择 Gitee Pages</p>
+<p> <img src="/2021/04/20/%E9%BB%91%E9%A9%AC%E9%9D%A2%E9%9D%A2%E7%A7%BB%E5%8A%A8%E9%A1%B5%E9%9D%A2%E5%B8%83%E5%B1%80/Users\kandy\AppData\Local\Temp\1593336043016.png" alt="59333604301"></p>
+</li>
+<li><p>选择 “启动” 按钮</p>
+<p> <img src="/2021/04/20/%E9%BB%91%E9%A9%AC%E9%9D%A2%E9%9D%A2%E7%A7%BB%E5%8A%A8%E9%A1%B5%E9%9D%A2%E5%B8%83%E5%B1%80/Users\kandy\AppData\Local\Temp\1593336091814.png" alt="59333609181"></p>
+</li>
+<li><p>稍等之后，会拿到地址，就可以利用这个地址来预览网页了<img src="/2021/04/20/%E9%BB%91%E9%A9%AC%E9%9D%A2%E9%9D%A2%E7%A7%BB%E5%8A%A8%E9%A1%B5%E9%9D%A2%E5%B8%83%E5%B1%80/Users\kandy\AppData\Local\Temp\1593336164295.png" alt="59333616429"></p>
+</li>
+<li><p>当然你也可以利用  草料二维码 生成二维码    <a target="_blank" rel="noopener" href="https://cli.im/">https://cli.im/</a></p>
+<p><img src="/2021/04/20/%E9%BB%91%E9%A9%AC%E9%9D%A2%E9%9D%A2%E7%A7%BB%E5%8A%A8%E9%A1%B5%E9%9D%A2%E5%B8%83%E5%B1%80/Users\kandy\AppData\Local\Temp\1593336349811.png" alt="59333634981"></p>
+</li>
+</ul>
+</li>
+</ol>
+<p>最后： 如果提交网站，你不愿意用git 提交， 可以直接找到仓库，里面有文件，选择上传本地文件即可。</p>
+<p> <img src="/2021/04/20/%E9%BB%91%E9%A9%AC%E9%9D%A2%E9%9D%A2%E7%A7%BB%E5%8A%A8%E9%A1%B5%E9%9D%A2%E5%B8%83%E5%B1%80/Users\kandy\AppData\Local\Temp\1593336426566.png" alt="59333642656"></p>
+<p><img src="/2021/04/20/%E9%BB%91%E9%A9%AC%E9%9D%A2%E9%9D%A2%E7%A7%BB%E5%8A%A8%E9%A1%B5%E9%9D%A2%E5%B8%83%E5%B1%80/Users\kandy\AppData\Local\Temp\1593336450481.png" alt="59333645048"></p>
+<p>但是，1个小时内，只能上传 20个以内的文件， 前端人员，git必备技能</p>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/kity@2.0.4/dist/kity.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/kityminder-core@1.4.50/dist/kityminder.core.min.js"></script><script defer="true" type="text/javascript" src="https://cdn.jsdelivr.net/npm/hexo-simple-mindmap@0.2.0/dist/mindmap.min.js"></script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/hexo-simple-mindmap@0.2.0/dist/mindmap.min.css">
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/flex-rem-less/" rel="tag"># flex rem less</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2021/04/10/next%E9%85%8D%E7%BD%AE/" rel="next" title="next配置">
+                <i class="fa fa-chevron-left"></i> next配置
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2021/04/20/%E5%A4%96%E5%8D%96%E9%A1%B9%E7%9B%AE/" rel="prev" title="外卖项目">
+                外卖项目 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+                <a href="/archives">
+                  <span class="site-state-item-count">28</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/yzhou15" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:403708416@qq.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%BB%91%E9%A9%AC%E9%9D%A2%E9%9D%A2%E5%B8%83%E5%B1%80%E5%BC%80%E5%8F%91"><span class="nav-number">1.</span> <span class="nav-text">黑马面面布局开发</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E7%9B%AE%E7%9A%84"><span class="nav-number">1.1.</span> <span class="nav-text">一、目的</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-1-%E6%8A%80%E6%9C%AF%E6%96%B9%E6%A1%88"><span class="nav-number">1.1.1.</span> <span class="nav-text">1.1  技术方案</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-2-%E4%BB%A3%E7%A0%81%E8%A7%84%E8%8C%83"><span class="nav-number">1.1.2.</span> <span class="nav-text">1.2 代码规范</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-2-%E7%9B%AE%E5%BD%95%E8%A7%84%E8%8C%83"><span class="nav-number">1.1.3.</span> <span class="nav-text">1.2 目录规范</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E6%B5%81%E7%A8%8B%E5%BC%80%E5%8F%91"><span class="nav-number">1.2.</span> <span class="nav-text">二、流程开发</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-%E8%93%9D%E6%B9%96-%E6%91%B9%E5%AE%A2%E5%8D%8F%E4%BD%9C%E5%B9%B3%E5%8F%B0"><span class="nav-number">1.2.1.</span> <span class="nav-text">2.1 蓝湖&#x2F;摹客协作平台</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2-%E9%80%82%E9%85%8D%E6%96%B9%E6%A1%88"><span class="nav-number">1.2.2.</span> <span class="nav-text">2.2 适配方案</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-3-%E5%88%9D%E5%A7%8B%E5%8C%96%E6%96%87%E4%BB%B6"><span class="nav-number">1.2.3.</span> <span class="nav-text">2.3  初始化文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-5-swiper-%E6%8F%92%E4%BB%B6%E4%BD%BF%E7%94%A8"><span class="nav-number">1.2.4.</span> <span class="nav-text">2.5 swiper 插件使用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-6-%E5%9B%BE%E6%A0%87%E5%AD%97%E4%BD%93%E4%B8%8A%E4%BC%A0%E4%B8%8B%E8%BD%BD"><span class="nav-number">1.2.5.</span> <span class="nav-text">2.6 图标字体上传下载</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-7-%E4%B8%8A%E4%BC%A0%E7%A0%81%E4%BA%91%E5%B9%B6%E5%8F%91%E5%B8%83%E9%83%A8%E7%BD%B2%E9%9D%99%E6%80%81%E7%BD%91%E7%AB%99"><span class="nav-number">1.2.6.</span> <span class="nav-text">2.7  上传码云并发布部署静态网站</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">yzhou</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("3wjOUeqVBQavMfdkONQMUCFf-gzGzoHsz", "QigEM16HhM3Y3X97ESVCTL57");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,1057 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="微信小程序 vue," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="1 uni-app学习1.1 什么是uni-app uni-app是一个使用Vue.js语法来开发所有前端应用的框架（也称之为全端开发框架） 技术栈：JavaScript，vue， 微信小程序， uni-app  1.2 有哪些uni-app的作品 线上项目.png 1.3. uni-app的社区规模 社区规模.png 2 uni-app基础2.1 如何创建项目12345678脚手架搭建项目1.全">
+<meta property="og:type" content="article">
+<meta property="og:title" content="dnpicture">
+<meta property="og:url" content="https://yzhou15.gitee.io/2021/04/30/dnpicture/index.html">
+<meta property="og:site_name" content="yzhou&#39;s blog">
+<meta property="og:description" content="1 uni-app学习1.1 什么是uni-app uni-app是一个使用Vue.js语法来开发所有前端应用的框架（也称之为全端开发框架） 技术栈：JavaScript，vue， 微信小程序， uni-app  1.2 有哪些uni-app的作品 线上项目.png 1.3. uni-app的社区规模 社区规模.png 2 uni-app基础2.1 如何创建项目12345678脚手架搭建项目1.全">
+<meta property="og:locale">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/19729056-2fc52ebbd53a339d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/736/format/webp">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/19729056-7180ee5e356118f2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/322/format/webp">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/19729056-9da64783adf69fea.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/839/format/webp">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/19729056-4af44e5f0de56ddd.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1200/format/webp">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/19729056-ed390f395e18208a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/747/format/webp">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/19729056-42f5f95a4bceb39f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/403/format/webp">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/19729056-3c0d4e0b2ed9808c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/406/format/webp">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/19729056-766fd5caa2499a5c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/362/format/webp">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/19729056-31c83f46a6e86b69.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/418/format/webp">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/19729056-fa3ecd57d30964b7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/301/format/webp">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/19729056-68f1138d3744e626.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/853/format/webp">
+<meta property="og:image" content="https://yzhou15.gitee.io/2021/04/30/dnpicture/%E9%A1%B9%E7%9B%AE%E7%9B%AE%E5%BD%95.jpg">
+<meta property="og:image" content="https://yzhou15.gitee.io/2021/04/30/dnpicture/Snipaste_2021-05-01_00-35-52.jpg">
+<meta property="article:published_time" content="2021-04-30T15:52:39.000Z">
+<meta property="article:modified_time" content="2021-08-08T08:26:29.751Z">
+<meta property="article:author" content="yzhou">
+<meta property="article:tag" content="微信小程序 vue">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://upload-images.jianshu.io/upload_images/19729056-2fc52ebbd53a339d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/736/format/webp">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://yzhou15.gitee.io/2021/04/30/dnpicture/"/>
+
+
+
+
+
+  <title>dnpicture | yzhou's blog</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">yzhou's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://yzhou15.gitee.io/2021/04/30/dnpicture/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="yzhou's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">dnpicture</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-04-30T23:52:39+08:00">
+                2021-04-30
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F/" itemprop="url" rel="index">
+                    <span itemprop="name">微信小程序</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2021/04/30/dnpicture/" class="leancloud_visitors" data-flag-title="dnpicture">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="1-uni-app学习"><a href="#1-uni-app学习" class="headerlink" title="1 uni-app学习"></a>1 uni-app学习</h1><h2 id="1-1-什么是uni-app"><a href="#1-1-什么是uni-app" class="headerlink" title="1.1 什么是uni-app"></a>1.1 什么是uni-app</h2><blockquote>
+<p>uni-app是一个使用Vue.js语法来开发所有前端应用的框架（也称之为全端开发框架）<br> 技术栈：JavaScript，vue， 微信小程序， uni-app</p>
+</blockquote>
+<h2 id="1-2-有哪些uni-app的作品"><a href="#1-2-有哪些uni-app的作品" class="headerlink" title="1.2 有哪些uni-app的作品"></a>1.2 有哪些uni-app的作品</h2><p><img src="https://upload-images.jianshu.io/upload_images/19729056-2fc52ebbd53a339d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/736/format/webp" alt="img"></p>
+<p>线上项目.png</p>
+<h2 id="1-3-uni-app的社区规模"><a href="#1-3-uni-app的社区规模" class="headerlink" title="1.3. uni-app的社区规模"></a>1.3. uni-app的社区规模</h2><p><img src="https://upload-images.jianshu.io/upload_images/19729056-7180ee5e356118f2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/322/format/webp" alt="img"></p>
+<p>社区规模.png</p>
+<h1 id="2-uni-app基础"><a href="#2-uni-app基础" class="headerlink" title="2 uni-app基础"></a>2 uni-app基础</h1><h2 id="2-1-如何创建项目"><a href="#2-1-如何创建项目" class="headerlink" title="2.1 如何创建项目"></a>2.1 如何创建项目</h2><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">脚手架搭建项目</span><br><span class="line"><span class="number">1</span>.全局安装  </span><br><span class="line">    npm install -g <span class="keyword">@vue</span>/cli  </span><br><span class="line"><span class="number">2</span>.创建项目      </span><br><span class="line">    vue create -p dcloudio/uni-preset-vue my-project     </span><br><span class="line"><span class="number">3</span>.启动项目（微信小程序）   </span><br><span class="line">    npm run <span class="attribute">dev</span>:mp-weixin    </span><br><span class="line"><span class="number">4</span>.微信小程序开发者工具导入项目         </span><br></pre></td></tr></table></figure>
+
+<p>（搭建过程中可能会遇到的问题）</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/19729056-9da64783adf69fea.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/839/format/webp" alt="img"></p>
+<p>脚手架搭建版本不一致.png</p>
+<h2 id="2-2-如何编写代码"><a href="#2-2-如何编写代码" class="headerlink" title="2.2 如何编写代码"></a>2.2 如何编写代码</h2><h2 id="2-3-uni-app初体验"><a href="#2-3-uni-app初体验" class="headerlink" title="2.3 uni-app初体验"></a>2.3 uni-app初体验</h2><p><img src="https://upload-images.jianshu.io/upload_images/19729056-4af44e5f0de56ddd.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1200/format/webp" alt="img"></p>
+<p>初始界面.png</p>
+<h2 id="2-4-项目结构介绍"><a href="#2-4-项目结构介绍" class="headerlink" title="2.4 项目结构介绍"></a>2.4 项目结构介绍</h2><p><img src="https://upload-images.jianshu.io/upload_images/19729056-ed390f395e18208a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/747/format/webp" alt="img"></p>
+<p>项目目录.png</p>
+<h2 id="2-5-样式和sass"><a href="#2-5-样式和sass" class="headerlink" title="2.5 样式和sass"></a>2.5 样式和sass</h2><ul>
+<li>支持小程序的rpx 和 h5的vw，vh。<br> <code>rpx 小程序中的单位 750rpx = 屏幕宽度 vw h5单位 100vw = 屏幕的宽度， 100vh = 屏幕的高度</code></li>
+<li>内置sass的配置， 只需要安装对应的依赖即可  <code>npm install sass-loader node-sass</code></li>
+<li>vue组件中，在style标签上加入属性<code>&lt;style lang= &#39;scss&#39;&gt;</code>即可</li>
+</ul>
+<h2 id="2-6-基本语法"><a href="#2-6-基本语法" class="headerlink" title="2.6 基本语法"></a>2.6 基本语法</h2><p>学过vue的同学应该很容易上手,大胆去尝试吧</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">view</span> <span class="attr">class</span>=<span class="string">&quot;content&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">view</span>&gt;</span>&#123;&#123;dataObj.name&#125;&#125;<span class="tag">&lt;/<span class="name">view</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">view</span>&gt;</span>&#123;&#123;dataObj.age&#125;&#125;<span class="tag">&lt;/<span class="name">view</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">view</span>&gt;</span>&#123;&#123;dataObj.boolean&#125;&#125;<span class="tag">&lt;/<span class="name">view</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">view</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">view</span> <span class="attr">v-for</span>=<span class="string">&quot;item in filterList&quot;</span> <span class="attr">:key</span>= <span class="string">&#x27;item.id&#x27;</span>&gt;</span>&#123;&#123;item.text&#125;&#125;<span class="tag">&lt;/<span class="name">view</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">view</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">view</span>&gt;</span></span><br><span class="line">    </span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="javascript">    <span class="keyword">export</span> <span class="keyword">default</span> &#123;</span></span><br><span class="line"><span class="javascript">        <span class="function"><span class="title">data</span>(<span class="params"></span>)</span> &#123;</span></span><br><span class="line"><span class="javascript">            <span class="keyword">return</span> &#123;</span></span><br><span class="line">                dataObj: &#123;</span><br><span class="line"><span class="javascript">                    name: <span class="string">&#x27;Davidsofter&#x27;</span>,</span></span><br><span class="line">                    age: 23,</span><br><span class="line"><span class="javascript">                    boolean: <span class="literal">true</span>,</span></span><br><span class="line">                &#125;,</span><br><span class="line"><span class="javascript">                fruitList: [&#123;<span class="attr">id</span>: <span class="number">0</span>, <span class="attr">text</span>: <span class="string">&#x27;🍎&#x27;</span>&#125;,&#123;<span class="attr">id</span>: <span class="number">1</span>, <span class="attr">text</span>: <span class="string">&#x27;🍌&#x27;</span>&#125;,&#123;<span class="attr">id</span>: <span class="number">2</span>, <span class="attr">text</span>: <span class="string">&#x27;🍇&#x27;</span>&#125;]</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;,</span><br><span class="line">        computed: &#123;</span><br><span class="line"><span class="javascript">            <span class="function"><span class="title">filterList</span>(<span class="params"></span>)</span> &#123;</span></span><br><span class="line"><span class="javascript">                <span class="keyword">return</span> <span class="built_in">this</span>.fruitList.filter(<span class="function"><span class="params">v</span> =&gt;</span> v.id&lt;=<span class="number">0</span>)</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span> </span><br></pre></td></tr></table></figure>
+
+<p><img src="https://upload-images.jianshu.io/upload_images/19729056-42f5f95a4bceb39f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/403/format/webp" alt="img"></p>
+<p>基本语法显示.png</p>
+<h2 id="2-7-事件"><a href="#2-7-事件" class="headerlink" title="2.7 事件"></a>2.7 事件</h2><p>添加点击事件，自定义参数和传参</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">view</span> <span class="attr">class</span>=<span class="string">&quot;content&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">view</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">button</span> <span class="attr">data-item</span>=<span class="string">&quot;123&quot;</span> @<span class="attr">click</span>=<span class="string">&quot;btclick(1,$event)&quot;</span>&gt;</span>点击我试试<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">view</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">view</span>&gt;</span></span><br><span class="line">    </span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="javascript">    <span class="keyword">export</span> <span class="keyword">default</span> &#123;</span></span><br><span class="line"><span class="javascript">        <span class="function"><span class="title">data</span>(<span class="params"></span>)</span> &#123;</span></span><br><span class="line"><span class="javascript">            <span class="keyword">return</span> &#123;</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;,</span><br><span class="line">        methods: &#123;</span><br><span class="line"><span class="javascript">            <span class="function"><span class="title">btclick</span>(<span class="params">data,event</span>)</span> &#123;</span></span><br><span class="line"><span class="javascript">                <span class="built_in">console</span>.log(<span class="string">&quot;我不想努力了😘&quot;</span>)</span></span><br><span class="line"><span class="javascript">                <span class="built_in">console</span>.log(data)</span></span><br><span class="line"><span class="javascript">                <span class="built_in">console</span>.log(event)</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;,</span><br><span class="line">    &#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>查看打印出的结果：</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/19729056-3c0d4e0b2ed9808c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/406/format/webp" alt="img"></p>
+<p>点击事件.png</p>
+<h2 id="2-8-组件"><a href="#2-8-组件" class="headerlink" title="2.8 组件"></a>2.8 组件</h2><h3 id="1-组件的定义-引入-注册-使用"><a href="#1-组件的定义-引入-注册-使用" class="headerlink" title="1 组件的定义/引入/注册/使用"></a>1 组件的定义/引入/注册/使用</h3><blockquote>
+<p>重点章节，组件化思想是前端必备思想之一，灵活的使用组件可以提高网页开发效率，提高代码复用率，降低块与块之间的耦合性。</p>
+</blockquote>
+<h4 id="1-1-组件的定义"><a href="#1-1-组件的定义" class="headerlink" title="1.1 组件的定义"></a>1.1 组件的定义</h4><ul>
+<li>在src目录下新建文件夹components用来存放组件</li>
+<li>在components目录下直接新建vue文件</li>
+</ul>
+<h4 id="1-2-组件的引入"><a href="#1-2-组件的引入" class="headerlink" title="1.2 组件的引入"></a>1.2 组件的引入</h4><ul>
+<li>在页面中引入组件 “import 组件名 from ‘组件路径’”</li>
+</ul>
+<h4 id="1-3-组件的注册"><a href="#1-3-组件的注册" class="headerlink" title="1.3 组件的注册"></a>1.3 组件的注册</h4><ul>
+<li>在页面的实例中，新增属性 components</li>
+<li>属性components是一个对象， 在里面添加要注册的组件</li>
+</ul>
+<h4 id="1-4-组件的使用"><a href="#1-4-组件的使用" class="headerlink" title="1.4 组件的使用"></a>1.4 组件的使用</h4><p>+在页面的template中添加组件标签 “&lt;组件&gt;&lt;组件/&gt;”</p>
+<h4 id="1-5-全局数据传递"><a href="#1-5-全局数据传递" class="headerlink" title="1.5 全局数据传递"></a>1.5 全局数据传递</h4><ul>
+<li>通过prototype在vue的原型上添加属性</li>
+</ul>
+<p><img src="https://upload-images.jianshu.io/upload_images/19729056-766fd5caa2499a5c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/362/format/webp" alt="img"></p>
+<p>全局数据传递.png</p>
+<ul>
+<li><p>在App.vue文件中向外暴露一个全局对象</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/19729056-31c83f46a6e86b69.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/418/format/webp" alt="img"></p>
+<p>globalData数据传递.png</p>
+</li>
+<li><p>以上两种方法的拿值</p>
+</li>
+</ul>
+<p><img src="https://upload-images.jianshu.io/upload_images/19729056-fa3ecd57d30964b7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/301/format/webp" alt="img"></p>
+<p>拿全局数据方法.png</p>
+<h4 id="1-6-使用插槽实现动态更新组件"><a href="#1-6-使用插槽实现动态更新组件" class="headerlink" title="1.6 使用插槽实现动态更新组件"></a>1.6 使用插槽实现动态更新组件</h4><p><img src="https://upload-images.jianshu.io/upload_images/19729056-68f1138d3744e626.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/853/format/webp" alt="img"></p>
+<p>插槽.png</p>
+<h2 id="2-9-生命周期"><a href="#2-9-生命周期" class="headerlink" title="2.9 生命周期"></a>2.9 生命周期</h2><h4 id="1-介绍"><a href="#1-介绍" class="headerlink" title="1 介绍"></a>1 介绍</h4><ul>
+<li>uni-app框架的生命周期结合了vue和微信小程序的生命周期</li>
+<li>全局APP中使用 onLaunch 表示应用启动时</li>
+<li>页面中使用 onLoad 或者 onShow 分别表示页面加载完成 和 页面显示时</li>
+<li>组件中使用mounted 表示组件挂载完毕时</li>
+</ul>
+<h4 id="2-完整生命周期"><a href="#2-完整生命周期" class="headerlink" title="2 完整生命周期"></a>2 完整生命周期</h4><ul>
+<li><a target="_blank" rel="noopener" href="https://links.jianshu.com/go?to=https://uniapp.dcloud.io/frame?id=%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F">uni-app生命周期</a></li>
+<li><a target="_blank" rel="noopener" href="https://links.jianshu.com/go?to=https://cn.vuejs.org/v2/guide/instance.html%23%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E5%9B%BE%E7%A4%BA">vue生命周期图示</a></li>
+<li><a target="_blank" rel="noopener" href="https://links.jianshu.com/go?to=https://developers.weixin.qq.com/miniprogram/dev/framework/app-service/page-life-cycle.html">微信小程序生命周期</a></li>
+</ul>
+<h1 id="3-uni-app项目"><a href="#3-uni-app项目" class="headerlink" title="3.uni-app项目"></a>3.uni-app项目</h1><ul>
+<li>懂你找图</li>
+</ul>
+<blockquote>
+<p>本文结合黑马程序员教学视频，部分截图来自原视频<br> 黑马视频链接： <a target="_blank" rel="noopener" href="https://links.jianshu.com/go?to=https://www.bilibili.com/video/BV1Sc41187nZ?p=1">https://www.bilibili.com/video/BV1Sc41187nZ?p=1</a></p>
+</blockquote>
+<blockquote>
+<p>作者：VinSmokeW<br>链接：<a target="_blank" rel="noopener" href="https://www.jianshu.com/p/3dec2cc2e30b">https://www.jianshu.com/p/3dec2cc2e30b</a><br>来源：简书<br>著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。</p>
+</blockquote>
+<h4 id="1-脚手架搭建项目"><a href="#1-脚手架搭建项目" class="headerlink" title="1.脚手架搭建项目"></a>1.脚手架搭建项目</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//1. 全局安装</span></span><br><span class="line">npm install -g @vue/cli</span><br><span class="line"><span class="comment">//2. 创建项目</span></span><br><span class="line">vue create -p dcloudio/uni-preset-vue my-project</span><br><span class="line"><span class="comment">//3. 启动项目（微信小程序）</span></span><br><span class="line">npm run dev:mp-weixin</span><br><span class="line"><span class="comment">//4. 微信小程序开发者工具导入项目</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="2-项目目录"><a href="#2-项目目录" class="headerlink" title="2.项目目录"></a>2.项目目录</h4><p><img src="/2021/04/30/dnpicture/%E9%A1%B9%E7%9B%AE%E7%9B%AE%E5%BD%95.jpg" alt="项目目录"></p>
+<h5 id="2-1-样式和sass"><a href="#2-1-样式和sass" class="headerlink" title="2.1.样式和sass"></a>2.1.样式和sass</h5><p><img src="/2021/04/30/dnpicture/Snipaste_2021-05-01_00-35-52.jpg" alt="Snipaste_2021-05-01_00-35-52"></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i sass-loader@<span class="number">4.13</span><span class="number">.0</span> node-sass@<span class="number">8.0</span><span class="number">.2</span></span><br></pre></td></tr></table></figure>
+
+<h5 id="2-2-uni-ui和接口使用"><a href="#2-2-uni-ui和接口使用" class="headerlink" title="2.2.uni-ui和接口使用"></a>2.2.uni-ui和接口使用</h5><blockquote>
+<p>unu-ui :<a target="_blank" rel="noopener" href="https://www.npmjs.com/package/@dcloudio/uni-ui">https://www.npmjs.com/package/@dcloudio/uni-ui</a></p>
+<p>接口文档：<a target="_blank" rel="noopener" href="https://www.showdoc.com.cn/414855720281749?page_id=3678621017219602">https://www.showdoc.com.cn/414855720281749?page_id=3678621017219602</a></p>
+<p>比如 <a target="_blank" rel="noopener" href="http://157.122.54.189:9088/image/v3/homepage/vertical">http://157.122.54.189:9088/image/v3/homepage/vertical</a> 这个接口不能用，带上参数之后<br><a target="_blank" rel="noopener" href="http://157.122.54.189:9088/image/v3/homepage/vertical?limit=10&amp;order=hot&amp;skip=2">http://157.122.54.189:9088/image/v3/homepage/vertical?limit=10&amp;order=hot&amp;skip=2</a><br>就可以用了</p>
+</blockquote>
+<p>index.vue</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;view&gt;首页</span><br><span class="line">    &lt;text <span class="class"><span class="keyword">class</span></span>=<span class="string">&quot;iconfont iconvideocamera&quot;</span>&gt;&lt;/text&gt;</span><br><span class="line">    &lt;uni-badge text=<span class="string">&quot;1&quot;</span>&gt;&lt;<span class="regexp">/uni-badge&gt;&lt;uni-badge text=&quot;2&quot; type=&quot;success&quot; &gt;&lt;/u</span>ni-badge&gt;</span><br><span class="line">    &lt;uni-badge text=<span class="string">&quot;3&quot;</span> type=<span class="string">&quot;primary&quot;</span> :inverted=<span class="string">&quot;true&quot;</span>&gt;&lt;/uni-badge&gt;</span><br><span class="line"></span><br><span class="line">  &lt;/view&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line"><span class="keyword">import</span> &#123;uniBadge&#125; <span class="keyword">from</span> <span class="string">&#x27;@dcloudio/uni-ui&#x27;</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">  name: <span class="string">&quot;index&quot;</span>,</span><br><span class="line">  components:&#123;</span><br><span class="line">    uniBadge</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="function"><span class="title">onload</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="comment">// http://157.122.54.189:9088/image/v3/homepage/vertical</span></span><br><span class="line">    <span class="comment">// 1.原生的微信小程序的api</span></span><br><span class="line">    wx.request(&#123;</span><br><span class="line">      url:<span class="string">&quot;http://157.122.54.189:9088/image/v3/homepage/vertical?limit=10&amp;order=hot&amp;skip=2&quot;</span>,</span><br><span class="line">      <span class="function"><span class="title">success</span>(<span class="params">res</span>)</span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(res);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;)</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 2. uni-api</span></span><br><span class="line">    uni.request(&#123;</span><br><span class="line">      uni:<span class="string">&quot;http://157.122.54.189:9088/image/v3/homepage/vertical?limit=10&amp;order=hot&amp;skip=2&quot;</span></span><br><span class="line">    &#125;).then(<span class="function"><span class="params">res</span> =&gt;</span> &#123;</span><br><span class="line">      <span class="built_in">console</span>.log(res);</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">&lt;/script&gt;</span><br><span class="line"></span><br><span class="line">&lt;style scoped&gt;</span><br><span class="line"></span><br><span class="line">&lt;/style&gt;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h5 id="2-2-首页模块"><a href="#2-2-首页模块" class="headerlink" title="2.2. 首页模块"></a>2.2. 首页模块</h5><ul>
+<li><p>功能分析</p>
+<ul>
+<li>修改导航栏的外观</li>
+<li>使用分段器组件搭建子页面</li>
+<li>封装自己异步请求</li>
+</ul>
+</li>
+<li><p>搭建子页面</p>
+<ul>
+<li>首页模块分为4个部分,分别是推荐、分类、最新、专辑</li>
+<li>新建自定义组件来代替上述的4个页面<ul>
+<li>home-recommend</li>
+<li>home-category</li>
+<li>home-new</li>
+<li>home-album</li>
+</ul>
+</li>
+<li>分段器介绍<ul>
+<li>分段器指的是uni-ui中的一个组件,其实就是我们俗称的标签页,tab栏</li>
+<li><a target="_blank" rel="noopener" href="https://ext.dcloud.net.cn/plugin?id=54">https://ext.dcloud.net.cn/plugin?id=54</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>封装自己的异步请求</p>
+<ul>
+<li>封装的原因<ul>
+<li>原生的请求不支持 promise</li>
+<li>unl-apl的请求不能够方便的添加请求中效果</li>
+<li>uni-api的请求返回值是个数组,不方便</li>
+</ul>
+</li>
+<li>封装的思路<ul>
+<li>基于原生的 promise来封装</li>
+<li>挂载到vue的原型上</li>
+<li>通过 this request的方式来使用</li>
+</ul>
+</li>
+</ul>
+<h5 id="2-3-首页模块-推荐模块"><a href="#2-3-首页模块-推荐模块" class="headerlink" title="2.3.首页模块-推荐模块"></a>2.3.首页模块-推荐模块</h5><ul>
+<li><p>接口文档<br><a target="_blank" rel="noopener" href="https://www.showdoc.com.cn/414855720281749?page_id=3678621017219602">https://www.showdoc.com.cn/414855720281749?page_id=3678621017219602</a></p>
+</li>
+<li><p>数据动态渲染</p>
+</li>
+<li><p>moment. Js的使用</p>
+</li>
+<li><p>“热门”列表的基于 scroll-view的分页加载</p>
+</li>
+</ul>
+</li>
+<li><p>页面</p>
+</li>
+</ul>
+<h5 id="2-4-首页模块-专辑模块"><a href="#2-4-首页模块-专辑模块" class="headerlink" title="2.4.首页模块-专辑模块"></a>2.4.首页模块-专辑模块</h5><ul>
+<li>专辑列表</li>
+<li>专辑详情</li>
+</ul>
+<p>1.专辑列表</p>
+<p>1.1功能分析</p>
+<ul>
+<li>使用 setNavigation BarTitle修改页面标题</li>
+<li>发送请求获取数据</li>
+<li>使用 swiper轮播图组件</li>
+<li>使用 scroll-view组件实现分页</li>
+<li>点击跳转到专辑详情页</li>
+</ul>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/kity@2.0.4/dist/kity.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/kityminder-core@1.4.50/dist/kityminder.core.min.js"></script><script defer="true" type="text/javascript" src="https://cdn.jsdelivr.net/npm/hexo-simple-mindmap@0.2.0/dist/mindmap.min.js"></script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/hexo-simple-mindmap@0.2.0/dist/mindmap.min.css">
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F-vue/" rel="tag"># 微信小程序 vue</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2021/04/23/vueDay5/" rel="next" title="vueDay5">
+                <i class="fa fa-chevron-left"></i> vueDay5
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2021/06/30/ECMA%20Script6/" rel="prev" title="ECMA Script6">
+                ECMA Script6 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+                <a href="/archives">
+                  <span class="site-state-item-count">28</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/yzhou15" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:403708416@qq.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-uni-app%E5%AD%A6%E4%B9%A0"><span class="nav-number">1.</span> <span class="nav-text">1 uni-app学习</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-1-%E4%BB%80%E4%B9%88%E6%98%AFuni-app"><span class="nav-number">1.1.</span> <span class="nav-text">1.1 什么是uni-app</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-2-%E6%9C%89%E5%93%AA%E4%BA%9Buni-app%E7%9A%84%E4%BD%9C%E5%93%81"><span class="nav-number">1.2.</span> <span class="nav-text">1.2 有哪些uni-app的作品</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-3-uni-app%E7%9A%84%E7%A4%BE%E5%8C%BA%E8%A7%84%E6%A8%A1"><span class="nav-number">1.3.</span> <span class="nav-text">1.3. uni-app的社区规模</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-uni-app%E5%9F%BA%E7%A1%80"><span class="nav-number">2.</span> <span class="nav-text">2 uni-app基础</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1-%E5%A6%82%E4%BD%95%E5%88%9B%E5%BB%BA%E9%A1%B9%E7%9B%AE"><span class="nav-number">2.1.</span> <span class="nav-text">2.1 如何创建项目</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2-%E5%A6%82%E4%BD%95%E7%BC%96%E5%86%99%E4%BB%A3%E7%A0%81"><span class="nav-number">2.2.</span> <span class="nav-text">2.2 如何编写代码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-3-uni-app%E5%88%9D%E4%BD%93%E9%AA%8C"><span class="nav-number">2.3.</span> <span class="nav-text">2.3 uni-app初体验</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-4-%E9%A1%B9%E7%9B%AE%E7%BB%93%E6%9E%84%E4%BB%8B%E7%BB%8D"><span class="nav-number">2.4.</span> <span class="nav-text">2.4 项目结构介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-5-%E6%A0%B7%E5%BC%8F%E5%92%8Csass"><span class="nav-number">2.5.</span> <span class="nav-text">2.5 样式和sass</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-6-%E5%9F%BA%E6%9C%AC%E8%AF%AD%E6%B3%95"><span class="nav-number">2.6.</span> <span class="nav-text">2.6 基本语法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-7-%E4%BA%8B%E4%BB%B6"><span class="nav-number">2.7.</span> <span class="nav-text">2.7 事件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-8-%E7%BB%84%E4%BB%B6"><span class="nav-number">2.8.</span> <span class="nav-text">2.8 组件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E7%BB%84%E4%BB%B6%E7%9A%84%E5%AE%9A%E4%B9%89-%E5%BC%95%E5%85%A5-%E6%B3%A8%E5%86%8C-%E4%BD%BF%E7%94%A8"><span class="nav-number">2.8.1.</span> <span class="nav-text">1 组件的定义&#x2F;引入&#x2F;注册&#x2F;使用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-1-%E7%BB%84%E4%BB%B6%E7%9A%84%E5%AE%9A%E4%B9%89"><span class="nav-number">2.8.1.1.</span> <span class="nav-text">1.1 组件的定义</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-2-%E7%BB%84%E4%BB%B6%E7%9A%84%E5%BC%95%E5%85%A5"><span class="nav-number">2.8.1.2.</span> <span class="nav-text">1.2 组件的引入</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-3-%E7%BB%84%E4%BB%B6%E7%9A%84%E6%B3%A8%E5%86%8C"><span class="nav-number">2.8.1.3.</span> <span class="nav-text">1.3 组件的注册</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-4-%E7%BB%84%E4%BB%B6%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="nav-number">2.8.1.4.</span> <span class="nav-text">1.4 组件的使用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-5-%E5%85%A8%E5%B1%80%E6%95%B0%E6%8D%AE%E4%BC%A0%E9%80%92"><span class="nav-number">2.8.1.5.</span> <span class="nav-text">1.5 全局数据传递</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-6-%E4%BD%BF%E7%94%A8%E6%8F%92%E6%A7%BD%E5%AE%9E%E7%8E%B0%E5%8A%A8%E6%80%81%E6%9B%B4%E6%96%B0%E7%BB%84%E4%BB%B6"><span class="nav-number">2.8.1.6.</span> <span class="nav-text">1.6 使用插槽实现动态更新组件</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-9-%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F"><span class="nav-number">2.9.</span> <span class="nav-text">2.9 生命周期</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E4%BB%8B%E7%BB%8D"><span class="nav-number">2.9.0.1.</span> <span class="nav-text">1 介绍</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E5%AE%8C%E6%95%B4%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F"><span class="nav-number">2.9.0.2.</span> <span class="nav-text">2 完整生命周期</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-uni-app%E9%A1%B9%E7%9B%AE"><span class="nav-number">3.</span> <span class="nav-text">3.uni-app项目</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E8%84%9A%E6%89%8B%E6%9E%B6%E6%90%AD%E5%BB%BA%E9%A1%B9%E7%9B%AE"><span class="nav-number">3.0.0.1.</span> <span class="nav-text">1.脚手架搭建项目</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E9%A1%B9%E7%9B%AE%E7%9B%AE%E5%BD%95"><span class="nav-number">3.0.0.2.</span> <span class="nav-text">2.项目目录</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#2-1-%E6%A0%B7%E5%BC%8F%E5%92%8Csass"><span class="nav-number">3.0.0.2.1.</span> <span class="nav-text">2.1.样式和sass</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-2-uni-ui%E5%92%8C%E6%8E%A5%E5%8F%A3%E4%BD%BF%E7%94%A8"><span class="nav-number">3.0.0.2.2.</span> <span class="nav-text">2.2.uni-ui和接口使用</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-2-%E9%A6%96%E9%A1%B5%E6%A8%A1%E5%9D%97"><span class="nav-number">3.0.0.2.3.</span> <span class="nav-text">2.2. 首页模块</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-3-%E9%A6%96%E9%A1%B5%E6%A8%A1%E5%9D%97-%E6%8E%A8%E8%8D%90%E6%A8%A1%E5%9D%97"><span class="nav-number">3.0.0.2.4.</span> <span class="nav-text">2.3.首页模块-推荐模块</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-4-%E9%A6%96%E9%A1%B5%E6%A8%A1%E5%9D%97-%E4%B8%93%E8%BE%91%E6%A8%A1%E5%9D%97"><span class="nav-number">3.0.0.2.5.</span> <span class="nav-text">2.4.首页模块-专辑模块</span></a></li></ol></li></ol></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">yzhou</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("3wjOUeqVBQavMfdkONQMUCFf-gzGzoHsz", "QigEM16HhM3Y3X97ESVCTL57");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

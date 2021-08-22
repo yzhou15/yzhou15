@@ -1,0 +1,1099 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="CICD," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="第2天-CI&#x2F;CD入门一、代码上线方案1、早期手动部署代码 纯手动Scp、Rsync上传代码。   纯手动登陆，Git pull 或者 Svn update。   纯手动xftp、ftp、filezilla上传代码。   开发发送压缩包，rz上传，解压部署代码。  缺点：  全程运维参与，占用大量时间。   如果节点多，上线速度慢。   人为失误多，目录管理混乱。    回滚不及时，或者难以回退。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CI&#x2F;CD入门">
+<meta property="og:url" content="https://yzhou15.gitee.io/2021/08/07/%E7%AC%AC2%E5%A4%A9-%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90%E6%8C%81%E7%BB%AD%E5%8F%91%E5%B8%83%E5%85%A5%E9%97%A8/index.html">
+<meta property="og:site_name" content="yzhou&#39;s blog">
+<meta property="og:description" content="第2天-CI&#x2F;CD入门一、代码上线方案1、早期手动部署代码 纯手动Scp、Rsync上传代码。   纯手动登陆，Git pull 或者 Svn update。   纯手动xftp、ftp、filezilla上传代码。   开发发送压缩包，rz上传，解压部署代码。  缺点：  全程运维参与，占用大量时间。   如果节点多，上线速度慢。   人为失误多，目录管理混乱。    回滚不及时，或者难以回退。">
+<meta property="og:locale">
+<meta property="og:image" content="https://yzhou15.gitee.io/2021/08/07/%E7%AC%AC2%E5%A4%A9-%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90%E6%8C%81%E7%BB%AD%E5%8F%91%E5%B8%83%E5%85%A5%E9%97%A8/1190037-20171201192743261-564020995-1581427002308.png">
+<meta property="og:image" content="https://yzhou15.gitee.io/2021/08/07/%E7%AC%AC2%E5%A4%A9-%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90%E6%8C%81%E7%BB%AD%E5%8F%91%E5%B8%83%E5%85%A5%E9%97%A8/1190037-20171201192752386-122301749-1581427002308.png">
+<meta property="og:image" content="https://yzhou15.gitee.io/2021/08/07/%E7%AC%AC2%E5%A4%A9-%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90%E6%8C%81%E7%BB%AD%E5%8F%91%E5%B8%83%E5%85%A5%E9%97%A8/1352872-20180728202111287-1863851599.png">
+<meta property="og:image" content="https://yzhou15.gitee.io/2021/08/07/%E7%AC%AC2%E5%A4%A9-%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90%E6%8C%81%E7%BB%AD%E5%8F%91%E5%B8%83%E5%85%A5%E9%97%A8/1190037-20171201191840448-1304029709.png">
+<meta property="og:image" content="https://yzhou15.gitee.io/2021/08/07/%E7%AC%AC2%E5%A4%A9-%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90%E6%8C%81%E7%BB%AD%E5%8F%91%E5%B8%83%E5%85%A5%E9%97%A8/1190037-20171201191850511-1013536040.png">
+<meta property="og:image" content="https://yzhou15.gitee.io/2021/08/07/%E7%AC%AC2%E5%A4%A9-%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90%E6%8C%81%E7%BB%AD%E5%8F%91%E5%B8%83%E5%85%A5%E9%97%A8/1190037-20171201191900433-349001067.png">
+<meta property="og:image" content="https://yzhou15.gitee.io/2021/08/07/%E7%AC%AC2%E5%A4%A9-%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90%E6%8C%81%E7%BB%AD%E5%8F%91%E5%B8%83%E5%85%A5%E9%97%A8/1167086-20180825103130887-988863302.jpg">
+<meta property="og:image" content="https://yzhou15.gitee.io/2021/08/07/%E7%AC%AC2%E5%A4%A9-%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90%E6%8C%81%E7%BB%AD%E5%8F%91%E5%B8%83%E5%85%A5%E9%97%A8/1167086-20180825104448130-1294323799.jpg">
+<meta property="og:image" content="https://yzhou15.gitee.io/2021/08/07/%E7%AC%AC2%E5%A4%A9-%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90%E6%8C%81%E7%BB%AD%E5%8F%91%E5%B8%83%E5%85%A5%E9%97%A8/1167086-20180825105031180-667090550.jpg">
+<meta property="og:image" content="https://yzhou15.gitee.io/2021/08/07/%E7%AC%AC2%E5%A4%A9-%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90%E6%8C%81%E7%BB%AD%E5%8F%91%E5%B8%83%E5%85%A5%E9%97%A8/1167086-20180825105844833-1628287044.jpg">
+<meta property="og:image" content="https://yzhou15.gitee.io/2021/08/07/%E7%AC%AC2%E5%A4%A9-%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90%E6%8C%81%E7%BB%AD%E5%8F%91%E5%B8%83%E5%85%A5%E9%97%A8/1167086-20180825110836868-96057072.jpg">
+<meta property="og:image" content="https://yzhou15.gitee.io/2021/08/07/%E7%AC%AC2%E5%A4%A9-%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90%E6%8C%81%E7%BB%AD%E5%8F%91%E5%B8%83%E5%85%A5%E9%97%A8/image-20200509104646789.png">
+<meta property="og:image" content="https://yzhou15.gitee.io/2021/08/07/%E7%AC%AC2%E5%A4%A9-%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90%E6%8C%81%E7%BB%AD%E5%8F%91%E5%B8%83%E5%85%A5%E9%97%A8/20180303135907573.png">
+<meta property="og:image" content="https://yzhou15.gitee.io/2021/08/07/%E7%AC%AC2%E5%A4%A9-%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90%E6%8C%81%E7%BB%AD%E5%8F%91%E5%B8%83%E5%85%A5%E9%97%A8/20180303135924229.png">
+<meta property="og:image" content="https://yzhou15.gitee.io/2021/08/07/%E7%AC%AC2%E5%A4%A9-%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90%E6%8C%81%E7%BB%AD%E5%8F%91%E5%B8%83%E5%85%A5%E9%97%A8/20180303135934168.png">
+<meta property="og:image" content="https://yzhou15.gitee.io/2021/08/07/%E7%AC%AC2%E5%A4%A9-%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90%E6%8C%81%E7%BB%AD%E5%8F%91%E5%B8%83%E5%85%A5%E9%97%A8/2018030313595437.png">
+<meta property="og:image" content="https://yzhou15.gitee.io/2021/08/07/%E7%AC%AC2%E5%A4%A9-%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90%E6%8C%81%E7%BB%AD%E5%8F%91%E5%B8%83%E5%85%A5%E9%97%A8/20180303140006220.png">
+<meta property="og:image" content="https://yzhou15.gitee.io/2021/08/07/%E7%AC%AC2%E5%A4%A9-%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90%E6%8C%81%E7%BB%AD%E5%8F%91%E5%B8%83%E5%85%A5%E9%97%A8/20180303154313780.png">
+<meta property="og:image" content="https://yzhou15.gitee.io/2021/08/07/%E7%AC%AC2%E5%A4%A9-%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90%E6%8C%81%E7%BB%AD%E5%8F%91%E5%B8%83%E5%85%A5%E9%97%A8/20180303141603409.png">
+<meta property="og:image" content="https://yzhou15.gitee.io/2021/08/07/%E7%AC%AC2%E5%A4%A9-%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90%E6%8C%81%E7%BB%AD%E5%8F%91%E5%B8%83%E5%85%A5%E9%97%A8/20180303141617257.png">
+<meta property="og:image" content="https://yzhou15.gitee.io/2021/08/07/%E7%AC%AC2%E5%A4%A9-%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90%E6%8C%81%E7%BB%AD%E5%8F%91%E5%B8%83%E5%85%A5%E9%97%A8/20180303141629234.png">
+<meta property="article:published_time" content="2021-08-07T10:12:00.000Z">
+<meta property="article:modified_time" content="2021-08-22T13:10:29.564Z">
+<meta property="article:author" content="yzhou">
+<meta property="article:tag" content="CICD">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://yzhou15.gitee.io/2021/08/07/%E7%AC%AC2%E5%A4%A9-%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90%E6%8C%81%E7%BB%AD%E5%8F%91%E5%B8%83%E5%85%A5%E9%97%A8/1190037-20171201192743261-564020995-1581427002308.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://yzhou15.gitee.io/2021/08/07/第2天-持续集成持续发布入门/"/>
+
+
+
+
+
+  <title>CI/CD入门 | yzhou's blog</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">yzhou's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://yzhou15.gitee.io/2021/08/07/%E7%AC%AC2%E5%A4%A9-%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90%E6%8C%81%E7%BB%AD%E5%8F%91%E5%B8%83%E5%85%A5%E9%97%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="yzhou's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">CI/CD入门</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-08-07T18:12:00+08:00">
+                2021-08-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/CICD/" itemprop="url" rel="index">
+                    <span itemprop="name">CICD</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2021/08/07/%E7%AC%AC2%E5%A4%A9-%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90%E6%8C%81%E7%BB%AD%E5%8F%91%E5%B8%83%E5%85%A5%E9%97%A8/" class="leancloud_visitors" data-flag-title="CI/CD入门">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="第2天-CI-CD入门"><a href="#第2天-CI-CD入门" class="headerlink" title="第2天-CI/CD入门"></a>第2天-CI/CD入门</h1><h2 id="一、代码上线方案"><a href="#一、代码上线方案" class="headerlink" title="一、代码上线方案"></a>一、代码上线方案</h2><h4 id="1、早期手动部署代码"><a href="#1、早期手动部署代码" class="headerlink" title="1、早期手动部署代码"></a>1、早期手动部署代码</h4><ul>
+<li>纯手动Scp、Rsync上传代码。</li>
+</ul>
+<ul>
+<li>纯手动登陆，Git pull 或者 Svn update。</li>
+</ul>
+<ul>
+<li>纯手动xftp、ftp、filezilla上传代码。</li>
+</ul>
+<ul>
+<li>开发发送压缩包，rz上传，解压部署代码。</li>
+</ul>
+<p><strong>缺点：</strong></p>
+<ul>
+<li>全程运维参与，占用大量时间。</li>
+</ul>
+<ul>
+<li>如果节点多，上线速度慢。</li>
+</ul>
+<ul>
+<li>人为失误多，目录管理混乱。 </li>
+</ul>
+<ul>
+<li>回滚不及时，或者难以回退。</li>
+</ul>
+<p><strong>上线方案示意图：</strong></p>
+<p><img src="/2021/08/07/%E7%AC%AC2%E5%A4%A9-%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90%E6%8C%81%E7%BB%AD%E5%8F%91%E5%B8%83%E5%85%A5%E9%97%A8/1190037-20171201192743261-564020995-1581427002308.png" alt="img"></p>
+<h4 id="2、合理化上线方案"><a href="#2、合理化上线方案" class="headerlink" title="2、合理化上线方案"></a>2、合理化上线方案</h4><ul>
+<li>开发人员(rd)需在个人电脑搭建LAMP环境测试开发好的网站代码，并且在办公室或 IDC机房的测试环境测试通过，最好有专职测试人员(ts)。</li>
+</ul>
+<ul>
+<li>程序代码上线要规定时间，例如：三天上线一次，如网站需经常更新可每天下午 20 点上线，这个看网站业务性质而定，原则就是影响用户体验最小。</li>
+</ul>
+<ul>
+<li>代码上线之前需备份，网站程序出了问题方便回退，另外，从上线技巧上讲，上传代码时尽可能先传到服务器网站临时目录，传完整后一步mv过去，或者通过In做软链接— 线上更新代码的思路。如果严格更新，把应用服务器从集群节点平滑下线，然后更新。</li>
+</ul>
+<ul>
+<li>尽量由运维人员管理上线，对于代码的功能性，开发人员更在意，而对于代码的性能优化和上线后服务器的稳定，运维更在意服务器的稳定，因此，如果网站宕机问题归运维管，就要让运维上线，这样更规范科学。否则，开发随意更新，出了问题运维负责，这样就错了，运维永远无法抬头。</li>
+</ul>
+<p><img src="/2021/08/07/%E7%AC%AC2%E5%A4%A9-%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90%E6%8C%81%E7%BB%AD%E5%8F%91%E5%B8%83%E5%85%A5%E9%97%A8/1190037-20171201192752386-122301749-1581427002308.png" alt="img"></p>
+<p>​                                                         <strong>web代码规范化上线流程图</strong></p>
+<h4 id="3、大型企业上线制度和流程"><a href="#3、大型企业上线制度和流程" class="headerlink" title="3、大型企业上线制度和流程"></a>3、大型企业上线制度和流程</h4><p><strong>JAVA代码环境</strong>上线时，有数台机器同时需要更新或者分批更新 </p>
+<ul>
+<li><p>本地开发人员取svn代码。当天上线提交到trunk，否则，长期项目单开分支开发，然后在合并主线(trunk)</p>
+</li>
+<li><p>办公内网开发测试时，由开发人员或配置管理员通过部署平台jenkins实现统一部署，（即在部署平台上控制开发机器从svn取代码，编译，打包，发布到开发机，包名如idc_dep.war）.</p>
+</li>
+<li><p>开发人员通知或和测试人员一起测试程序，没有问题后，由配置管理员打上新的tag标记。这里要注意，不同环境的配置文件是随代码同时发布的。</p>
+</li>
+<li><p>配置管理员，根据上一步的tag标记，checkout出上线代码，并配置好IDC测试环境的所有配置，执行编译，打包(mvn,ant)(php不需要打包)，然后发布到IDC内的统一分发服务器。</p>
+</li>
+<li><p>配置管理员或SA上线人员，把分发的程序代码内容推送到相关测试服务器（包名如idc_test.war），然后通知开发及测试人员进行测试。如果有问题向上回退，继续修改。</p>
+</li>
+<li><p>如果IDC测试没有问题，继续打好tag标记，此时，配置管理员，根据上步的tag标记，checkout出测试好的代码，并配置好IDC正式环境的所有配置，执行编译，打包(mvn,ant)(php不需要打包)，然后发布到IDC内的统一分发服务器主机，准备批量发布。</p>
+</li>
+<li><p>配置管理员或SA上线人员，把分发的内容推送到相关正式服务器（包名如idc_product.war）,然后通知开发及测试人员进行测试。如果有问题直接发布回滚指令。  </p>
+</li>
+</ul>
+<p> IDC正式上线的过程对于JAVA程序，可以是AB组分组上线的思路，即平滑下线一半的服务器，然后发布更新代码，重启测试，无问题后，挂上更新后的服务器，同时再平滑下线另一半的服务器，然后发布更新代码测试（或者直接发布后，重启，挂上线）</p>
+<h4 id="4-、php程序代码上线的具体方案"><a href="#4-、php程序代码上线的具体方案" class="headerlink" title="4 、php程序代码上线的具体方案"></a>4 、php程序代码上线的具体方案</h4><p> 对于PHP上线方法：发布代码时（也需要测试流程）可以直接发布到正式线临时目录 ，然后mv或更改link的方式发布到正式上线目录 ，不需要重启http服务。这是新朗，赶集的上线方案。</p>
+<h4 id="5-、Java程序代码上线的具体方案"><a href="#5-、Java程序代码上线的具体方案" class="headerlink" title="5 、Java程序代码上线的具体方案"></a>5 、Java程序代码上线的具体方案</h4><p>对于java上线方法:较大公司需要分组平滑上线（如从负载均衡器上摘掉一半的服务器），发布代码后，重启服务器测试，没问题后，挂上上好线的一半，再下另外一半。如果前端有DNS智能解析，上线还可以分地区上线若干服务器，逐渐普及到全国的服务器，这个被称为“灰度发布”，在后面门户网站上线的知识里我们在讲解。</p>
+<h4 id="6-、代码上线解决方案注意事项"><a href="#6-、代码上线解决方案注意事项" class="headerlink" title="6 、代码上线解决方案注意事项"></a>6 、代码上线解决方案注意事项</h4><p>上线的流程里，办公室测试环境–&gt;IDC测试环境–&gt;正式生产环境，所有环境中的所有软件均应版本统一，其次尽量单一，否则将后患无穷，开发测试成功，IDC测试就可能有问题（如:操作系统，web服务器，jdk,php,tomcat,resin等版本）</p>
+<ul>
+<li><p>开发团队小组办公内部测试环境测试（该测试环境属于开发小组维护，或定时自动更新代码），代码有问题返回给某开发人员重新开发。</p>
+</li>
+<li><p>有专门的测试工程师，程序有问题直接返回给开发人员（此时返回的一般为程序的BUG，称为BUG库），无问题进行IDC测试</p>
+</li>
+<li><p>IDC测试由测试人员和运维人员参与，叫IDCtest,进行程序的压力测试，有问题直接返回给开发人员，无问题进行线上环境上线。</p>
+</li>
+<li><p>数台服务器代码分发上线方案举例（JAVA程序）</p>
+<p>A:假设同业务服务器有6台，将服务器分为A,B两组，A组三台，B组三台，先对A组进行从负载均衡器上平滑下线，B组正常提供服务，避免服务器因上线影响业务。</p>
+<p>B:下线过程是通过脚本将A组服务器从RS池（LVS,NGINX,HAPROXY,F5等均有平滑方案）中踢出，避免负裁均衡器将请求发送给A组服务器（此时的时间应该为网站流量少时，一般为晚上）</p>
+<p>C:将代码分发到A组服务器的站点目录下，对A组服务器上线并重启服务，并由专业的测试人员进行访问测试，测试成功后，挂上A组的服务器，同时下线B组服务器，B组代码上线操作测试等和A组相同，期间也要观察上线提供服务的服务器状况，有问题及时回滚。</p>
+</li>
+<li><p>如果是PHP程序，则上线可以简单化，直接将上线代码（最好全量）发布到所有上线服务器的特定目录后，分发完成后，一次性mv或ln到站点目录，当然测试也是少不了的。测试除了人员测试外，还有各种测试脚本测试各个相关业务接口。</p>
+</li>
+</ul>
+<h2 id="二、理解持续集成、持续交付、持续部署"><a href="#二、理解持续集成、持续交付、持续部署" class="headerlink" title="二、理解持续集成、持续交付、持续部署"></a>二、理解持续集成、持续交付、持续部署</h2><p>软件开发的连续方法基于自动执行脚本，以最大限度地减少在开发应用程序时引入错误的可能性。从新代码的开发到部署，它们需要较少的人为干预甚至根本不需要干预。它涉及在每次小迭代中不断构建，测试和部署代码更改，从而减少基于有缺陷或失败的先前版本开发新代码的机会。有三种主要方法，分别为持续集成、持续交付、持续部署，每种方法都根据最适合您的策略进行应用。</p>
+<p><img src="/2021/08/07/%E7%AC%AC2%E5%A4%A9-%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90%E6%8C%81%E7%BB%AD%E5%8F%91%E5%B8%83%E5%85%A5%E9%97%A8/1352872-20180728202111287-1863851599.png" alt="img"></p>
+<h3 id="1、持续集成"><a href="#1、持续集成" class="headerlink" title="1、持续集成"></a>1、持续集成</h3><p><strong>代码合并，构建，部署，测试都在一起，不断地执行这个过程，并对结果反馈</strong>。</p>
+<p>持续集成（英语：Continuous integration，缩写为 <strong>CI</strong>），一种软件工程流程，将所有工程师对于软件的工作复本，每天集成数次到共用主线（mainline）上。</p>
+<p>这个名称最早由葛来迪·布区（Grady Booch）在他的布区方法中提出，但是他并没有提到要每天集成数次。之后成为极限编程（extreme programming，缩写为XP）的一部分。在测试驱动开发（TDD）的作法中，通常还会搭配自动单元测试。</p>
+<p>持续集成的提出，主要是为了解决软件进行系统集成时面临的各项问题，极限编程称这些问题为集成地狱（integration hell）。</p>
+<p><img src="/2021/08/07/%E7%AC%AC2%E5%A4%A9-%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90%E6%8C%81%E7%BB%AD%E5%8F%91%E5%B8%83%E5%85%A5%E9%97%A8/1190037-20171201191840448-1304029709.png" alt="img"></p>
+<p>持续集成主要是强调开发人员提交了新代码之后，立刻进行构建、（单元）测试。根据测试结果，我们可以确定新代码和原有代码能否正确地集成在一起。简单来讲就是：频繁地（一天多次）将代码集成到主干。</p>
+<p><strong>持续集成的目的</strong></p>
+<ul>
+<li><p>及早发现集成错误且由于修订的内容较小所以易于追踪，这可以节省项目的时间与成本。</p>
+</li>
+<li><p>避免发布日期的前一分钟发生混乱，当每个人都会尝试为他们所造成的那一点点不兼容的版本做检查。</p>
+</li>
+<li><p>当单元测试失或发生错误，若开发人员需要在不除错的情况下还原代码库到一个没有问题的状态，只需要放弃一小部分的更改 (因为集成的次数频繁)。</p>
+</li>
+<li><p>让 “最新” 的程序可保持可用的状态供测试、展示或发布用。</p>
+</li>
+<li><p>频繁的提交代码会促使开发人员创建模块化，低复杂性的代码。</p>
+</li>
+<li><p>防止分支大幅偏离主干。如果不是经常集成，主干又在不断更新，会导致以后集成的难度变大，甚至难以集成。</p>
+</li>
+</ul>
+<h3 id="2、持续交付"><a href="#2、持续交付" class="headerlink" title="2、持续交付"></a>2、持续交付</h3><p><strong>部署到测试环境、预生产环境</strong></p>
+<p>持续交付（英语：Continuous delivery，缩写为 <strong>CD</strong>），是一种软件工程手法，让软件产品的产出过程在一个短周期内完成，以保证软件可以稳定、持续的保持在随时可以释出的状况。</p>
+<p>它的目标在于让软件的建置、测试与释出变得更快以及更频繁。这种方式可以减少软件开发的成本与时间，减少风险。</p>
+<p><img src="/2021/08/07/%E7%AC%AC2%E5%A4%A9-%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90%E6%8C%81%E7%BB%AD%E5%8F%91%E5%B8%83%E5%85%A5%E9%97%A8/1190037-20171201191850511-1013536040.png" alt="img"></p>
+<p>持续交付在持续集成的基础上，将集成后的代码部署到更贴近真实运行环境的「类生产环境」（production-like environments）中。比如，我们完成单元测试后，可以把代码部署到连接数据库的Staging 环境中更多的测试。如果代码没有问题，可以继续手动部署到生产环境中。</p>
+<h3 id="3、持续部署"><a href="#3、持续部署" class="headerlink" title="3、持续部署"></a>3、持续部署</h3><p><strong>将最终产品发布到生成环境，给用户使用</strong></p>
+<p>持续部署（英语：Continuous Deployment，缩写为 <strong>CD</strong>），是持续交付的下一步，指的是代码通过评审以后，自动部署到生产环境。</p>
+<p>有时候，持续部署也与持续交付混淆。持续部署意味着所有的变更都会被自动部署到生产环境中。持续交付意味着所有的变更都可以被部署到生产环境中，但是出于业务考虑，可以选择不部署。如果要实施持续部署，必须先实施持续交付。</p>
+<p><img src="/2021/08/07/%E7%AC%AC2%E5%A4%A9-%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90%E6%8C%81%E7%BB%AD%E5%8F%91%E5%B8%83%E5%85%A5%E9%97%A8/1190037-20171201191900433-349001067.png" alt="img"></p>
+<p>持续部署即在持续交付的基础上，把部署到生产环境的过程自动化。</p>
+<h2 id="三、Maven-私服-Nexus3"><a href="#三、Maven-私服-Nexus3" class="headerlink" title="三、Maven 私服 Nexus3"></a>三、Maven 私服 Nexus3</h2><h3 id="1、Maven和Nexus3-简介"><a href="#1、Maven和Nexus3-简介" class="headerlink" title="1、Maven和Nexus3 简介"></a>1、Maven和Nexus3 简介</h3><p>Maven是一个采用纯Java编写的开源项目管理工具</p>
+<p>采用一种被称之为Project Object Model(POM)概念来管理项目，所有的项目配置信息都被定义在一个叫做POM.xml的文件中, 通过该文件Maven可以管理项目的整个生命周期，包括清除、编译，测试，报告、打包、部署等等。</p>
+<p>目前Apache下绝大多数项目都已经采用Maven进行管理. 而Maven本身还支持多种插件, 可以方便更灵活的控制项目, 开发人员的主要任务应该是关注商业逻辑并去实现它, 而不是把时间浪费在学习如何在不同的环境中去依赖jar包,项目部署等。</p>
+<p>Maven和ant都是软件构建工具（软件管理工具),Maven比Ant更加强大，已经取代了ant,jar包的声明式依赖描述。Maven有jar包的仓库。</p>
+<p>私服是架设在局域网的一种特殊的远程仓库，目的是代理远程仓库及部署第三方构件。有了私服之后，当 Maven 需要下载构件时，直接请求私服，私服上存在则下载到本地仓库；否则，私服请求外部的远程仓库，将构件下载到私服，再提供给本地仓库下载。</p>
+<p>　　<img src="/2021/08/07/%E7%AC%AC2%E5%A4%A9-%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90%E6%8C%81%E7%BB%AD%E5%8F%91%E5%B8%83%E5%85%A5%E9%97%A8/1167086-20180825103130887-988863302.jpg" alt="img"></p>
+<p>公司如果没有maven私服，则需要用手动打jar包的方式添加依赖</p>
+<h3 id="2、安装-Maven"><a href="#2、安装-Maven" class="headerlink" title="2、安装 Maven"></a>2、安装 Maven</h3><h4 id="1、下载-maven"><a href="#1、下载-maven" class="headerlink" title="1、下载 maven"></a>1、下载 maven</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@qfedu.com ~]# wget http://mirrors.tuna.tsinghua.edu.cn/apache/maven/maven-3/3.5.4/binaries/apache-maven-3.5.4-bin.tar.gz</span><br></pre></td></tr></table></figure>
+
+<h4 id="2、解压安装"><a href="#2、解压安装" class="headerlink" title="2、解压安装"></a>2、解压安装</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@qfedu.com ~]# tar xf apache-maven-3.5.4-bin.tar.gz -C /usr/local/</span><br><span class="line">[root@qfedu.com ~]# cd /usr/local/</span><br><span class="line">[root@qfedu.com ~]# ln -s apache-maven-3.5.4/ maven</span><br></pre></td></tr></table></figure>
+
+<h4 id="3、安装-java-环境"><a href="#3、安装-java-环境" class="headerlink" title="3、安装 java 环境"></a>3、安装 java 环境</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@qfedu.com ~]# tar xf jdk-8u201-linux-x64.tar.gz -C /usr/local/</span><br><span class="line">[root@qfedu.com ~]# cd /usr/local/</span><br><span class="line">[root@qfedu.com ~]# ln -s jdk1.8.0_201/ java</span><br></pre></td></tr></table></figure>
+
+<h4 id="4、添加环境变量"><a href="#4、添加环境变量" class="headerlink" title="4、添加环境变量"></a>4、添加环境变量</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@qfedu.com ~]# vim /etc/profile</span><br></pre></td></tr></table></figure>
+
+<p>添加如下内容（这里的MAVEN_HOME需要改为你自己的maven解压目录）：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">JAVA_HOME=/usr/local/java</span><br><span class="line">export MAVEN_HOME=/usr/local/maven</span><br><span class="line">export JRE_HOME=/usr/local/java/jre</span><br><span class="line">export CLASSPATH=.:$JAVA_HOME/lib:$JRE_HOME/lib:$CLASSPATH</span><br><span class="line">export PATH=$JAVA_HOME/bin:$JRE_HOME/bin:$MAVEN_HOME/bin:$PATH</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>重载环境变量</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@qfedu.com ~]# source /etc/profile</span><br></pre></td></tr></table></figure>
+
+<h4 id="5、验证-maven-安装"><a href="#5、验证-maven-安装" class="headerlink" title="5、验证 maven 安装"></a>5、验证 maven 安装</h4><p>输入命令 mvn -version 看到如下内容说明安装成功了。</p>
+<p><img src="/2021/08/07/%E7%AC%AC2%E5%A4%A9-%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90%E6%8C%81%E7%BB%AD%E5%8F%91%E5%B8%83%E5%85%A5%E9%97%A8/1167086-20180825104448130-1294323799.jpg" alt="img"></p>
+<h3 id="3、安装-nexus3"><a href="#3、安装-nexus3" class="headerlink" title="3、安装 nexus3"></a>3、安装 nexus3</h3><h4 id="1、下载"><a href="#1、下载" class="headerlink" title="1、下载"></a>1、下载</h4><p>专业版的nexus收费，下载开源版 Nexus OSS,下载地址为 <a target="_blank" rel="noopener" href="https://www.sonatype.com/download-oss-sonatype">https://www.sonatype.com/download-oss-sonatype</a></p>
+<p><img src="/2021/08/07/%E7%AC%AC2%E5%A4%A9-%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90%E6%8C%81%E7%BB%AD%E5%8F%91%E5%B8%83%E5%85%A5%E9%97%A8/1167086-20180825105031180-667090550.jpg" alt="img"></p>
+<p>Wing下载的时候可以获取链接用迅雷下载，我是直接把https改成了http下载，下载下来的包大小不一样，我暂时使用的是小一点的120多M的安装包</p>
+<h4 id="2、解压"><a href="#2、解压" class="headerlink" title="2、解压"></a>2、解压</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@qfedu.com ~]# cd /usr/local</span><br><span class="line">[root@qfedu.com ~]# tar -zxf nexus-3.13.0-01-unix.tar.gz</span><br></pre></td></tr></table></figure>
+
+<p>解压后会多出两个目录，nexus-3.13.0-01和sonatype-work。</p>
+<h4 id="3、启动"><a href="#3、启动" class="headerlink" title="3、启动"></a>3、启动</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@qfedu.com ~]# cd nexus-3.13.0-01/bin/</span><br><span class="line">[root@qfedu.com ~]# ./nexus start</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2021/08/07/%E7%AC%AC2%E5%A4%A9-%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90%E6%8C%81%E7%BB%AD%E5%8F%91%E5%B8%83%E5%85%A5%E9%97%A8/1167086-20180825105844833-1628287044.jpg" alt="img"></p>
+<p>看到如图所示内容表明我们已经启动成功了，游览器输入<a href="http://localhost:8081即可访问。">http://localhost:8081即可访问。</a></p>
+<p><strong>注意：</strong></p>
+<p>启动后如果你立即访问可能发现什么都没有，不要急这个启动需要一定时间，<strong>1分钟后再尝试访问</strong></p>
+<p><img src="/2021/08/07/%E7%AC%AC2%E5%A4%A9-%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90%E6%8C%81%E7%BB%AD%E5%8F%91%E5%B8%83%E5%85%A5%E9%97%A8/1167086-20180825110836868-96057072.jpg" alt="img">　</p>
+<p><strong>登录</strong> ： </p>
+<p>点击右上角的sign in登录，输入账户<strong>admin</strong></p>
+<p>密码:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> cat /root/sonatype-work/nexus3/admin.password</span></span><br><span class="line">91c37108-809a-495b-942d-3932b9b33e04</span><br></pre></td></tr></table></figure>
+
+<h4 id="4、仓库介绍"><a href="#4、仓库介绍" class="headerlink" title="4、仓库介绍"></a>4、仓库介绍</h4><p>点击“设置-Repositories”，就可以看到仓库，分三种类型：</p>
+<p><img src="/2021/08/07/%E7%AC%AC2%E5%A4%A9-%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90%E6%8C%81%E7%BB%AD%E5%8F%91%E5%B8%83%E5%85%A5%E9%97%A8/image-20200509104646789.png" alt="image-20200509104646789"></p>
+<ul>
+<li><p><strong>proxy</strong>：是远程仓库的代理。比如说在nexus中配置了一个central repository的proxy，当用户向这个proxy请求一个artifact，这个proxy就会先在本地查找，如果找不到的话，就会从远程仓库下载，然后返回给用户，相当于起到一个中转的作用。　　　　</p>
+</li>
+<li><p><strong>Hosted</strong>：是宿主仓库，用户可以把自己的一些构件，deploy到hosted中，也可以手工上传构件到hosted里。比如说oracle的驱动程序，ojdbc6.jar，在central repository是获取不到的，就需要手工上传到hosted里，一般用来存放公司自己的jar包；</p>
+</li>
+<li><p><strong>Group</strong>：是仓库组，在maven里没有这个概念，是nexus特有的。目的是将上述多个仓库聚合，对用户暴露统一的地址，这样用户就不需要在pom中配置多个地址，只要统一配置group的地址就可以了右边那个Repository Path可以点击进去，看到仓库中artifact列表。不过要注意浏览器缓存，<strong>当你的项目希望在多个repository使用资源时就不需要多次引用了，只需要引用一个group即可</strong>。</p>
+<p><strong>maven-public：</strong>maven-central、maven-release和maven-snapshot三个库的合集。</p>
+<p><strong>maven-release：</strong>用来存放release版本的jar包。</p>
+<p><strong>maven-snapshot：</strong>用来存放snapshot版本的jar包。</p>
+</li>
+</ul>
+<p><strong>关于Maven的Snapshot版本与Release版本</strong></p>
+<ol>
+<li><p>Snapshot版本代表不稳定、尚处于开发中的版本 </p>
+</li>
+<li><p>Release版本则代表稳定的版本 </p>
+</li>
+<li><p>什么情况下该用SNAPSHOT?<br>协同开发时，如果A依赖构件B，由于B会更新，B应该使用SNAPSHOT来标识自己。这种做法的必要性可以反证如下： </p>
+</li>
+</ol>
+<p>a.如果B不用SNAPSHOT，而是每次更新后都使用一个稳定的版本，那版本号就会升得太快，每天一升e68a84e8a2ade79fa5e9819331333363396362甚至每个小时一升，这就是对版本号的滥用。 </p>
+<p>b.如果B不用SNAPSHOT,  但一直使用一个单一的Release版本号，那当B更新后，A可能并不会接受到更新。因为A所使用的repository一般不会频繁更新release版本的缓存（即本地repository)，所以B以不换版本号的方式更新后，A在拿B时发现本地已有这个版本，就不会去远程Repository下载最新的B </p>
+<ol start="4">
+<li>不用Release版本，在所有地方都用SNAPSHOT版本行不行？<br>不行。正式环境中不得使用snapshot版本的库。  比如说，今天你依赖某个snapshot版本的第三方库成功构建了自己的应用，明天再构建时可能就会失败，因为今晚第三方可能已经更新了它的snapshot库。你再次构建时，Maven会去远程repository下载snapshot的最新版本，你构建时用的库就是新的jar文件了，这时正确性就很难保证了。</li>
+</ol>
+<h4 id="5、向-nexus3-私服上传-jar-包"><a href="#5、向-nexus3-私服上传-jar-包" class="headerlink" title="5、向 nexus3 私服上传 jar 包"></a>5、向 nexus3 私服上传 jar 包</h4><h5 id="1、准备环境"><a href="#1、准备环境" class="headerlink" title="1、准备环境"></a>1、准备环境</h5><h6 id="1、创建3rd-part库"><a href="#1、创建3rd-part库" class="headerlink" title="1、创建3rd_part库"></a>1、创建<code>3rd_part</code>库</h6><p>使用默认用户 <strong>admin/admin123</strong> 登陆</p>
+<p><img src="/2021/08/07/%E7%AC%AC2%E5%A4%A9-%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90%E6%8C%81%E7%BB%AD%E5%8F%91%E5%B8%83%E5%85%A5%E9%97%A8/20180303135907573.png" alt="这里写图片描述"></p>
+<p>点击左侧的<code>repository\repositories</code>后,在右侧点击<code>create repository</code></p>
+<p><img src="/2021/08/07/%E7%AC%AC2%E5%A4%A9-%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90%E6%8C%81%E7%BB%AD%E5%8F%91%E5%B8%83%E5%85%A5%E9%97%A8/20180303135924229.png" alt="这里写图片描述"></p>
+<p>然后选择<code>maven2(hosted)</code>,填写如下</p>
+<p><img src="/2021/08/07/%E7%AC%AC2%E5%A4%A9-%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90%E6%8C%81%E7%BB%AD%E5%8F%91%E5%B8%83%E5%85%A5%E9%97%A8/20180303135934168.png" alt="这里写图片描述"></p>
+<p>跳到首页后选择<code>maven-public</code></p>
+<p><img src="/2021/08/07/%E7%AC%AC2%E5%A4%A9-%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90%E6%8C%81%E7%BB%AD%E5%8F%91%E5%B8%83%E5%85%A5%E9%97%A8/2018030313595437.png" alt="这里写图片描述"></p>
+<p>将<code>3rd_part</code>移到<code>member</code>中,即将<code>3rd_part</code>由<code>maven-public</code>管理，点击save</p>
+<p><img src="/2021/08/07/%E7%AC%AC2%E5%A4%A9-%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90%E6%8C%81%E7%BB%AD%E5%8F%91%E5%B8%83%E5%85%A5%E9%97%A8/20180303140006220.png" alt="这里写图片描述"></p>
+<p>至此,创建仓库完成</p>
+<h6 id="2、创建-3rd-part-管理用户"><a href="#2、创建-3rd-part-管理用户" class="headerlink" title="2、创建 3rd_part 管理用户"></a>2、创建 <code>3rd_part</code> 管理用户</h6><p>创建用户: 用户名/密码-<code>dev/dev123</code></p>
+<p><img src="/2021/08/07/%E7%AC%AC2%E5%A4%A9-%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90%E6%8C%81%E7%BB%AD%E5%8F%91%E5%B8%83%E5%85%A5%E9%97%A8/20180303154313780.png" alt="这里写图片描述"></p>
+<h5 id="2、直接浏览器"><a href="#2、直接浏览器" class="headerlink" title="2、直接浏览器"></a>2、直接浏览器</h5><p>使用<code>dev/dev123</code>登陆，点击<code>upload</code></p>
+<p><img src="/2021/08/07/%E7%AC%AC2%E5%A4%A9-%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90%E6%8C%81%E7%BB%AD%E5%8F%91%E5%B8%83%E5%85%A5%E9%97%A8/20180303141603409.png" alt="这里写图片描述"></p>
+<p>填写上传jar包的信息后，点击<code>upload</code></p>
+<p><img src="/2021/08/07/%E7%AC%AC2%E5%A4%A9-%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90%E6%8C%81%E7%BB%AD%E5%8F%91%E5%B8%83%E5%85%A5%E9%97%A8/20180303141617257.png" alt="这里写图片描述"></p>
+<p>可以看到已经上传成功</p>
+<p><img src="/2021/08/07/%E7%AC%AC2%E5%A4%A9-%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90%E6%8C%81%E7%BB%AD%E5%8F%91%E5%B8%83%E5%85%A5%E9%97%A8/20180303141629234.png" alt="这里写图片描述"></p>
+<h3 id="4、常见错误"><a href="#4、常见错误" class="headerlink" title="4、常见错误"></a>4、常见错误</h3><p>问题1：上传报错误码405，Failed to transfer file。</p>
+<p>​      解决：仔细查看报错信息就会发现，是上传的url错了,原因就是repository的地址写错了。</p>
+<p>问题2：错误码401或者403</p>
+<p>​      解决：其实403错误就是“禁止访问”的含义，所以问题的根源肯定在授权上面。Maven在默认情况下会使用deployment帐号(默认密码deploy)登录的系统，但是关键的Nexus中Releases仓库默认的Deployment Policy是“Disable Redeploy”，所以无法部署的问题在这个地方，方法是将其修改为“Allow Redeploy”就可以了。401就是Maven settings.xml没有设置密码</p>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/kity@2.0.4/dist/kity.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/kityminder-core@1.4.50/dist/kityminder.core.min.js"></script><script defer="true" type="text/javascript" src="https://cdn.jsdelivr.net/npm/hexo-simple-mindmap@0.2.0/dist/mindmap.min.js"></script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/hexo-simple-mindmap@0.2.0/dist/mindmap.min.css">
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/CICD/" rel="tag"># CICD</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2021/08/06/Immutable.js%E4%BA%86%E8%A7%A3%E4%B8%80%E4%B8%8B%EF%BC%9F(%E8%BD%AC%E8%BD%BD)/" rel="next" title="Immutable.js了解一下？(转载)">
+                <i class="fa fa-chevron-left"></i> Immutable.js了解一下？(转载)
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2021/08/07/%E7%AC%AC3%E5%A4%A9-Jenkins%E8%AF%A6%E8%A7%A3/" rel="prev" title="Jenkins详解">
+                Jenkins详解 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+                <a href="/archives">
+                  <span class="site-state-item-count">28</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/yzhou15" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:403708416@qq.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%AC%AC2%E5%A4%A9-CI-CD%E5%85%A5%E9%97%A8"><span class="nav-number">1.</span> <span class="nav-text">第2天-CI&#x2F;CD入门</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E4%BB%A3%E7%A0%81%E4%B8%8A%E7%BA%BF%E6%96%B9%E6%A1%88"><span class="nav-number">1.1.</span> <span class="nav-text">一、代码上线方案</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1%E3%80%81%E6%97%A9%E6%9C%9F%E6%89%8B%E5%8A%A8%E9%83%A8%E7%BD%B2%E4%BB%A3%E7%A0%81"><span class="nav-number">1.1.0.1.</span> <span class="nav-text">1、早期手动部署代码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2%E3%80%81%E5%90%88%E7%90%86%E5%8C%96%E4%B8%8A%E7%BA%BF%E6%96%B9%E6%A1%88"><span class="nav-number">1.1.0.2.</span> <span class="nav-text">2、合理化上线方案</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3%E3%80%81%E5%A4%A7%E5%9E%8B%E4%BC%81%E4%B8%9A%E4%B8%8A%E7%BA%BF%E5%88%B6%E5%BA%A6%E5%92%8C%E6%B5%81%E7%A8%8B"><span class="nav-number">1.1.0.3.</span> <span class="nav-text">3、大型企业上线制度和流程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-%E3%80%81php%E7%A8%8B%E5%BA%8F%E4%BB%A3%E7%A0%81%E4%B8%8A%E7%BA%BF%E7%9A%84%E5%85%B7%E4%BD%93%E6%96%B9%E6%A1%88"><span class="nav-number">1.1.0.4.</span> <span class="nav-text">4 、php程序代码上线的具体方案</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-%E3%80%81Java%E7%A8%8B%E5%BA%8F%E4%BB%A3%E7%A0%81%E4%B8%8A%E7%BA%BF%E7%9A%84%E5%85%B7%E4%BD%93%E6%96%B9%E6%A1%88"><span class="nav-number">1.1.0.5.</span> <span class="nav-text">5 、Java程序代码上线的具体方案</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-%E3%80%81%E4%BB%A3%E7%A0%81%E4%B8%8A%E7%BA%BF%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="nav-number">1.1.0.6.</span> <span class="nav-text">6 、代码上线解决方案注意事项</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E7%90%86%E8%A7%A3%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90%E3%80%81%E6%8C%81%E7%BB%AD%E4%BA%A4%E4%BB%98%E3%80%81%E6%8C%81%E7%BB%AD%E9%83%A8%E7%BD%B2"><span class="nav-number">1.2.</span> <span class="nav-text">二、理解持续集成、持续交付、持续部署</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1%E3%80%81%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90"><span class="nav-number">1.2.1.</span> <span class="nav-text">1、持续集成</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2%E3%80%81%E6%8C%81%E7%BB%AD%E4%BA%A4%E4%BB%98"><span class="nav-number">1.2.2.</span> <span class="nav-text">2、持续交付</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3%E3%80%81%E6%8C%81%E7%BB%AD%E9%83%A8%E7%BD%B2"><span class="nav-number">1.2.3.</span> <span class="nav-text">3、持续部署</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E3%80%81Maven-%E7%A7%81%E6%9C%8D-Nexus3"><span class="nav-number">1.3.</span> <span class="nav-text">三、Maven 私服 Nexus3</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1%E3%80%81Maven%E5%92%8CNexus3-%E7%AE%80%E4%BB%8B"><span class="nav-number">1.3.1.</span> <span class="nav-text">1、Maven和Nexus3 简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2%E3%80%81%E5%AE%89%E8%A3%85-Maven"><span class="nav-number">1.3.2.</span> <span class="nav-text">2、安装 Maven</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1%E3%80%81%E4%B8%8B%E8%BD%BD-maven"><span class="nav-number">1.3.2.1.</span> <span class="nav-text">1、下载 maven</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2%E3%80%81%E8%A7%A3%E5%8E%8B%E5%AE%89%E8%A3%85"><span class="nav-number">1.3.2.2.</span> <span class="nav-text">2、解压安装</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3%E3%80%81%E5%AE%89%E8%A3%85-java-%E7%8E%AF%E5%A2%83"><span class="nav-number">1.3.2.3.</span> <span class="nav-text">3、安装 java 环境</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4%E3%80%81%E6%B7%BB%E5%8A%A0%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F"><span class="nav-number">1.3.2.4.</span> <span class="nav-text">4、添加环境变量</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5%E3%80%81%E9%AA%8C%E8%AF%81-maven-%E5%AE%89%E8%A3%85"><span class="nav-number">1.3.2.5.</span> <span class="nav-text">5、验证 maven 安装</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3%E3%80%81%E5%AE%89%E8%A3%85-nexus3"><span class="nav-number">1.3.3.</span> <span class="nav-text">3、安装 nexus3</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1%E3%80%81%E4%B8%8B%E8%BD%BD"><span class="nav-number">1.3.3.1.</span> <span class="nav-text">1、下载</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2%E3%80%81%E8%A7%A3%E5%8E%8B"><span class="nav-number">1.3.3.2.</span> <span class="nav-text">2、解压</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3%E3%80%81%E5%90%AF%E5%8A%A8"><span class="nav-number">1.3.3.3.</span> <span class="nav-text">3、启动</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4%E3%80%81%E4%BB%93%E5%BA%93%E4%BB%8B%E7%BB%8D"><span class="nav-number">1.3.3.4.</span> <span class="nav-text">4、仓库介绍</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5%E3%80%81%E5%90%91-nexus3-%E7%A7%81%E6%9C%8D%E4%B8%8A%E4%BC%A0-jar-%E5%8C%85"><span class="nav-number">1.3.3.5.</span> <span class="nav-text">5、向 nexus3 私服上传 jar 包</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1%E3%80%81%E5%87%86%E5%A4%87%E7%8E%AF%E5%A2%83"><span class="nav-number">1.3.3.5.1.</span> <span class="nav-text">1、准备环境</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#1%E3%80%81%E5%88%9B%E5%BB%BA3rd-part%E5%BA%93"><span class="nav-number">1.3.3.5.1.1.</span> <span class="nav-text">1、创建3rd_part库</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#2%E3%80%81%E5%88%9B%E5%BB%BA-3rd-part-%E7%AE%A1%E7%90%86%E7%94%A8%E6%88%B7"><span class="nav-number">1.3.3.5.1.2.</span> <span class="nav-text">2、创建 3rd_part 管理用户</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2%E3%80%81%E7%9B%B4%E6%8E%A5%E6%B5%8F%E8%A7%88%E5%99%A8"><span class="nav-number">1.3.3.5.2.</span> <span class="nav-text">2、直接浏览器</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4%E3%80%81%E5%B8%B8%E8%A7%81%E9%94%99%E8%AF%AF"><span class="nav-number">1.3.4.</span> <span class="nav-text">4、常见错误</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">yzhou</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("3wjOUeqVBQavMfdkONQMUCFf-gzGzoHsz", "QigEM16HhM3Y3X97ESVCTL57");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

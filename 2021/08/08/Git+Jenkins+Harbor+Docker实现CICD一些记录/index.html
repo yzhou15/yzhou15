@@ -1,0 +1,1027 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="CICD," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="update: ‘2021&#x2F;8&#x2F;22’ 一. 环境准备:ctntos8.4  cpu:4 内存: 2048M 硬盘: 256G 192.168.1.102 Harbor 192.168.1.103 Jenkins 192.168.1.104 Docker  二. 一些问题:123456789101112131415161718192021222324# sshdsystemctl start ss">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Git+Jenkins+Harbor+Docker实现CICD一些记录">
+<meta property="og:url" content="https://yzhou15.gitee.io/2021/08/08/Git+Jenkins+Harbor+Docker%E5%AE%9E%E7%8E%B0CICD%E4%B8%80%E4%BA%9B%E8%AE%B0%E5%BD%95/index.html">
+<meta property="og:site_name" content="yzhou&#39;s blog">
+<meta property="og:description" content="update: ‘2021&#x2F;8&#x2F;22’ 一. 环境准备:ctntos8.4  cpu:4 内存: 2048M 硬盘: 256G 192.168.1.102 Harbor 192.168.1.103 Jenkins 192.168.1.104 Docker  二. 一些问题:123456789101112131415161718192021222324# sshdsystemctl start ss">
+<meta property="og:locale">
+<meta property="og:image" content="https://yzhou15.gitee.io/2021/08/08/Git+Jenkins+Harbor+Docker%E5%AE%9E%E7%8E%B0CICD%E4%B8%80%E4%BA%9B%E8%AE%B0%E5%BD%95/image-20210822021127881-16296441784221.png">
+<meta property="og:image" content="https://yzhou15.gitee.io/2021/08/08/Git+Jenkins+Harbor+Docker%E5%AE%9E%E7%8E%B0CICD%E4%B8%80%E4%BA%9B%E8%AE%B0%E5%BD%95/image-20210821230929660-16296441784233.png">
+<meta property="og:image" content="https://yzhou15.gitee.io/2021/08/08/Git+Jenkins+Harbor+Docker%E5%AE%9E%E7%8E%B0CICD%E4%B8%80%E4%BA%9B%E8%AE%B0%E5%BD%95/image-20210821230456126-16296441784232.png">
+<meta property="og:image" content="https://yzhou15.gitee.io/2021/08/08/Git+Jenkins+Harbor+Docker%E5%AE%9E%E7%8E%B0CICD%E4%B8%80%E4%BA%9B%E8%AE%B0%E5%BD%95/image-20210822003946053-16296441784234.png">
+<meta property="og:image" content="https://yzhou15.gitee.io/2021/08/08/Git+Jenkins+Harbor+Docker%E5%AE%9E%E7%8E%B0CICD%E4%B8%80%E4%BA%9B%E8%AE%B0%E5%BD%95/image-20210822004504559-16296441784235.png">
+<meta property="og:image" content="https://yzhou15.gitee.io/2021/08/08/Git+Jenkins+Harbor+Docker%E5%AE%9E%E7%8E%B0CICD%E4%B8%80%E4%BA%9B%E8%AE%B0%E5%BD%95/image-20210822012927566-16296441784236.png">
+<meta property="og:image" content="https://yzhou15.gitee.io/2021/08/08/Git+Jenkins+Harbor+Docker%E5%AE%9E%E7%8E%B0CICD%E4%B8%80%E4%BA%9B%E8%AE%B0%E5%BD%95/image-20210822013010640-16296441784237.png">
+<meta property="og:image" content="https://yzhou15.gitee.io/2021/08/08/Git+Jenkins+Harbor+Docker%E5%AE%9E%E7%8E%B0CICD%E4%B8%80%E4%BA%9B%E8%AE%B0%E5%BD%95/image-20210822013323484-16296441784238.png">
+<meta property="og:image" content="https://yzhou15.gitee.io/2021/08/08/Git+Jenkins+Harbor+Docker%E5%AE%9E%E7%8E%B0CICD%E4%B8%80%E4%BA%9B%E8%AE%B0%E5%BD%95/image-20210822145637999-16296441784239.png">
+<meta property="og:image" content="https://yzhou15.gitee.io/2021/08/08/Git+Jenkins+Harbor+Docker%E5%AE%9E%E7%8E%B0CICD%E4%B8%80%E4%BA%9B%E8%AE%B0%E5%BD%95/image-20210822151048548-162964417842310.png">
+<meta property="og:image" content="https://yzhou15.gitee.io/2021/08/08/Git+Jenkins+Harbor+Docker%E5%AE%9E%E7%8E%B0CICD%E4%B8%80%E4%BA%9B%E8%AE%B0%E5%BD%95/image-20210822151119595-162964417842311.png">
+<meta property="og:image" content="https://yzhou15.gitee.io/2021/08/08/Git+Jenkins+Harbor+Docker%E5%AE%9E%E7%8E%B0CICD%E4%B8%80%E4%BA%9B%E8%AE%B0%E5%BD%95/image-20210822151142800-162964417842312.png">
+<meta property="og:image" content="https://yzhou15.gitee.io/2021/08/08/Git+Jenkins+Harbor+Docker%E5%AE%9E%E7%8E%B0CICD%E4%B8%80%E4%BA%9B%E8%AE%B0%E5%BD%95/image-20210822151306263-162964417842313.png">
+<meta property="og:image" content="https://yzhou15.gitee.io/2021/08/08/Git+Jenkins+Harbor+Docker%E5%AE%9E%E7%8E%B0CICD%E4%B8%80%E4%BA%9B%E8%AE%B0%E5%BD%95/image-20210822154617973-162964417842314.png">
+<meta property="og:image" content="https://yzhou15.gitee.io/2021/08/08/Git+Jenkins+Harbor+Docker%E5%AE%9E%E7%8E%B0CICD%E4%B8%80%E4%BA%9B%E8%AE%B0%E5%BD%95/image-20210822155601445-162964417842315.png">
+<meta property="og:image" content="https://yzhou15.gitee.io/2021/08/08/Git+Jenkins+Harbor+Docker%E5%AE%9E%E7%8E%B0CICD%E4%B8%80%E4%BA%9B%E8%AE%B0%E5%BD%95/image-20210822230454622.png">
+<meta property="og:image" content="https://yzhou15.gitee.io/2021/08/08/Git+Jenkins+Harbor+Docker%E5%AE%9E%E7%8E%B0CICD%E4%B8%80%E4%BA%9B%E8%AE%B0%E5%BD%95/image-20210822230419964.png">
+<meta property="og:image" content="https://yzhou15.gitee.io/2021/08/08/Git+Jenkins+Harbor+Docker%E5%AE%9E%E7%8E%B0CICD%E4%B8%80%E4%BA%9B%E8%AE%B0%E5%BD%95/image-20210822164823295-162964417842320.png">
+<meta property="og:image" content="https://yzhou15.gitee.io/2021/08/08/Git+Jenkins+Harbor+Docker%E5%AE%9E%E7%8E%B0CICD%E4%B8%80%E4%BA%9B%E8%AE%B0%E5%BD%95/image-20210822230534472.png">
+<meta property="article:published_time" content="2021-08-07T17:18:00.000Z">
+<meta property="article:modified_time" content="2021-08-22T15:12:06.323Z">
+<meta property="article:author" content="yzhou">
+<meta property="article:tag" content="CICD">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://yzhou15.gitee.io/2021/08/08/Git+Jenkins+Harbor+Docker%E5%AE%9E%E7%8E%B0CICD%E4%B8%80%E4%BA%9B%E8%AE%B0%E5%BD%95/image-20210822021127881-16296441784221.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://yzhou15.gitee.io/2021/08/08/Git+Jenkins+Harbor+Docker实现CICD一些记录/"/>
+
+
+
+
+
+  <title>Git+Jenkins+Harbor+Docker实现CICD一些记录 | yzhou's blog</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">yzhou's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://yzhou15.gitee.io/2021/08/08/Git+Jenkins+Harbor+Docker%E5%AE%9E%E7%8E%B0CICD%E4%B8%80%E4%BA%9B%E8%AE%B0%E5%BD%95/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="yzhou's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Git+Jenkins+Harbor+Docker实现CICD一些记录</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-08-08T01:18:00+08:00">
+                2021-08-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/CICD/" itemprop="url" rel="index">
+                    <span itemprop="name">CICD</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2021/08/08/Git+Jenkins+Harbor+Docker%E5%AE%9E%E7%8E%B0CICD%E4%B8%80%E4%BA%9B%E8%AE%B0%E5%BD%95/" class="leancloud_visitors" data-flag-title="Git+Jenkins+Harbor+Docker实现CICD一些记录">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>update: ‘2021/8/22’</p>
+<h2 id="一-环境准备"><a href="#一-环境准备" class="headerlink" title="一. 环境准备:"></a>一. 环境准备:</h2><p>ctntos8.4  cpu:4 内存: 2048M 硬盘: 256G</p>
+<p>192.168.1.102 Harbor</p>
+<p>192.168.1.103 Jenkins</p>
+<p>192.168.1.104 Docker</p>
+<p><img src="/2021/08/08/Git+Jenkins+Harbor+Docker%E5%AE%9E%E7%8E%B0CICD%E4%B8%80%E4%BA%9B%E8%AE%B0%E5%BD%95/image-20210822021127881-16296441784221.png" alt="image-20210822021127881"></p>
+<h2 id="二-一些问题"><a href="#二-一些问题" class="headerlink" title="二. 一些问题:"></a>二. 一些问题:</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># sshd</span></span><br><span class="line">systemctl start sshd</span><br><span class="line">ps -e | grep sshd</span><br><span class="line"></span><br><span class="line"><span class="comment"># 修改hostname</span></span><br><span class="line">vi /etc/hostname</span><br><span class="line">hostnamectl set-hostname appjzw</span><br><span class="line"></span><br><span class="line"><span class="comment"># ping 不通外网</span></span><br><span class="line">vim /etc/resolv.conf</span><br><span class="line"></span><br><span class="line">nameserver 8.8.8.8</span><br><span class="line">nameserver 202.106.0.20</span><br><span class="line"></span><br><span class="line">nmcli c reload enp0s3</span><br><span class="line"></span><br><span class="line"><span class="comment"># centos8 yum 换源</span></span><br><span class="line"><span class="comment"># 1.备份旧的源</span></span><br><span class="line">mv /etc/yum.repos.d/CentOS-Base.repo /etc/yum.repos.d/CentOS-Base.repo.backup</span><br><span class="line"><span class="comment"># 2.下载对应版本的阿里源（wget -O **下载并以指定的文件名保存**）</span></span><br><span class="line">wget -O /etc/yum.repos.d/CentOS-Base.repo https://mirrors.aliyun.com/repo/Centos-8.repo</span><br><span class="line">yum makecache <span class="comment"># 3.删除yum旧的缓存，生成新的换源后的缓存</span></span><br><span class="line">cat /etc/yum.repos.d/CentOS-Base.repo <span class="comment"># 4.检查是否换源成功</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="三-部署Harbor镜像仓库"><a href="#三-部署Harbor镜像仓库" class="headerlink" title="三. 部署Harbor镜像仓库"></a>三. 部署Harbor镜像仓库</h2><h3 id="1-下载安装"><a href="#1-下载安装" class="headerlink" title="1.下载安装"></a>1.下载安装</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">wget [https://github.com/goharbor/harbor/releases/download/v2.3.1/harbor-offline-installer-v2.3.1.tgz](https://github.com/goharbor/harbor/releases/download/v2.3.1/harbor-offline-installer-v2.3.1.tgz)</span><br><span class="line">yum install lrzsz</span><br><span class="line"></span><br><span class="line"><span class="comment"># 从服务器拉东西</span></span><br><span class="line">scp root@[公网地址]:/root/harbor-fooline-installer-v2.3.1.tgz /usr/yzhou/Desktop</span><br><span class="line"></span><br><span class="line">systemctl start docker</span><br><span class="line">docker -v</span><br><span class="line">docker —version</span><br><span class="line">docker info</span><br><span class="line"></span><br><span class="line">docker images</span><br><span class="line">docker ps</span><br><span class="line"></span><br><span class="line">cp harbor.yml.tmpl harbor.yml</span><br><span class="line">vim harbor.yml</span><br><span class="line"></span><br><span class="line">./install.sh</span><br><span class="line"></span><br><span class="line"><span class="built_in">cd</span> harbor</span><br><span class="line">docker-compose restart</span><br><span class="line">docker-compose down -v</span><br><span class="line">docker-compose up -d</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-测试Harbor"><a href="#2-测试Harbor" class="headerlink" title="2. 测试Harbor"></a>2. 测试Harbor</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># name</span></span><br><span class="line"><span class="comment"># http登录 </span></span><br><span class="line"><span class="comment"># port</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/2021/08/08/Git+Jenkins+Harbor+Docker%E5%AE%9E%E7%8E%B0CICD%E4%B8%80%E4%BA%9B%E8%AE%B0%E5%BD%95/image-20210821230929660-16296441784233.png" alt="image-20210821230929660"></p>
+<h3 id="3-Dockerfile文件"><a href="#3-Dockerfile文件" class="headerlink" title="3. Dockerfile文件"></a>3. Dockerfile文件</h3><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># cd /root/jenkins/docker-file/maven-docker-test_war</span></span><br><span class="line"><span class="comment"># vim Dockerfile</span></span><br><span class="line"><span class="comment"># Version 1.0</span></span><br><span class="line"><span class="comment"># Base images.</span></span><br><span class="line"><span class="string">FROM</span> <span class="string">tomcat:8.0.36-alpine</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Author.</span></span><br><span class="line"><span class="string">MAINTAINER</span> <span class="string">yzhou&lt;403708416@qq.com&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Add war.</span></span><br><span class="line"><span class="string">ADD</span> <span class="string">maven-docker.war</span> <span class="string">/usr/local/tomcat/webapps/</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Define working directory.</span></span><br><span class="line"><span class="string">ENV</span> <span class="string">PATH</span> <span class="string">/usr/local/tomcat/bin:$PATH</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Define environment variavles.</span></span><br><span class="line"><span class="string">ENV</span> <span class="string">PATH</span> <span class="string">/usr/loacl/tomcat/bin:$PATH</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Define default command.</span></span><br><span class="line"><span class="string">CMD</span> &#123;<span class="string">&quot;catalina.sh&quot;</span>, <span class="string">&quot;run&quot;</span>&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># Expose ports.</span></span><br><span class="line"><span class="string">EXPOSE</span> <span class="number">8080</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="4-Harbor权限相关"><a href="#4-Harbor权限相关" class="headerlink" title="4. Harbor权限相关"></a>4. Harbor权限相关</h3><p><img src="/2021/08/08/Git+Jenkins+Harbor+Docker%E5%AE%9E%E7%8E%B0CICD%E4%B8%80%E4%BA%9B%E8%AE%B0%E5%BD%95/image-20210821230456126-16296441784232.png" alt="image-20210821230456126"></p>
+<h2 id="四-业务服务器"><a href="#四-业务服务器" class="headerlink" title="四. 业务服务器"></a>四. 业务服务器</h2><h3 id="1-安装软件"><a href="#1-安装软件" class="headerlink" title="1.安装软件"></a>1.安装软件</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">yum install -y yum-utils  device-mapper-persistent-data lvm2</span><br><span class="line">docker -v</span><br><span class="line">yum-config-manager  --add-repo   [https://download.docker.com/linux/centos/docker-ce.repo](https://download.docker.com/linux/centos/docker-ce.repo)</span><br><span class="line">yum install docker-ce docker-ce-cli [containerd.io](http://containerd.io/) --nobest</span><br><span class="line">yum install container-selinux</span><br><span class="line">systemctl start docker</span><br><span class="line">yum install jq -y</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-预先配置"><a href="#2-预先配置" class="headerlink" title="2.预先配置"></a>2.预先配置</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 在业务服务器上配置:(否则没有权限报错)</span></span><br><span class="line">[SSH] executing...</span><br><span class="line">sudo: sorry, you must have a tty to run sudo</span><br><span class="line">docker: invalid reference format.</span><br><span class="line"><span class="comment"># visudo</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># Defaults requiretty</span></span><br><span class="line">Defaults:root !requiretty</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="五-jenkins"><a href="#五-jenkins" class="headerlink" title="五. jenkins"></a>五. jenkins</h2><h3 id="1-问题"><a href="#1-问题" class="headerlink" title="1. 问题:"></a>1. 问题:</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 登录harbor遇到问题</span></span><br><span class="line">docker login -u admin -p Harbor12345 reg.mydomain.com</span><br><span class="line">Error response from daemon: Get https://reg.mydomain.com/v2/: unauthorized: authentication required</span><br><span class="line"><span class="comment"># vim /etc/docker/daemon.json</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="string">&quot;registry-mirrors&quot;</span>: [<span class="string">&quot;http://hub-mirror.c.163.com&quot;</span>],</span><br><span class="line">  <span class="string">&quot;insecure-registries&quot;</span>:[<span class="string">&quot;192.168.1.102:8080&quot;</span>] </span><br><span class="line">&#125;</span><br><span class="line"><span class="comment"># sudo systemctl restart docker</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="2-安装软件"><a href="#2-安装软件" class="headerlink" title="2. 安装软件"></a>2. 安装软件</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">sudo wget -O /etc/yum.repos.d/jenkins.repo \</span><br><span class="line">    https://pkg.jenkins.io/redhat-stable/jenkins.repo</span><br><span class="line">sudo rpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io.key</span><br><span class="line">sudo yum upgrade</span><br><span class="line">sudo yum install jenkins java-1.8.0-openjdk-devel</span><br><span class="line">sudo systemctl daemon-reload</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[root@jenkins ~]<span class="comment"># wget -o /etc/yum.repos.d/jenkins.repo [https://pkg.jenkins.io/redhat-stable/jenkins.repo](https://pkg.jenkins.io/redhat-stable/jenkins.repo)</span></span><br><span class="line">[root@jenkins ~]<span class="comment"># rpm --import [https://pkg.jenkins.io/redhat-stable/jenkins.io.key](https://pkg.jenkins.io/redhat-stable/jenkins.io.key)</span></span><br><span class="line">yum install -y jenkins git maven</span><br><span class="line">systemctl start jenkins</span><br><span class="line">[root@jenkins yum.repos.d]<span class="comment"># lsof -i:8080</span></span><br><span class="line">COMMAND    PID    USER   FD   TYPE DEVICE SIZE/OFF NODE NAME</span><br><span class="line">java    277770 jenkins   26u  IPv6 754801      0t0  TCP *:webcache (LISTEN)</span><br><span class="line">ps -ef | grep jenkins</span><br></pre></td></tr></table></figure>
+
+<p>在CentOS 8 上安装Jenkins需要使用<a target="_blank" rel="noopener" href="https://links.jianshu.com/go?to=https://linux265.com/news/3782.html">root账号</a>或具有<a target="_blank" rel="noopener" href="https://links.jianshu.com/go?to=https://linux265.com/news/3782.html">sudo权限</a>的账号。</p>
+<p><strong>第一步、</strong>因为Jenkins是使用Java编写的，所以需要安装Java环境，Jenkins需要Java8或更高版本</p>
+<p>这里使用OpenJDK，首先通过一下命令安装OpenJDK.</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo dnf install java-<span class="number">1.8</span>.<span class="number">0</span>-openjdk-devel</span><br></pre></td></tr></table></figure>
+
+<p>如果系统上安装了多个Java版本，请确保Java 8是默认Java版本。</p>
+<p>你可能对关于更详细<a target="_blank" rel="noopener" href="https://links.jianshu.com/go?to=https://linux265.com/news/3788.html">如何在CentOS上安装Java教程</a>也感兴趣。</p>
+<p><strong>第二步、</strong>启用Jenkins存储库。运行以下命令下载并导入GPG密钥：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo wget <span class="operator">-</span><span class="type">O</span> <span class="operator">/</span>etc<span class="operator">/</span>yum.repos.d<span class="operator">/</span>jenkins.repo http:<span class="comment">//pkg.jenkins-ci.org/redhat-stable/jenkins.repo</span></span><br><span class="line">sudo rpm <span class="operator">--</span><span class="keyword">import</span> https:<span class="comment">//jenkins-ci.org/redhat/jenkins-ci.org.key</span></span><br></pre></td></tr></table></figure>
+
+<p>第三步、通过键入以下命令安装最新的Jenkins稳定版本：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo dnf install jenkins</span><br></pre></td></tr></table></figure>
+
+<p>安装过程完成后，启动Jenkins服务并启用它以在系统引导时启动：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo systemctl start jenkins</span><br><span class="line">sudo systemctl <span class="built_in">enable</span> jenkins</span><br></pre></td></tr></table></figure>
+
+<p>检查Jenkins是否正在运行，请输入：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl status jenkins</span><br></pre></td></tr></table></figure>
+
+<p>输出应类似如下所示：</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Loaded: loaded (<span class="regexp">/etc/</span>rc.d/init.d/jenkins; generated)</span><br><span class="line">Active: active (running) since Thu <span class="number">2019</span>-<span class="number">11</span>-<span class="number">05</span> <span class="number">21</span>:<span class="number">31</span>:<span class="number">36</span> UTC; 3s ago</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+
+<h4 id="2-1-配置防火墙"><a href="#2-1-配置防火墙" class="headerlink" title="2.1. 配置防火墙"></a>2.1. 配置防火墙</h4><p>如果要在受防火墙保护的远程CentOS服务器上安装Jenkins，则需要开放<code>8080</code>端口。</p>
+<p>使用以下命令打开必要的端口：</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo firewall-cmd --permanent --zone=<span class="keyword">public</span> --<span class="keyword">add</span>-port=<span class="number">8080</span>/tcp</span><br><span class="line">sudo firewall-cmd --reload</span><br></pre></td></tr></table></figure>
+
+<h4 id="2-2-设置Jenkins"><a href="#2-2-设置Jenkins" class="headerlink" title="2.2. 设置Jenkins"></a>2.2. 设置Jenkins</h4><p>安装完成并在防火墙上放开8080端口口，就可以开始Jenkins设置过程。首先，请打开浏览器并键入域或服务器的IP地址，然后键入port <code>8080</code>：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http:<span class="comment">//your_ip_or_domain:8080</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="3-预先配置"><a href="#3-预先配置" class="headerlink" title="3.预先配置"></a>3.预先配置</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">由于在Jenkins机器上docker是使用root用户运行的，而Jenkins是使用普通用户jenkins运行的，所以要先配置下jenkins用户可以使用docker命令。</span><br><span class="line">[root@jenkins ~]<span class="comment"># visudo</span></span><br><span class="line">jenkins ALL=(root)      NOPASSWD: /usr/bin/docker</span><br><span class="line"></span><br><span class="line">另外在Jenkins机器上配置：</span><br><span class="line"></span><br><span class="line"><span class="comment"># Disable &quot;ssh hostname sudo &lt;cmd&gt;&quot;, because it will show the password in clear.</span></span><br><span class="line"><span class="comment">#         You have to run &quot;ssh -t hostname sudo &lt;cmd&gt;&quot;.</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment">#Defaults    requiretty</span></span><br><span class="line">Defaults:jenkins !requiretty</span><br><span class="line"></span><br><span class="line">如果不配置这个，在执行下面脚本时，会报错误：</span><br><span class="line">+ cp -f /home/jenkins/.jenkins/workspace/godseyeBranchForNov/godseye-container/target/godseye-container-wisedu.war /home/jenkins/docker-file/godseye_war/godseye.war</span><br><span class="line">+ sudo docker login -u jkzhao -p Wisedu123 -e 01115004@wisedu.com 172.16.206.32</span><br><span class="line">sudo: sorry, you must have a tty to run sudo</span><br></pre></td></tr></table></figure>
+
+
+
+<ol>
+<li><p>安装git遇到问题</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 安装gcc环境</span></span><br><span class="line"><span class="comment"># yum源没有对应版本包匹配</span></span><br><span class="line"></span><br><span class="line">wget -O /etc/yum.repos.d/CentOS-Base.repo http://mirrors.aliyun.com/repo/Centos-8.repo</span><br><span class="line">sed -i  <span class="string">&#x27;s/$releasever/8/g&#x27;</span> /etc/yum.repos.d/CentOS-Base.repo</span><br><span class="line">yum repolist</span><br></pre></td></tr></table></figure>
+
+
+
+<p><img src="/2021/08/08/Git+Jenkins+Harbor+Docker%E5%AE%9E%E7%8E%B0CICD%E4%B8%80%E4%BA%9B%E8%AE%B0%E5%BD%95/image-20210822003946053-16296441784234.png" alt="image-20210822003946053"></p>
+<p><img src="/2021/08/08/Git+Jenkins+Harbor+Docker%E5%AE%9E%E7%8E%B0CICD%E4%B8%80%E4%BA%9B%E8%AE%B0%E5%BD%95/image-20210822004504559-16296441784235.png" alt="image-20210822004504559"></p>
+<p>jenkins配置:</p>
+</li>
+</ol>
+<ul>
+<li><p>安装插件: maven intergation 和 ssh agent</p>
+</li>
+<li><p>配置远程机器</p>
+<ul>
+<li><p>添加凭据</p>
+<ul>
+<li></li>
+<li><p><img src="/2021/08/08/Git+Jenkins+Harbor+Docker%E5%AE%9E%E7%8E%B0CICD%E4%B8%80%E4%BA%9B%E8%AE%B0%E5%BD%95/image-20210822012927566-16296441784236.png" alt="image-20210822012927566"></p>
+<p><img src="/2021/08/08/Git+Jenkins+Harbor+Docker%E5%AE%9E%E7%8E%B0CICD%E4%B8%80%E4%BA%9B%E8%AE%B0%E5%BD%95/image-20210822013010640-16296441784237.png" alt="image-20210822013010640"></p>
+<p><img src="/2021/08/08/Git+Jenkins+Harbor+Docker%E5%AE%9E%E7%8E%B0CICD%E4%B8%80%E4%BA%9B%E8%AE%B0%E5%BD%95/image-20210822013323484-16296441784238.png" alt="image-20210822013323484"></p>
+<p><img src="/2021/08/08/Git+Jenkins+Harbor+Docker%E5%AE%9E%E7%8E%B0CICD%E4%B8%80%E4%BA%9B%E8%AE%B0%E5%BD%95/image-20210822145637999-16296441784239.png" alt="image-20210822145637999"></p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="六-jenkins构建job"><a href="#六-jenkins构建job" class="headerlink" title="六. jenkins构建job"></a>六. jenkins构建job</h2><h3 id="1-构建maven风格的job"><a href="#1-构建maven风格的job" class="headerlink" title="1. 构建maven风格的job"></a>1. 构建maven风格的job</h3><h4 id="1-代码地址"><a href="#1-代码地址" class="headerlink" title="1. 代码地址:"></a>1. 代码地址:</h4><p>​    <a target="_blank" rel="noopener" href="https://github.com/yzhou15/maven-docker">https://github.com/yzhou15/maven-docker</a></p>
+<p><img src="/2021/08/08/Git+Jenkins+Harbor+Docker%E5%AE%9E%E7%8E%B0CICD%E4%B8%80%E4%BA%9B%E8%AE%B0%E5%BD%95/image-20210822151048548-162964417842310.png" alt="image-20210822151048548"></p>
+<p><img src="/2021/08/08/Git+Jenkins+Harbor+Docker%E5%AE%9E%E7%8E%B0CICD%E4%B8%80%E4%BA%9B%E8%AE%B0%E5%BD%95/image-20210822151119595-162964417842311.png" alt="image-20210822151119595"></p>
+<ul>
+<li>Goals and options填写：clean package -Dmaven.test.skip=true</li>
+</ul>
+<p><img src="/2021/08/08/Git+Jenkins+Harbor+Docker%E5%AE%9E%E7%8E%B0CICD%E4%B8%80%E4%BA%9B%E8%AE%B0%E5%BD%95/image-20210822151142800-162964417842312.png" alt="image-20210822151142800"></p>
+<p><img src="/2021/08/08/Git+Jenkins+Harbor+Docker%E5%AE%9E%E7%8E%B0CICD%E4%B8%80%E4%BA%9B%E8%AE%B0%E5%BD%95/image-20210822151306263-162964417842313.png" alt="image-20210822151306263"></p>
+<p><img src="/2021/08/08/Git+Jenkins+Harbor+Docker%E5%AE%9E%E7%8E%B0CICD%E4%B8%80%E4%BA%9B%E8%AE%B0%E5%BD%95/image-20210822154617973-162964417842314.png" alt="image-20210822154617973"></p>
+<p><img src="/2021/08/08/Git+Jenkins+Harbor+Docker%E5%AE%9E%E7%8E%B0CICD%E4%B8%80%E4%BA%9B%E8%AE%B0%E5%BD%95/image-20210822155601445-162964417842315.png" alt="image-20210822155601445"></p>
+<h4 id="2-Post-steps"><a href="#2-Post-steps" class="headerlink" title="2. Post steps"></a>2. Post steps</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># jenkins机器: 编译完成后,build生成一个新版本的镜像,push到远程docker仓库</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Variables</span></span><br><span class="line">JENKINS_WAR_HOME=<span class="string">&#x27;/var/lib/jenkins/workspace/maven-docker/target&#x27;</span></span><br><span class="line">DOCKERFILE_HOME=<span class="string">&#x27;/var/lib/jenkins/docker-file/maven-docker-test_war&#x27;</span></span><br><span class="line">HARBOR_IP=<span class="string">&#x27;192.168.1.102&#x27;</span></span><br><span class="line">REPOSTITORIES=<span class="string">&#x27;jenkins/maven-docker&#x27;</span></span><br><span class="line">HARBOR_USER=<span class="string">&#x27;yzhou&#x27;</span></span><br><span class="line">HARBOR_USER_PASSWS=<span class="string">&#x27;Harbor12345&#x27;</span></span><br><span class="line">HARBOR_USER_EMAIL=<span class="string">&#x27;403708416@qq.com&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Copy the nevest war to docker-file directory.</span></span><br><span class="line">\cp -f <span class="variable">$&#123;JENKINS_WAR_HOME&#125;</span>/easy-springmvc-maven.war</span><br><span class="line"><span class="variable">$&#123;DOCKERFILE_HOME&#125;</span>/maven-docker.war</span><br><span class="line"></span><br><span class="line"><span class="comment"># Delete image early version</span></span><br><span class="line">sudo docker login -u <span class="variable">$&#123;HARBOR_USER&#125;</span> -p <span class="variable">$&#123;HARBOR_USER_PASSWD&#125;</span> <span class="variable">$&#123;HARBOR_IP&#125;</span>:8080</span><br><span class="line">IMAGE_ID=<span class="string">&#x27;sudo docker images | grep $&#123;REPOSITORIES&#125; | awk &#x27;</span>&#123;<span class="built_in">print</span><span class="variable">$3</span>&#125;<span class="string">&#x27;&#x27;</span></span><br><span class="line"><span class="keyword">if</span> [ -n <span class="string">&quot;&#123;IMAGE_ID&#125;&quot;</span>];<span class="keyword">then</span></span><br><span class="line">	sudo docker rmi <span class="variable">$&#123;IMAGE_ID&#125;</span></span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Build image.</span></span><br><span class="line"><span class="built_in">cd</span> <span class="variable">$&#123;DOCKERFILE_HOME&#125;</span></span><br><span class="line">TAG=`date +%Y%m%d-%H%M%S`</span><br><span class="line">sudo docker build -t <span class="variable">$&#123;HARBOR_IP&#125;</span>:8080/<span class="variable">$&#123;REPOSITORIES&#125;</span>:<span class="variable">$&#123;TAG&#125;</span> . &amp;&gt;/dev/null</span><br><span class="line"></span><br><span class="line"><span class="comment"># Push to the harbor registry.</span></span><br><span class="line">sudo docker push <span class="variable">$&#123;HARBOR_IP&#125;</span>:8080/<span class="variable">$&#123;REPOSITORIES&#125;</span>:<span class="variable">$&#123;TAG&#125;</span> &amp;&gt;/dev/null</span><br></pre></td></tr></table></figure>
+
+<h4 id="3-拉取镜像-发布"><a href="#3-拉取镜像-发布" class="headerlink" title="3. 拉取镜像,发布"></a>3. 拉取镜像,发布</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 拉取镜像.发布.</span></span><br><span class="line">HARBOR_IP=<span class="string">&#x27;192.168.1.102&#x27;</span></span><br><span class="line">REPOSITORIES=<span class="string">&#x27;jenkins/maven-docker&#x27;</span></span><br><span class="line">HARBOR_USERS=<span class="string">&#x27;yzhou&#x27;</span></span><br><span class="line">HARBOR_USER_PASSWD=<span class="string">&#x27;Harbor2345&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 登录harbor</span></span><br><span class="line">docker login -u <span class="variable">$&#123;HARBOR_USER&#125;</span> -p <span class="variable">$&#123;HARBOR_USER_PASSWD&#125;</span> <span class="variable">$&#123;HARBOR_IP&#125;</span>:8080</span><br><span class="line"></span><br><span class="line">Stop container, and delete the container.</span><br><span class="line">CONTAINER_ID=`docker ps | grep <span class="string">&quot;maven-docker&quot;</span> | awk <span class="string">&#x27;&#123;print$1&#125;&#x27;</span>`</span><br><span class="line"><span class="keyword">if</span> [ -n <span class="string">&quot;<span class="variable">$CONTAINER_ID</span>&quot;</span> ]; <span class="keyword">then</span></span><br><span class="line">	docker stop <span class="variable">$CONTAINER_ID</span></span><br><span class="line">	docker rm <span class="variable">$CONTAINER_ID</span></span><br><span class="line"><span class="keyword">else</span> <span class="comment"># 如果容器启动失败,就需要docker ps -a才能找到哪个容器</span></span><br><span class="line">	CONTAINER_ID=`docker ps -a | grep <span class="string">&quot;maven-docker&quot;</span> | awk <span class="string">&#x27;print$1&#x27;</span>`</span><br><span class="line">		<span class="keyword">if</span> [ -n <span class="string">&quot;<span class="variable">$CONTAINER_ID</span>&quot;</span>]; <span class="keyword">then</span> <span class="comment"># 如果是第一次在这台及其上拉取运行容器,那么docker ps -a也是找不到这个容器的</span></span><br><span class="line">			docker rm <span class="variable">$CONTAINER_ID</span></span><br><span class="line">		<span class="keyword">fi</span></span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Deleteeasy-springmvc-maven image early version.</span></span><br><span class="line">IMAGE_ID=`sudo docker images | grep <span class="variable">$&#123;REPOSITORIES&#125;</span> | awk <span class="string">&#x27;print $3&#x27;</span>`</span><br><span class="line"><span class="keyword">if</span> [ -n <span class="string">&quot;<span class="variable">$&#123;IMAGE_ID&#125;</span>&quot;</span>];<span class="keyword">then</span></span><br><span class="line">	docker rmi <span class="variable">$&#123;IMAGE_ID&#125;</span></span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Pull images.</span></span><br><span class="line"><span class="comment"># TAG=`curl -s </span></span><br><span class="line">http://<span class="variable">$&#123;HARBOR_IP&#125;</span>/api/repositories/<span class="variable">$&#123;REPOSITORIES&#125;</span>/tags | jq <span class="string">&#x27;.[-1]&#x27;</span> </span><br><span class="line">| sed <span class="string">&#x27;s/\&quot;//g&#x27;</span>`</span><br><span class="line">TAG=`curl http://192.168.1.102/api/repoditories/jenkins/maven-docker/tags | jq <span class="string">&#x27;.[-1]&#x27;</span> | &#123;name:.name&#125; | awk -F <span class="string">&#x27;&quot;&#x27;</span> <span class="string">&#x27;/name/&#123;print $4&#125;&#x27;</span>`</span><br><span class="line">docker pull <span class="variable">$&#123;HARBOR_IP&#125;</span>:8080/<span class="variable">$&#123;REPOSITORIES&#125;</span>:<span class="variable">$&#123;TAG&#125;</span> &amp;&gt;/dev/null&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># Run.</span></span><br><span class="line">docker run -d --name maven-docker -p 8080:8080</span><br><span class="line"><span class="variable">$&#123;HARBOR_ip&#125;</span>:8080/<span class="variable">$&#123;REPOSITORIES&#125;</span>:<span class="variable">$&#123;TAG&#125;</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="4-项目构建"><a href="#4-项目构建" class="headerlink" title="4. 项目构建"></a>4. 项目构建</h4><p>![Untitled 2](Git+Jenkins+Harbor+Docker实现CICD一些记录/Untitled 2-162964417842316.png)</p>
+<h4 id="5-遇到问题"><a href="#5-遇到问题" class="headerlink" title="5. 遇到问题:"></a>5. 遇到问题:</h4><p><img src="/2021/08/08/Git+Jenkins+Harbor+Docker%E5%AE%9E%E7%8E%B0CICD%E4%B8%80%E4%BA%9B%E8%AE%B0%E5%BD%95/image-20210822230454622.png" alt="image-20210822230454622"></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看maven版本</span></span><br><span class="line">sudo dnf install maven</span><br><span class="line">mvn -version</span><br><span class="line"><span class="comment"># 更新maven版本,Maven 3.3+需要安装JDK 1.7 或者更高版本的 JDK。</span></span><br><span class="line">sudo dnf install java-11-openjdk-devel</span><br><span class="line">java -version</span><br><span class="line"><span class="comment"># 下载 Apache Maven http://maven.apache.org/download.cgi</span></span><br><span class="line">wget https://ftp.jaist.ac.jp/pub/apache/maven/maven-3/3.8.1/binaries/apache-maven-3.8.1-bin.tar.gz -P /tmp</span><br><span class="line">sudo tar xf /tmp/apache-maven-3.8.1-bin.tar.gz -C /opt</span><br><span class="line">sudo ln -s /opt/apache-maven-3.8.1 /opt/maven</span><br><span class="line"><span class="comment"># 设置环境变量</span></span><br><span class="line"><span class="comment"># vim /etc/profile.d/maven.sh</span></span><br><span class="line"><span class="built_in">export</span> JAVA_HOME=/usr/lib/jvm/jre-openjdk</span><br><span class="line"><span class="built_in">export</span> M2_HOME=/opt/maven</span><br><span class="line"><span class="built_in">export</span> MAVEN_HOME=/opt/maven</span><br><span class="line"><span class="built_in">export</span> PATH=<span class="variable">$&#123;M2_HOME&#125;</span>/bin:<span class="variable">$&#123;PATH&#125;</span></span><br><span class="line"></span><br><span class="line">sudo chmod +x /etc/profile.d/maven.sh</span><br><span class="line"><span class="built_in">source</span> /etc/profile.d/maven.sh</span><br><span class="line"><span class="comment"># 验证安装</span></span><br><span class="line">[root@jenkins ~]<span class="comment"># mvn -version</span></span><br><span class="line">Apache Maven 3.8.1 (05c21c65bdfed0f71a2f2ada8b84da59348c4c5d)</span><br><span class="line">Maven home: /opt/maven</span><br><span class="line">Java version: 1.8.0_302, vendor: Red Hat, Inc., runtime: /usr/lib/jvm/java-1.8.0-openjdk-1.8.0.302.b08-0.el8_4.x86_64/jre</span><br><span class="line">Default locale: en_US, platform encoding: UTF-8</span><br><span class="line">OS name: <span class="string">&quot;linux&quot;</span>, version: <span class="string">&quot;4.18.0-305.10.2.el8_4.x86_64&quot;</span>, arch: <span class="string">&quot;amd64&quot;</span>, family: <span class="string">&quot;unix&quot;</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="6-控制台输出过程"><a href="#6-控制台输出过程" class="headerlink" title="6. 控制台输出过程"></a>6. 控制台输出过程</h4><p><img src="/2021/08/08/Git+Jenkins+Harbor+Docker%E5%AE%9E%E7%8E%B0CICD%E4%B8%80%E4%BA%9B%E8%AE%B0%E5%BD%95/image-20210822230419964.png" alt="image-20210822230419964"></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 修改git分支为默认</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/2021/08/08/Git+Jenkins+Harbor+Docker%E5%AE%9E%E7%8E%B0CICD%E4%B8%80%E4%BA%9B%E8%AE%B0%E5%BD%95/image-20210822164823295-162964417842320.png" alt="image-20210822164823295"></p>
+<p><img src="/2021/08/08/Git+Jenkins+Harbor+Docker%E5%AE%9E%E7%8E%B0CICD%E4%B8%80%E4%BA%9B%E8%AE%B0%E5%BD%95/image-20210822230534472.png" alt="image-20210822230534472"></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># jenkins找不到,新增maven</span></span><br><span class="line">mvn -v</span><br><span class="line"><span class="comment"># 配置全路径,清理工作空间</span></span><br><span class="line"><span class="variable">$workspace</span>/pom.xml</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/kity@2.0.4/dist/kity.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/kityminder-core@1.4.50/dist/kityminder.core.min.js"></script><script defer="true" type="text/javascript" src="https://cdn.jsdelivr.net/npm/hexo-simple-mindmap@0.2.0/dist/mindmap.min.js"></script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/hexo-simple-mindmap@0.2.0/dist/mindmap.min.css">
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/CICD/" rel="tag"># CICD</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2021/08/07/%E7%AC%AC3%E5%A4%A9-Jenkins%E8%AF%A6%E8%A7%A3/" rel="next" title="Jenkins详解">
+                <i class="fa fa-chevron-left"></i> Jenkins详解
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+                <a href="/archives">
+                  <span class="site-state-item-count">28</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/yzhou15" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:403708416@qq.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80-%E7%8E%AF%E5%A2%83%E5%87%86%E5%A4%87"><span class="nav-number">1.</span> <span class="nav-text">一. 环境准备:</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C-%E4%B8%80%E4%BA%9B%E9%97%AE%E9%A2%98"><span class="nav-number">2.</span> <span class="nav-text">二. 一些问题:</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89-%E9%83%A8%E7%BD%B2Harbor%E9%95%9C%E5%83%8F%E4%BB%93%E5%BA%93"><span class="nav-number">3.</span> <span class="nav-text">三. 部署Harbor镜像仓库</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E4%B8%8B%E8%BD%BD%E5%AE%89%E8%A3%85"><span class="nav-number">3.1.</span> <span class="nav-text">1.下载安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E6%B5%8B%E8%AF%95Harbor"><span class="nav-number">3.2.</span> <span class="nav-text">2. 测试Harbor</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-Dockerfile%E6%96%87%E4%BB%B6"><span class="nav-number">3.3.</span> <span class="nav-text">3. Dockerfile文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-Harbor%E6%9D%83%E9%99%90%E7%9B%B8%E5%85%B3"><span class="nav-number">3.4.</span> <span class="nav-text">4. Harbor权限相关</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%9B-%E4%B8%9A%E5%8A%A1%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="nav-number">4.</span> <span class="nav-text">四. 业务服务器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E5%AE%89%E8%A3%85%E8%BD%AF%E4%BB%B6"><span class="nav-number">4.1.</span> <span class="nav-text">1.安装软件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E9%A2%84%E5%85%88%E9%85%8D%E7%BD%AE"><span class="nav-number">4.2.</span> <span class="nav-text">2.预先配置</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%94-jenkins"><span class="nav-number">5.</span> <span class="nav-text">五. jenkins</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E9%97%AE%E9%A2%98"><span class="nav-number">5.1.</span> <span class="nav-text">1. 问题:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E5%AE%89%E8%A3%85%E8%BD%AF%E4%BB%B6"><span class="nav-number">5.2.</span> <span class="nav-text">2. 安装软件</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-%E9%85%8D%E7%BD%AE%E9%98%B2%E7%81%AB%E5%A2%99"><span class="nav-number">5.2.1.</span> <span class="nav-text">2.1. 配置防火墙</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2-%E8%AE%BE%E7%BD%AEJenkins"><span class="nav-number">5.2.2.</span> <span class="nav-text">2.2. 设置Jenkins</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E9%A2%84%E5%85%88%E9%85%8D%E7%BD%AE"><span class="nav-number">5.3.</span> <span class="nav-text">3.预先配置</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%AD-jenkins%E6%9E%84%E5%BB%BAjob"><span class="nav-number">6.</span> <span class="nav-text">六. jenkins构建job</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E6%9E%84%E5%BB%BAmaven%E9%A3%8E%E6%A0%BC%E7%9A%84job"><span class="nav-number">6.1.</span> <span class="nav-text">1. 构建maven风格的job</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E4%BB%A3%E7%A0%81%E5%9C%B0%E5%9D%80"><span class="nav-number">6.1.1.</span> <span class="nav-text">1. 代码地址:</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-Post-steps"><span class="nav-number">6.1.2.</span> <span class="nav-text">2. Post steps</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-%E6%8B%89%E5%8F%96%E9%95%9C%E5%83%8F-%E5%8F%91%E5%B8%83"><span class="nav-number">6.1.3.</span> <span class="nav-text">3. 拉取镜像,发布</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA"><span class="nav-number">6.1.4.</span> <span class="nav-text">4. 项目构建</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-%E9%81%87%E5%88%B0%E9%97%AE%E9%A2%98"><span class="nav-number">6.1.5.</span> <span class="nav-text">5. 遇到问题:</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-%E6%8E%A7%E5%88%B6%E5%8F%B0%E8%BE%93%E5%87%BA%E8%BF%87%E7%A8%8B"><span class="nav-number">6.1.6.</span> <span class="nav-text">6. 控制台输出过程</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">yzhou</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("3wjOUeqVBQavMfdkONQMUCFf-gzGzoHsz", "QigEM16HhM3Y3X97ESVCTL57");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
